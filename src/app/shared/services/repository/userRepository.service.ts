@@ -1,5 +1,7 @@
 import {User} from '../../models/user.model';
+import {Injectable} from '@angular/core';
 
+@Injectable()
 export class UserRepository {
   private _key: string;
 
