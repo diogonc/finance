@@ -1,0 +1,35 @@
+<h2>Lista de transações</h2>
+<form (submit)="search()">
+    <label for="category">categoria</label>
+    <select [(ngModel)]="category">
+        <option *ngFor="let c of categories" [value]="c.uuid">{{c.name}}</option>
+    </select>
+    <label for="account">conta</label>
+    <select [(ngModel)]="account">
+        <option *ngFor="let a of accounts" [value]="a.uuid">{{a.name}}</option>
+    </select>
+    <label for="initialDate">Data</label>
+    <input [(ngModel)]="initialDate" type="date">
+    <input [(ngModel)]="finalDate" type="date">
+    <button type="submit">Procurar</button>
+</form>
+<table>
+    <tr>
+        <th>Categoria</th>
+        <th>Conta</th>
+        <th>Descrição</th>
+        <th>Data</th>
+        <th>Valor</th>
+        <th>-</th>
+    </tr>
+    <tr *ngFor="let transaction of transactions">
+        <td>{{transaction.categoryName}}</td>
+        <td>{{transaction.accountName}}</td>
+        <td>{{transaction.description}}</td>
+        <td>{{transaction.date | date: 'dd/MM/yyyy'}}</td>
+        <td>{{transaction.value}}</td>
+        <td>
+            <a [routerLink]="['/transaction-edit/'+transaction.uuid]">editar</a>
+        </td>
+    </tr>
+</table>
