@@ -26,6 +26,7 @@ import {UserRepository} from './shared/services/repository/userRepository.servic
 
 export class FinanceAppComponent implements OnInit {
   isLogged: boolean;
+  title: 'Financeiro';
 
   private _auth: AuthService;
 
