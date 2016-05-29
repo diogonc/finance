@@ -1,11 +1,26 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Finance</title>
-  <base href="/finance/>"
-  
+  <base href="/finance/>" 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    input,
+    select,
+    button {
+      width: 98%;
+      margin: 5px auto;
+      display: inline-block;
+      border: 1px 1px;
+      height: 30px;
+    }
+    
+    label {
+      padding-top: 10px;
+    }
+  </style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Service worker support is disabled by default.
@@ -20,6 +35,7 @@
   </script>
   -->
 </head>
+
 <body>
   <finance-app>Loading...</finance-app>
 
@@ -34,4 +50,5 @@
     }).catch(console.error.bind(console));
   </script>
 </body>
+
 </html>
