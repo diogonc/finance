@@ -49,5 +49,7 @@ export class LoginComponent implements OnInit {
     this._sync.getAllDataFromServer(user, this.afterLogin.bind(this));
   }
 
-  afterLogin(): void { this._router.navigate(['/transaction-list']); }
+  afterLogin(): void {
+     this._router.navigate(['/transaction-list']);
+   }
 }

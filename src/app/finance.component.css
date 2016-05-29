@@ -1,0 +1,19 @@
+nav{
+    background-color: #BBB;
+    padding: 15px;
+    width: 100%;
+    color: #FFF
+}
+a, a:link, a:visited{
+    color:#FFF;
+    font-weight: bold;
+    text-decoration: none;
+    padding-right: 25px;
+}
+a:last-of-type{
+    float: right;
+}
+
+a:hover{
+    color:#DDD;
+}
