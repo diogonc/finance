@@ -6,6 +6,7 @@ export class User {
   constructor(login: string, password: string) {
     this.login = login;
     this.password = password;
-    this.property = '1';
+    var firstChar = login.charAt(0);
+    this.property = firstChar === 'd' ? '1' : firstChar === 'c' ? '1002' : '1003';
   }
 }

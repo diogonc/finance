@@ -45,11 +45,11 @@ export class LoginComponent implements OnInit {
   login(): void {
     var hashedPassword = this._sha1.hash(this.password);
     var user = new User(this.username, hashedPassword);
-    this._userRepository.saveUser(user);
-    this._sync.getAllDataFromServer(user, this.afterLogin.bind(this));
+    this._sync.getAllDataFromServer(user, () => this.afterLogin(user));
   }
 
-  afterLogin(): void {
-     this._router.navigate(['/transaction-list']);
-   }
+  afterLogin(user: User): void {
+    this._userRepository.saveUser(user);
+    this._router.navigate(['/transaction-list']);
+  }
 }
