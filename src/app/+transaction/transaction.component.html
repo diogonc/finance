@@ -1,19 +1,19 @@
 <h2>Nova transação</h2>
 <form (submit)="save()">
-    <label for="value">valor:</label>
+    <label for="value">Valor:</label>
     <input id="value" [(ngModel)]="transactionVm.value" type="number" step="0.01" min="0">
-    <label for="description">descrição:</label>
+    <label for="description">Descrição:</label>
     <input [(ngModel)]="transactionVm.description" type="text">
-    <label for="category">categoria</label>
+    <label for="category">Categoria</label>
     <select [(ngModel)]="transactionVm.categoryIndex">
         <option *ngFor="let c of categories; let i = index" [value]="i">{{c.name}}</option>
     </select>
-    <label for="account">conta</label>
+    <label for="account">Conta</label>
     <select [(ngModel)]="transactionVm.accountIndex">
         <option *ngFor="let a of accounts; let i = index" [value]="i">{{a.name}}</option>
     </select>
     <label for="date">Data</label>
     <input [(ngModel)]="transactionVm.date" type="date">
-    <button type="submit">salvar</button>
-    <button [hidden]="transactionVm.uuid === null" type="button" (click)="delete()">excluir</button>
+    <button type="submit">Salvar</button>
+    <button [hidden]="transactionVm.uuid === null" type="button" (click)="delete()">Excluir</button>
 </form>

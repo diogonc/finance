@@ -19,6 +19,7 @@ export class TransactionListComponent implements OnInit {
   public category: string;
   public initialDate: string;
   public finalDate: string;
+  public order: string;
   public accounts: Array<Object>;
   public categories: Array<Object>;
   public transactions: Array<Object>;
@@ -43,9 +44,9 @@ export class TransactionListComponent implements OnInit {
     this.finalDate = DateService.convertToUsString(lastDayOfMonth);
     this.account = '';
     this.category = '';
+    this.order = 'date';
 
-    this.transactions =
-        this._transactionRepository.getFiltered('', '', firstDayOfMonth, lastDayOfMonth);
+    this.transactions = this._transactionRepository.getFiltered('', '', firstDayOfMonth, lastDayOfMonth, this.order);
     this.accounts = this._accountRepository.getAll();
     this.categories = this._categoryRepository.getAll();
   }
@@ -53,9 +54,8 @@ export class TransactionListComponent implements OnInit {
   search() {
     var initialDate = DateService.convertToDateFromString(this.initialDate);
     var finalDate = DateService.convertToDateFromString(this.finalDate);
-    console.log(this.account);
 
     this.transactions = this._transactionRepository.getFiltered(
-        this.category, this.account, initialDate, finalDate);
+        this.category, this.account, initialDate, finalDate, this.order);
   }
 }

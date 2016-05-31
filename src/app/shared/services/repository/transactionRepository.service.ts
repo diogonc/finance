@@ -19,7 +19,7 @@ export class TransactionRepository extends Repository {
     return null;
   }
 
-  getFiltered(categoryUuid: string, accountUuid: string, initialDate: Date, finalDate: Date):
+  getFiltered(categoryUuid: string, accountUuid: string, initialDate: Date, finalDate: Date, order):
     Array<Transaction> {
     var filtered = [];
     var transactions = this.getAll();
@@ -38,6 +38,18 @@ export class TransactionRepository extends Repository {
       }
     }
 
-    return filtered;
+    return this.order(filtered, order);
+  }
+
+  private order(data: Array<Transaction>, order: string): Array<Transaction> {
+    if  (order === 'value') {
+      return data.sort(function (transaction, anotherTransaction) {
+        return anotherTransaction.value - transaction.value;
+      });
+    } else {
+      return data.sort(function (transaction, anotherTransaction) {
+        return anotherTransaction.date.valueOf() - transaction.date.valueOf();
+      });
+    }
   }
 }
