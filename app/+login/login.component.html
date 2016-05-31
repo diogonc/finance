@@ -1,7 +1,7 @@
-<form (submit)="login()">
-  <label for="login">usuário</label>
+<form (submit)="login(username, password)">
+  <label for="login">Usuário</label>
   <input [(ngModel)]="username" type="text">
-  <label for="senha">senha</label>
+  <label for="senha">Senha</label>
   <input [(ngModel)]="password" type="password">
-  <button type="submit">entrar</button>
+  <button type="submit">Entrar</button>
 </form>

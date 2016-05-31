@@ -1,16 +1,21 @@
 <h2>Lista de transações</h2>
 <form (submit)="search()">
-    <label for="category">categoria</label>
+    <label for="category">Categoria</label>
     <select [(ngModel)]="category">
         <option *ngFor="let c of categories" [value]="c.uuid">{{c.name}}</option>
     </select>
-    <label for="account">conta</label>
+    <label for="account">Conta</label>
     <select [(ngModel)]="account">
         <option *ngFor="let a of accounts" [value]="a.uuid">{{a.name}}</option>
     </select>
     <label for="initialDate">Data</label>
     <input [(ngModel)]="initialDate" type="date">
     <input [(ngModel)]="finalDate" type="date">
+    <label for="order">Ordem</label>
+    <select [(ngModel)]="order">
+        <option value="date">Data</option>
+        <option value="value">Valor</option>
+    </select>
     <button type="submit">Procurar</button>
 </form>
 <table>
