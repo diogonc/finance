@@ -42,9 +42,9 @@ export class LoginComponent implements OnInit {
     this._sync.deleteAllLocalData();
   }
 
-  login(): void {
-    var hashedPassword = this._sha1.hash(this.password);
-    var user = new User(this.username, hashedPassword);
+  login(username: string, password: string): void {
+    var hashedPassword = this._sha1.hash(password);
+    var user = new User(username, hashedPassword);
     this._sync.getAllDataFromServer(user, () => this.afterLogin(user));
   }
 

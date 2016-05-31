@@ -12,17 +12,14 @@ export class Sync {
   private _categoryRepository: CategoryRepository;
   private _transactionRepository: TransactionRepository;
   private _api: FinanceApi;
-  private _dateService: DateService;
 
   constructor(
       financeApi: FinanceApi, accountRepository: AccountRepository,
-      categoryRepository: CategoryRepository, transactionRepository: TransactionRepository,
-      dateService: DateService) {
+      categoryRepository: CategoryRepository, transactionRepository: TransactionRepository) {
     this._api = financeApi;
     this._accountRepository = accountRepository;
     this._categoryRepository = categoryRepository;
     this._transactionRepository = transactionRepository;
-    this._dateService = dateService;
   }
 
   getAllDataFromServer(user: User, callback: () => any): void {
@@ -51,7 +48,7 @@ export class Sync {
 
     for (var i = 0; i < lenght; i++) {
       var transaction = transactionsFromServerAsObject[i];
-      transaction.date = this._dateService.convertToDateFromString(transaction.date);
+      transaction.date = DateService.convertToDateFromString(transaction.date);
 
       transactions.push(transaction);
     }

@@ -10,18 +10,15 @@ describe('Sync', () => {
   let financeApi;
   let sync;
   let user;
-  let dateService;
 
   beforeEach(() => {
     accountRepository = new GenericRepository();
     categoryRepository = new GenericRepository();
     transactionRepository = new GenericRepository();
     financeApi = new FinanceApi();
-    dateService = new DateService();
 
     user = new User('login', 'pass');
-    sync = new Sync(
-        financeApi, accountRepository, categoryRepository, transactionRepository, dateService);
+    sync = new Sync(financeApi, accountRepository, categoryRepository, transactionRepository);
   });
 
   it('should call apis on sync', () => {

@@ -14,4 +14,17 @@ describe('User repository', () => {
 
     expect(repository.getUser().login).toEqual(user.login);
   });
+
+  it('should return true if it is logged', () => {
+    var user = new User('name', 'password');
+    repository.saveUser(user);
+
+    expect(repository.isLogged()).toBe(true);
+  });
+
+  it('should return false if it is not logged', () => {
+    repository.deleteUser();
+
+    expect(repository.isLogged()).toBe(false);
+  });
 });

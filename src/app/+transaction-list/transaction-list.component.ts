@@ -26,7 +26,6 @@ export class TransactionListComponent implements OnInit {
   private _accountRepository: AccountRepository;
   private _categoryRepository: CategoryRepository;
   private _transactionRepository: TransactionRepository;
-  private _dateService: DateService;
 
   constructor(
       transactionRepository: TransactionRepository, dateService: DateService,
@@ -34,15 +33,14 @@ export class TransactionListComponent implements OnInit {
     this._accountRepository = accountRepository;
     this._categoryRepository = categoryRepository;
     this._transactionRepository = transactionRepository;
-    this._dateService = dateService;
   }
 
   ngOnInit() {
     var today = new Date();
     var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
     var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 30);
-    this.initialDate = this._dateService.convertToUsString(firstDayOfMonth);
-    this.finalDate = this._dateService.convertToUsString(lastDayOfMonth);
+    this.initialDate = DateService.convertToUsString(firstDayOfMonth);
+    this.finalDate = DateService.convertToUsString(lastDayOfMonth);
     this.account = '';
     this.category = '';
 
@@ -53,8 +51,8 @@ export class TransactionListComponent implements OnInit {
   }
 
   search() {
-    var initialDate = this._dateService.convertToDateFromString(this.initialDate);
-    var finalDate = this._dateService.convertToDateFromString(this.finalDate);
+    var initialDate = DateService.convertToDateFromString(this.initialDate);
+    var finalDate = DateService.convertToDateFromString(this.finalDate);
     console.log(this.account);
 
     this.transactions = this._transactionRepository.getFiltered(

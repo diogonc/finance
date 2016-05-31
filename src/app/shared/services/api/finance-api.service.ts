@@ -10,7 +10,31 @@ export class FinanceApi {
 
     constructor(http: Http) { this._http = http; }
 
-    createHeader(user: User): Headers {
+    getAccounts(user: User, success: (data: any) => any): void {
+        this.get('account', user, success);
+    }
+
+    getCategories(user: User, success: (data: any) => any): void {
+        this.get('category', user, success);
+    }
+
+    getTransactions(user: User, success: (data: any) => any): void {
+        this.get('transaction', user, success);
+    }
+
+    saveTransaction(transaction: Transaction, user: User, success: (data: any) => any): void {
+        this.post('transaction', transaction, user, success);
+    }
+
+    updateTransaction(transaction: Transaction, user: User, success: (data: any) => any): void {
+        this.put('transaction', transaction, user, success);
+    }
+
+    deleteTransaction(transactionUuid: string, user: User, success: (data: any) => any): void {
+        this.delete('transaction', transactionUuid, user, success);
+    }
+
+    private createHeader(user: User): Headers {
         var header = new Headers();
         header.append('username', user.login);
         header.append('token', user.password);
@@ -18,67 +42,45 @@ export class FinanceApi {
         return header;
     }
 
-    getAccounts(user: User, success: (data: any) => any): boolean {
+    private get(action: string, user: User, success: (data: any) => any): boolean {
         this._http
             .get(
-            this.DEFAULT_URL + '/account?where={"propertyUuid":"' + user.property + '"}',
-            { headers: this.createHeader(user) })
-            .subscribe(data => success(data), err => this.logError(err), () => console.log('Complete'));
-        return false;
-    }
-
-    getCategories(user: User, success: (data: any) => any): boolean {
-        this._http
-            .get(
-            this.DEFAULT_URL + '/category?where={"propertyUuid":"' + user.property + '"}',
-            { headers: this.createHeader(user) })
-            .subscribe(data => success(data), err => this.logError(err), () => console.log('Complete'));
-        return false;
-    }
-
-    getTransactions(user: User, success: (data: any) => any): boolean {
-        this._http
-            .get(
-            this.DEFAULT_URL + '/transaction?where={"propertyUuid":"' + user.property + '"}',
+            this.DEFAULT_URL + '/' + action + '?where={"propertyUuid":"' + user.property + '"}',
             { headers: this.createHeader(user) })
             .subscribe(
-            data => this.onSuccess(data, success), err => this.logError(err),
-            () => console.log('Complete'));
+            data => this.onSuccess(data, success), err => this.logError(err));
         return false;
     }
 
-    saveTransaction(transaction: Transaction, user: User, success: (data: any) => any): void {
+    private post(action: string, data: any, user: User, success: (response: any) => any): void {
         this._http
             .post(
-            this.DEFAULT_URL + '/transaction', JSON.stringify(transaction),
+            this.DEFAULT_URL + '/' + action, JSON.stringify(data),
             { headers: this.createHeader(user) })
             .subscribe(
-            data => this.onSuccess(data, success), err => this.logError(err),
-            () => console.log('Complete'));
+            response => this.onSuccess(response, success), err => this.logError(err));
     }
 
-    updateTransaction(transaction: Transaction, user: User, success: (data: any) => any): void {
+    private put(action: string, data: any, user: User, success: (response: any) => any): void {
         this._http
             .put(
-            this.DEFAULT_URL + '/transaction/' + transaction.uuid,
-            JSON.stringify(transaction),
+            this.DEFAULT_URL + '/' + action + '/' + data.uuid,
+            JSON.stringify(data),
             { headers: this.createHeader(user) })
             .subscribe(
-            data => this.onSuccess(data, success), err => this.logError(err),
-            () => console.log('Complete'));
+            response => this.onSuccess(response, success), err => this.logError(err));
     }
 
-    deleteTransaction(transactionUuid: string, user: User, success: (data: any) => any): void {
+    delete(action: string, uuid: string, user: User, success: (response: any) => any): void {
         this._http
             .delete(
-            this.DEFAULT_URL + '/transaction/' + transactionUuid,
+            this.DEFAULT_URL + '/' + action + '/' + uuid,
             { headers: this.createHeader(user) })
             .subscribe(
-            data => this.onSuccess(data, success), err => this.logError(err),
-            () => console.log('Complete'));
+            response => this.onSuccess(response, success), err => this.logError(err));
     }
 
-    onSuccess(response: any, success: (data: any) => any): void { success(response); }
+    private onSuccess(response: any, success: (data: any) => any): void { success(response); }
 
-    logError(err) { console.log('erro ao enviar a requisição: ' + JSON.stringify(err)); }
+    private logError(err) { console.log('erro ao enviar a requisição: ' + JSON.stringify(err)); }
 }

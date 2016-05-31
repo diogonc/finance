@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
-import {Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from '@angular/router';
+import {Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router} from '@angular/router';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {LoginComponent} from './+login';
 import {TransactionListComponent} from './+transaction-list';
 import {TransactionComponent} from './+transaction';
-import {AuthService} from './shared/services/auth/auth.service';
 import {UserRepository} from './shared/services/repository/userRepository.service';
 
 @Component({
@@ -14,7 +13,7 @@ import {UserRepository} from './shared/services/repository/userRepository.servic
   templateUrl: 'finance.component.html',
   styleUrls: ['finance.component.css'],
   directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES],
-  providers: [ROUTER_PROVIDERS, HTTP_PROVIDERS, AuthService, UserRepository]
+  providers: [ROUTER_PROVIDERS, HTTP_PROVIDERS, UserRepository]
 })
 @Routes([
   {path: '/login', component: LoginComponent},
@@ -28,13 +27,16 @@ export class FinanceAppComponent implements OnInit {
   isLogged: boolean;
   title: 'Financeiro';
 
-  private _auth: AuthService;
+  private _router: Router;
+  private _userRepository: UserRepository;
 
-  constructor(auth: AuthService) {
-    this._auth = auth;
+  constructor(repository: UserRepository, router: Router) {
+    this._userRepository = repository;
+    this._router = router;
   }
 
   ngOnInit() {
     this.isLogged = true;
+    this._router.navigate(['/transaction-list']);
   }
 }

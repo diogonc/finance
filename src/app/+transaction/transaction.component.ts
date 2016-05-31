@@ -32,7 +32,6 @@ export class TransactionComponent implements OnInit {
   private _categoryRepository: CategoryRepository;
   private _transactionRepository: TransactionRepository;
   private _userRepository: UserRepository;
-  private _dateService: DateService;
   private _api: FinanceApi;
   private _params: RouteSegment;
   private _router: Router;
@@ -40,12 +39,11 @@ export class TransactionComponent implements OnInit {
   constructor(
     accountRepository: AccountRepository, categoryRepository: CategoryRepository,
     transactionRepository: TransactionRepository, userRepository: UserRepository,
-    dateService: DateService, api: FinanceApi, params: RouteSegment, router: Router) {
+    api: FinanceApi, params: RouteSegment, router: Router) {
     this._accountRepository = accountRepository;
     this._categoryRepository = categoryRepository;
     this._transactionRepository = transactionRepository;
     this._userRepository = userRepository;
-    this._dateService = dateService;
     this._api = api;
     this._params = params;
     this._router = router;
@@ -63,7 +61,7 @@ export class TransactionComponent implements OnInit {
       return;
     }
     this.transactionVm = new TransactionVm(null, 0, '',
-      this._dateService.convertToUsString(new Date()),
+      DateService.convertToUsString(new Date()),
       this._user.property, 0, 0);
   }
 
@@ -73,7 +71,7 @@ export class TransactionComponent implements OnInit {
 
     var t = this.transactionVm;
     var transaction = new Transaction(t.uuid, this._user.property, t.value, t.description,
-      this._dateService.convertToDateFromString(t.date), accountvm.uuid, accountvm.name,
+      t.date, accountvm.uuid, accountvm.name,
       categoryVm.uuid, categoryVm.name, categoryVm.categoryType);
 
     if (t.uuid === null) {
@@ -103,7 +101,7 @@ export class TransactionComponent implements OnInit {
       categoryIndex = this.findIndex(transaction.categoryUuid, this.categories);
     }
     return new TransactionVm(transaction.uuid, transaction.value, transaction.description,
-      this._dateService.convertToUsString(transaction.date), transaction.propertyUuid,
+      DateService.convertToUsString(transaction.date), transaction.propertyUuid,
       accountIndex, categoryIndex);
   };
 

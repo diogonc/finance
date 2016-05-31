@@ -1,14 +1,11 @@
 import {beforeEach, describe, expect, it} from '@angular/core/testing';
 import {TransactionRepository} from './transactionRepository.service';
-import {DateService} from '../date/date.service';
 
 describe('Repository', () => {
   let repository;
-  let dateRepository;
 
   beforeEach(() => {
-    dateRepository = new DateService();
-    repository = new TransactionRepository(dateRepository);
+    repository = new TransactionRepository();
     repository.deleteAll();
 
     var transactions = [

@@ -1,3 +1,5 @@
+import {DateService} from '../services/date/date.service';
+
 export class Transaction {
   uuid: string;
   value: number;
@@ -12,7 +14,7 @@ export class Transaction {
   payed: string;
 
   constructor(
-    uuid: string, propertyUuid: string, value: number, description: string, date: Date,
+    uuid: string, propertyUuid: string, value: number, description: string, date: string,
     accountUuid: string, accountName: string,
     categoryUuid: string, categoryName: string, categoryType: string
   ) {
@@ -24,7 +26,7 @@ export class Transaction {
     this.propertyUuid = propertyUuid;
     this.value = value;
     this.description = description;
-    this.date = date;
+    this.date = DateService.convertToDateFromString(date);
     this.accountUuid = accountUuid;
     this.accountName = accountName;
     this.categoryUuid = categoryUuid;

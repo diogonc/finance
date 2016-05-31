@@ -29,12 +29,6 @@ describe('LoginComponent', () => {
 
     expect(sync.called).toEqual(true);
   });
-
-  it('should save user on login', () => {
-    loginComponent.login('login', 'password');
-
-    expect(userRepository.calledSave).toEqual(true);
-  });
 });
 
 class UserRepository {

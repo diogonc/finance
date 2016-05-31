@@ -15,19 +15,19 @@ describe('Transaction', () => {
       categoryUuid: '2',
       categoryName: 'category name',
       categoryType: 'credit',
-      date: new Date(),
+      date: '2010-03-01',
       propertyUuid: 1
     };
   });
 
   it('should create with constructor parameters', () => {
     var transaction = new Transaction(null, t.propertyUuid, t.value, t.description, t.date,
-    t.accountUuid, t.accountName,
-    t.categoryUuid, t.categoryName, t.categoryType);
+      t.accountUuid, t.accountName,
+      t.categoryUuid, t.categoryName, t.categoryType);
 
     expect(transaction.value).toEqual(t.value);
     expect(transaction.description).toEqual(t.description);
-    expect(transaction.date).toEqual(t.date);
+    expect(transaction.date).toEqual(new Date(2010, 2, 1));
     expect(transaction.propertyUuid).toEqual(t.propertyUuid);
     expect(transaction.accountName).toEqual(t.accountName);
     expect(transaction.categoryName).toEqual(t.categoryName);

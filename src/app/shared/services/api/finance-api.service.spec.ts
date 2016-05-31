@@ -77,7 +77,7 @@ describe('FinanceApi', () => {
       expect(data.text()).toBe('called');
       done();
     };
-    var transaction = new Transaction('1', '2', 3, 'description', new Date(), '3', 'name', '4', 'name2', 'debit');
+    var transaction = new Transaction('1', '2', 3, 'description', '2010-01-11', '3', 'name', '4', 'name2', 'debit');
 
     financeApi.updateTransaction(transaction, user, success);
 
