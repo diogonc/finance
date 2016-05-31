@@ -1,4 +1,4 @@
-import {DateService} from '../services/date/date.service';
+import {MyDate} from '../util/my-date';
 
 export class Transaction {
   uuid: string;
@@ -26,7 +26,7 @@ export class Transaction {
     this.propertyUuid = propertyUuid;
     this.value = value;
     this.description = description;
-    this.date = DateService.convertToDateFromString(date);
+    this.date = MyDate.convertToDateFromString(date);
     this.accountUuid = accountUuid;
     this.accountName = accountName;
     this.categoryUuid = categoryUuid;

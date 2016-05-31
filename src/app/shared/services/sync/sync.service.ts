@@ -3,7 +3,7 @@ import {CategoryRepository} from '../repository/categoryRepository.service';
 import {TransactionRepository} from '../repository/transactionRepository.service';
 import {User} from '../../models/user.model';
 import {FinanceApi} from '../api/finance-api.service';
-import {DateService} from '../date/date.service';
+import {MyDate} from '../../util/my-date';
 import {Injectable} from '@angular/core';
 
 @Injectable()
@@ -48,7 +48,7 @@ export class Sync {
 
     for (var i = 0; i < lenght; i++) {
       var transaction = transactionsFromServerAsObject[i];
-      transaction.date = DateService.convertToDateFromString(transaction.date);
+      transaction.date = MyDate.convertToDateFromString(transaction.date);
 
       transactions.push(transaction);
     }

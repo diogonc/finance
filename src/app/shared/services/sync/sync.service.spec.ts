@@ -1,7 +1,7 @@
 import {beforeEach, describe, expect, it} from '@angular/core/testing';
 import {Sync} from './sync.service';
 import {User} from '../../models/user.model';
-import {DateService} from '../date/date.service';
+import {MyDate} from '../../util/my-date';
 
 describe('Sync', () => {
   let accountRepository;

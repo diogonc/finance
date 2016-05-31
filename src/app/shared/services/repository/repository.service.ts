@@ -1,3 +1,5 @@
+import {MyArray} from '../../util/my-array'
+
 export class Repository {
   private _key: string;
 
@@ -7,7 +9,7 @@ export class Repository {
     var dataObject = this.makeACopy(object);
     var key = object.uuid;
     var data = this.getData();
-    var index = this.findIndex(key, data);
+    var index = MyArray.findIndex(key, data);
 
     if (index >= 0) {
       data.splice(index, 1, dataObject);
@@ -21,14 +23,14 @@ export class Repository {
 
   get(key: string): any {
     var data = this.getData();
-    var index = this.findIndex(key, data);
+    var index = MyArray.findIndex(key, data);
 
     return index >= 0 ? data[index] : null;
   }
 
   delete(key: string): void {
     var data = this.getData();
-    var index = this.findIndex(key, data);
+    var index = MyArray.findIndex(key, data);
 
     if (index >= 0) {
       data.splice(index, 1);
@@ -41,16 +43,6 @@ export class Repository {
   deleteAll(): void { this.setData('[]'); };
 
   private makeACopy(object): any { return JSON.parse(JSON.stringify(object)); }
-
-  private findIndex(key: string, data: any): number {
-    var length = data.length;
-    for (var i = 0; i < length; i++) {
-      if (data[i].uuid === key) {
-        return i;
-      }
-    }
-    return -1;
-  }
 
   private getData(): any {
     var data = JSON.parse(localStorage.getItem(this._key));

@@ -5,7 +5,8 @@ import {AccountRepository} from '../shared/services/repository/accountRepository
 import {CategoryRepository} from '../shared/services/repository/categoryRepository.service';
 import {TransactionRepository} from '../shared/services/repository/transactionRepository.service';
 import {UserRepository} from '../shared/services/repository/userRepository.service';
-import {DateService} from '../shared/services/date/date.service';
+import {MyDate} from '../shared/util/my-date';
+import {MyArray} from '../shared/util/my-array'
 import {FinanceApi} from '../shared/services/api/finance-api.service';
 import {Transaction} from '../shared/models/transaction.model';
 import {User} from '../shared/models/user.model';
@@ -17,7 +18,7 @@ import {User} from '../shared/models/user.model';
   styleUrls: ['transaction.component.css'],
   directives: [CORE_DIRECTIVES],
   providers: [
-    AccountRepository, CategoryRepository, TransactionRepository, UserRepository, DateService,
+    AccountRepository, CategoryRepository, TransactionRepository, UserRepository, MyDate,
     FinanceApi
   ]
 })
@@ -61,7 +62,7 @@ export class TransactionComponent implements OnInit {
       return;
     }
     this.transactionVm = new TransactionVm(null, 0, '',
-      DateService.convertToUsString(new Date()),
+      MyDate.convertToUsString(new Date()),
       this._user.property, 0, 0);
   }
 
@@ -94,28 +95,17 @@ export class TransactionComponent implements OnInit {
     var categoryIndex = 0;
 
     if (transaction.accountUuid !== null) {
-      accountIndex = this.findIndex(transaction.accountUuid, this.accounts);
+      accountIndex = MyArray.findIndex(transaction.accountUuid, this.accounts);
     }
 
     if (transaction.categoryUuid !== null) {
-      categoryIndex = this.findIndex(transaction.categoryUuid, this.categories);
+      categoryIndex = MyArray.findIndex(transaction.categoryUuid, this.categories);
     }
     return new TransactionVm(transaction.uuid, transaction.value, transaction.description,
-      DateService.convertToUsString(transaction.date), transaction.propertyUuid,
+      MyDate.convertToUsString(transaction.date), transaction.propertyUuid,
       accountIndex, categoryIndex);
   };
-
-  // TODO: colocar em um lugar melhor
-  private findIndex(key: string, data: any): number {
-    var length = data.length;
-    for (var i = 0; i < length; i++) {
-      if (data[i].uuid === key) {
-        return i;
-      }
-    }
-    return -1;
-  };
-
+  
   private onSave(transaction: Transaction) {
     this._transactionRepository.save(transaction);
     this._router.navigate(['/transaction-list']);

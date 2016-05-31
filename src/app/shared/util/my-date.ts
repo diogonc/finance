@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 
 @Injectable()
-export class DateService {
+export class MyDate {
   static convertToDateFromString(dateFromServer: string): Date {
     var day = parseInt(dateFromServer.substr(8, 2));
     var month = parseInt(dateFromServer.substr(5, 2)) - 1;

@@ -9,7 +9,7 @@ import {TransactionRepository} from '../shared/services/repository/transactionRe
 import {FinanceApi} from '../shared/services/api/finance-api.service';
 import {Sync} from '../shared/services/sync/sync.service';
 import {User} from '../shared/models/user.model';
-import {DateService} from '../shared/services/date/date.service';
+import {MyDate} from '../shared/util/my-date';
 
 @Component({
   moduleId: module.id,
@@ -19,7 +19,7 @@ import {DateService} from '../shared/services/date/date.service';
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
   providers: [
     Sha1, UserRepository, Sync, FinanceApi, AccountRepository, CategoryRepository,
-    TransactionRepository, DateService
+    TransactionRepository, MyDate
   ]
 })
 export class LoginComponent implements OnInit {
