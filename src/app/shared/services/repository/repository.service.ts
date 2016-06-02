@@ -42,14 +42,14 @@ export class Repository {
 
   deleteAll(): void { this.setData('[]'); };
 
-  private makeACopy(object): any { return JSON.parse(JSON.stringify(object)); }
+  protected makeACopy(object): any { return JSON.parse(JSON.stringify(object)); }
 
-  private getData(): any {
+  protected getData(): any {
     var data = JSON.parse(localStorage.getItem(this._key));
     return (data !== null) ? data : [];
   }
 
-  private setData(data: any): void {
+  protected setData(data: any): void {
     var jsonData = typeof(data) === 'string' ? JSON.parse(data) : data;
     localStorage.setItem(this._key, JSON.stringify(jsonData));
   }
