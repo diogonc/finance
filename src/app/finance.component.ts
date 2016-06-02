@@ -17,6 +17,7 @@ import {LoginEvent} from './shared/events/login.event';
   providers: [ROUTER_PROVIDERS, HTTP_PROVIDERS, UserRepository, LoginEvent]
 })
 @Routes([
+  {path: '/', component: LoginComponent},
   {path: '/login', component: LoginComponent},
   {path: '/transaction-list', component: TransactionListComponent},
   {path: '/transaction-new', component: TransactionComponent},
