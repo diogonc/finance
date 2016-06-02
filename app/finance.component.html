@@ -3,4 +3,5 @@
   <a [routerLink]="['/transaction-new']">Nova transação</a>
   <a [routerLink]="['/login']">Sair</a>
 </nav>
+<a [hidden]="!isLogged" [routerLink]="['/login']">Logar</a>
 <router-outlet></router-outlet>
