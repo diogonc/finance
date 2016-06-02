@@ -7,14 +7,16 @@ describe('LoginComponent', () => {
   let loginComponent;
   let sha1;
   let router;
+  let loginEvent;
 
   beforeEach(() => {
     userRepository = new UserRepository();
     sync = new Sync();
     sha1 = new Sha1();
     router = new Router();
+    loginEvent = new LoginEvent();
 
-    loginComponent = new LoginComponent(userRepository, sync, sha1, router);
+    loginComponent = new LoginComponent(userRepository, sync, sha1, router, loginEvent);
   });
 
   it('should delete data on constructor', () => {
@@ -60,4 +62,8 @@ class Sha1 {
 
 class Router {
   navigate(comand: any): void { return null; }
+}
+
+class LoginEvent {
+  announceLogin(user: string): void { return null; }
 }

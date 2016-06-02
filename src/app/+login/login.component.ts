@@ -10,6 +10,7 @@ import {FinanceApi} from '../shared/services/api/finance-api.service';
 import {Sync} from '../shared/services/sync/sync.service';
 import {User} from '../shared/models/user.model';
 import {MyDate} from '../shared/util/my-date';
+import {LoginEvent} from '../shared/events/login.event';
 
 @Component({
   moduleId: module.id,
@@ -29,17 +30,21 @@ export class LoginComponent implements OnInit {
   private _sync: Sync;
   private _sha1: Sha1;
   private _router: Router;
+  private _loginEvent: LoginEvent;
 
-  constructor(userRepository: UserRepository, sync: Sync, sha1: Sha1, router: Router) {
+  constructor(userRepository: UserRepository, sync: Sync, sha1: Sha1, router: Router, loginEvent: LoginEvent) {
     this._userRepository = userRepository;
     this._sync = sync;
     this._sha1 = sha1;
     this._router = router;
+    this._loginEvent = loginEvent;
   }
 
   ngOnInit() {
     this._userRepository.deleteUser();
     this._sync.deleteAllLocalData();
+
+    this._loginEvent.announceLogin('');
   }
 
   login(username: string, password: string): void {
@@ -50,6 +55,7 @@ export class LoginComponent implements OnInit {
 
   afterLogin(user: User): void {
     this._userRepository.saveUser(user);
+    this._loginEvent.announceLogin(user.login);
     this._router.navigate(['/transaction-list']);
   }
 }

@@ -6,6 +6,7 @@ import {LoginComponent} from './+login';
 import {TransactionListComponent} from './+transaction-list';
 import {TransactionComponent} from './+transaction';
 import {UserRepository} from './shared/services/repository/userRepository.service';
+import {LoginEvent} from './shared/events/login.event';
 
 @Component({
   moduleId: module.id,
@@ -13,7 +14,7 @@ import {UserRepository} from './shared/services/repository/userRepository.servic
   templateUrl: 'finance.component.html',
   styleUrls: ['finance.component.css'],
   directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES],
-  providers: [ROUTER_PROVIDERS, HTTP_PROVIDERS, UserRepository]
+  providers: [ROUTER_PROVIDERS, HTTP_PROVIDERS, UserRepository, LoginEvent]
 })
 @Routes([
   {path: '/login', component: LoginComponent},
@@ -30,13 +31,17 @@ export class FinanceAppComponent implements OnInit {
   private _router: Router;
   private _userRepository: UserRepository;
 
-  constructor(repository: UserRepository, router: Router) {
+  constructor(repository: UserRepository, loginEvent: LoginEvent, router: Router) {
     this._userRepository = repository;
     this._router = router;
+
+    loginEvent.logginAnnouced$.subscribe(
+      user => {
+        this.isLogged = this._userRepository.isLogged();
+      });
   }
 
   ngOnInit() {
-    this.isLogged = true;
-    this._router.navigate(['/transaction-list']);
+    this.isLogged = this._userRepository.isLogged();
   }
 }
