@@ -31,10 +31,15 @@
         <td>{{transaction.categoryName}}</td>
         <td>{{transaction.accountName}}</td>
         <td>{{transaction.description}}</td>
-        <td>{{transaction.date | date: 'dd/MM/yyyy'}}</td>
-        <td>{{transaction.value}}</td>
+        <td>{{ transaction.date | date:'dd'}}/{{ transaction.date | date:'MM'}}/{{ transaction.date | date:'y'}}</td>
+        <td>{{transaction.value | number:'1.2-2'}}</td>
         <td>
             <a [routerLink]="['/transaction-edit/'+transaction.uuid]">editar</a>
         </td>
+    </tr>
+    <tr>
+        <td colspan="3"></td>
+        <td>Total:</td>
+        <td>{{balance | number:'1.2-2'}}</td>
     </tr>
 </table>
