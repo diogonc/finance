@@ -10,7 +10,7 @@ export class CategoryRepository extends Repository {
 
     for (var i = 0; i < data.length; i++) {
       var item = data[i];
-      accounts.push(new Category(item.uuid, item.name, item.type, item.priority));
+      accounts.push(new Category(item.uuid, item.name, item.categoryType, item.priority));
     }
 
     return this.order(accounts);

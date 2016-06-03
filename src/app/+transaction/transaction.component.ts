@@ -8,6 +8,8 @@ import {UserRepository} from '../shared/services/repository/userRepository.servi
 import {MyDate} from '../shared/util/my-date';
 import {MyArray} from '../shared/util/my-array'
 import {FinanceApi} from '../shared/services/api/finance-api.service';
+import {Account} from '../shared/models/account.model';
+import {Category} from '../shared/models/category.model';
 import {Transaction} from '../shared/models/transaction.model';
 import {User} from '../shared/models/user.model';
 
@@ -23,8 +25,8 @@ import {User} from '../shared/models/user.model';
   ]
 })
 export class TransactionComponent implements OnInit {
-  public accounts: Array<any>;
-  public categories: Array<any>;
+  public accounts: Array<Account>;
+  public categories: Array<Category>;
   public transactions: Array<Transaction>;
   public transactionVm: TransactionVm;
 
@@ -67,13 +69,13 @@ export class TransactionComponent implements OnInit {
   }
 
   save() {
-    var accountvm = this.accounts[this.transactionVm.accountIndex];
-    var categoryVm = this.categories[this.transactionVm.categoryIndex];
+    var account = this.accounts[this.transactionVm.accountIndex];
+    var category = this.categories[this.transactionVm.categoryIndex];
 
     var t = this.transactionVm;
     var transaction = new Transaction(t.uuid, this._user.property, t.value, t.description,
-      t.date, accountvm.uuid, accountvm.name,
-      categoryVm.uuid, categoryVm.name, categoryVm.categoryType);
+      t.date, account.uuid, account.name,
+      category.uuid, category.name, category.type);
 
     if (t.uuid === null) {
       this._api.saveTransaction(transaction, this._user,

@@ -4,7 +4,11 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
 import {AccountRepository} from '../shared/services/repository/accountRepository.service';
 import {CategoryRepository} from '../shared/services/repository/categoryRepository.service';
 import {TransactionRepository} from '../shared/services/repository/transactionRepository.service';
+import {Balance} from '../shared/report/balance.service';
 import {MyDate} from '../shared/util/my-date';
+import {Account} from '../shared/models/account.model';
+import {Category} from '../shared/models/category.model';
+import {Transaction} from '../shared/models/transaction.model';
 
 @Component({
   moduleId: module.id,
@@ -12,7 +16,7 @@ import {MyDate} from '../shared/util/my-date';
   templateUrl: 'transaction-list.component.html',
   styleUrls: ['transaction-list.component.css'],
   directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES],
-  providers: [AccountRepository, CategoryRepository, TransactionRepository, MyDate]
+  providers: [AccountRepository, CategoryRepository, TransactionRepository, MyDate, Balance]
 })
 export class TransactionListComponent implements OnInit {
   public account: string;
@@ -20,17 +24,18 @@ export class TransactionListComponent implements OnInit {
   public initialDate: string;
   public finalDate: string;
   public order: string;
-  public accounts: Array<Object>;
-  public categories: Array<Object>;
-  public transactions: Array<Object>;
+  public balance: number;
+  public accounts: Array<Account>;
+  public categories: Array<Category>;
+  public transactions: Array<Transaction>;
 
   private _accountRepository: AccountRepository;
   private _categoryRepository: CategoryRepository;
   private _transactionRepository: TransactionRepository;
 
   constructor(
-      transactionRepository: TransactionRepository, dateService: MyDate,
-      accountRepository: AccountRepository, categoryRepository: CategoryRepository) {
+    transactionRepository: TransactionRepository, dateService: MyDate,
+    accountRepository: AccountRepository, categoryRepository: CategoryRepository) {
     this._accountRepository = accountRepository;
     this._categoryRepository = categoryRepository;
     this._transactionRepository = transactionRepository;
@@ -45,10 +50,12 @@ export class TransactionListComponent implements OnInit {
     this.account = '';
     this.category = '';
     this.order = 'date';
+    this.balance = 0;
 
-    this.transactions = this._transactionRepository.getFiltered('', '', firstDayOfMonth, lastDayOfMonth, this.order);
     this.accounts = this._accountRepository.getAll();
     this.categories = this._categoryRepository.getAll();
+    this.transactions = this._transactionRepository.getFiltered('', '', firstDayOfMonth, lastDayOfMonth, this.order);
+    this.balance = Balance.get(this.transactions);
   }
 
   search() {
@@ -56,6 +63,7 @@ export class TransactionListComponent implements OnInit {
     var finalDate = MyDate.convertToDateFromString(this.finalDate);
 
     this.transactions = this._transactionRepository.getFiltered(
-        this.category, this.account, initialDate, finalDate, this.order);
+      this.category, this.account, initialDate, finalDate, this.order);
+    this.balance = Balance.get(this.transactions);
   }
 }
