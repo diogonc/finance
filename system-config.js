@@ -17,6 +17,7 @@ var barrels = [
     'rxjs',
     // App specific barrels.
     'app', 'app/shared', 'app/+login', 'app/+transaction-list', 'app/+transaction',
+    'app/loader',
 ];
 var cliSystemConfigPackages = {};
 barrels.forEach(function (barrelName) { cliSystemConfigPackages[barrelName] = { main: 'index' }; });
