@@ -1,5 +1,8 @@
 <h2>Nova transação</h2>
 <form (submit)="save()">
+    <ul>
+        <li class="error" *ngFor="let error of errors">{{error}}</li>
+    </ul>
     <label for="value">Valor:</label>
     <input id="value" [(ngModel)]="transactionVm.value" type="number" step="0.01" min="0">
     <label for="description">Descrição:</label>
