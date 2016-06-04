@@ -1,5 +1,5 @@
 <h2>Nova transação</h2>
-<form (submit)="save()">
+<form (submit)="save(true)">
     <ul>
         <li class="error" *ngFor="let error of errors">{{error}}</li>
     </ul>
@@ -18,5 +18,6 @@
     <label for="date">Data</label>
     <input [(ngModel)]="transactionVm.date" type="date">
     <button type="submit">Salvar</button>
-    <button [hidden]="transactionVm.uuid === null" type="button" (click)="delete()">Excluir</button>
+    <button type="button" (click)="save(false)">Salvar e novo</button>
+    <button [hidden]="transactionVm.isNew()" type="button" (click)="delete()">Excluir</button>
 </form>

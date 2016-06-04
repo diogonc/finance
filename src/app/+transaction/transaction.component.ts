@@ -73,7 +73,7 @@ export class TransactionComponent implements OnInit {
       this._user.property, 0, 0);
   }
 
-  save() {
+  save(showList: boolean) {
     var account = this.accounts[this.transactionVm.accountIndex];
     var category = this.categories[this.transactionVm.categoryIndex];
 
@@ -90,10 +90,10 @@ export class TransactionComponent implements OnInit {
     this._loadEvent.announceLoadStart('start');
     if (t.uuid === null) {
       this._api.saveTransaction(transaction, this._user,
-        () => this.onSave(transaction));
+        () => this.onSave(transaction, showList));
     } else {
       this._api.updateTransaction(transaction, this._user,
-        () => this.onSave(transaction));
+        () => this.onSave(transaction, showList));
     }
   };
 
@@ -120,9 +120,9 @@ export class TransactionComponent implements OnInit {
       accountIndex, categoryIndex);
   };
 
-  private onSave(transaction: Transaction) {
+  private onSave(transaction: Transaction, showList: boolean) {
     this._transactionRepository.save(transaction);
-    this._router.navigate(['/transaction-list']);
+    this._router.navigate((showList) ? ['/transaction-list'] : ['/transaction-new']);
     this._loadEvent.announceLoadEnd('finish');
   };
 
@@ -151,5 +151,9 @@ class TransactionVm {
     this.propertyUuid = propertyUuid;
     this.accountIndex = accounIndex;
     this.categoryIndex = categoryIndex;
+  }
+
+  isNew(): boolean {
+    return this.uuid === null || this.uuid === '' || typeof (this.uuid) === 'undefined';
   }
 }
