@@ -12,6 +12,7 @@ import {Account} from '../shared/models/account.model';
 import {Category} from '../shared/models/category.model';
 import {Transaction} from '../shared/models/transaction.model';
 import {User} from '../shared/models/user.model';
+import {LoadEvent} from '../shared/events/load.event';
 
 @Component({
   moduleId: module.id,
@@ -39,11 +40,12 @@ export class TransactionComponent implements OnInit {
   private _api: FinanceApi;
   private _params: RouteSegment;
   private _router: Router;
+  private _loadEvent: LoadEvent;
 
   constructor(
     accountRepository: AccountRepository, categoryRepository: CategoryRepository,
     transactionRepository: TransactionRepository, userRepository: UserRepository,
-    api: FinanceApi, params: RouteSegment, router: Router) {
+    api: FinanceApi, params: RouteSegment, router: Router, loadEvent: LoadEvent) {
     this._accountRepository = accountRepository;
     this._categoryRepository = categoryRepository;
     this._transactionRepository = transactionRepository;
@@ -51,6 +53,7 @@ export class TransactionComponent implements OnInit {
     this._api = api;
     this._params = params;
     this._router = router;
+    this._loadEvent = loadEvent;
   }
 
   ngOnInit() {
@@ -84,6 +87,7 @@ export class TransactionComponent implements OnInit {
       return;
     }
 
+    this._loadEvent.announceLoadStart('start');
     if (t.uuid === null) {
       this._api.saveTransaction(transaction, this._user,
         () => this.onSave(transaction));
@@ -94,6 +98,7 @@ export class TransactionComponent implements OnInit {
   };
 
   delete() {
+    this._loadEvent.announceLoadStart('start');
     this._api.deleteTransaction(this.transactionVm.uuid, this._user,
       () => this.onDelete(this.transactionVm.uuid));
   };
@@ -118,11 +123,13 @@ export class TransactionComponent implements OnInit {
   private onSave(transaction: Transaction) {
     this._transactionRepository.save(transaction);
     this._router.navigate(['/transaction-list']);
+    this._loadEvent.announceLoadEnd('finish');
   };
 
   private onDelete(transactionUuid: string) {
     this._transactionRepository.delete(transactionUuid);
     this._router.navigate(['/transaction-list']);
+    this._loadEvent.announceLoadEnd('finish');
   };
 }
 

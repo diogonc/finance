@@ -10,6 +10,7 @@ import {FinanceApi} from '../shared/services/api/finance-api.service';
 import {Sync} from '../shared/services/sync/sync.service';
 import {User} from '../shared/models/user.model';
 import {MyDate} from '../shared/util/my-date';
+import {LoadEvent} from '../shared/events/load.event';
 import {LoginEvent} from '../shared/events/login.event';
 
 @Component({
@@ -30,13 +31,16 @@ export class LoginComponent implements OnInit {
   private _sync: Sync;
   private _sha1: Sha1;
   private _router: Router;
+  private _loadEvent: LoadEvent;
   private _loginEvent: LoginEvent;
 
-  constructor(userRepository: UserRepository, sync: Sync, sha1: Sha1, router: Router, loginEvent: LoginEvent) {
+  constructor(userRepository: UserRepository, sync: Sync, sha1: Sha1, router: Router,
+     loginEvent: LoginEvent, loadEvent: LoadEvent) {
     this._userRepository = userRepository;
     this._sync = sync;
     this._sha1 = sha1;
     this._router = router;
+    this._loadEvent = loadEvent;
     this._loginEvent = loginEvent;
   }
 
@@ -50,12 +54,14 @@ export class LoginComponent implements OnInit {
   login(username: string, password: string): void {
     var hashedPassword = this._sha1.hash(password);
     var user = new User(username, hashedPassword);
+    this._loadEvent.announceLoadStart('start');
     this._sync.getAllDataFromServer(user, () => this.afterLogin(user));
   }
 
   afterLogin(user: User): void {
     this._userRepository.saveUser(user);
-    this._loginEvent.announceLogin(user.login);
     this._router.navigate(['/transaction-list']);
+    this._loginEvent.announceLogin(user.login);
+    this._loadEvent.announceLoadEnd('finish');
   }
 }
