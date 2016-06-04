@@ -1,6 +1,4 @@
 import {beforeEach, describe, expect, it} from '@angular/core/testing';
-import {Account} from './account.model';
-import {Category} from './category.model';
 import {Transaction} from './transaction.model';
 
 describe('Transaction', () => {
@@ -31,5 +29,12 @@ describe('Transaction', () => {
     expect(transaction.propertyUuid).toEqual(t.propertyUuid);
     expect(transaction.accountName).toEqual(t.accountName);
     expect(transaction.categoryName).toEqual(t.categoryName);
+  });
+
+  it('should fill error if fieds are not filled', () => {
+    var transaction = new Transaction(null, null, 0, '', null, null, null, null, null, null);
+
+    expect(transaction.isValid()).toEqual(false);
+    expect(transaction.errors.length).toEqual(9);
   });
 });

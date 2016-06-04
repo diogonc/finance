@@ -3,6 +3,10 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class MyDate {
   static convertToDateFromString(dateFromServer: string): Date {
+    if (dateFromServer === null) {
+      return null;
+    }
+
     var day = parseInt(dateFromServer.substr(8, 2));
     var month = parseInt(dateFromServer.substr(5, 2)) - 1;
     var year = parseInt(dateFromServer.substr(0, 4));

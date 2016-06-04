@@ -9,6 +9,12 @@ describe('DateService', () => {
     expect(dateConverted).toEqual(new Date(2010, 3, 4));
   });
 
+  it('shuld return null if date is not valid', () => {
+    var dateConverted = MyDate.convertToDateFromString(null);
+
+    expect(dateConverted).toEqual(null);
+  });
+
   it('should converte a date to yyyy-mm-dd', () => {
     var date = new Date(2011, 2, 3);
 

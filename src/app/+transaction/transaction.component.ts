@@ -6,7 +6,7 @@ import {CategoryRepository} from '../shared/services/repository/categoryReposito
 import {TransactionRepository} from '../shared/services/repository/transactionRepository.service';
 import {UserRepository} from '../shared/services/repository/userRepository.service';
 import {MyDate} from '../shared/util/my-date';
-import {MyArray} from '../shared/util/my-array'
+import {MyArray} from '../shared/util/my-array';
 import {FinanceApi} from '../shared/services/api/finance-api.service';
 import {Account} from '../shared/models/account.model';
 import {Category} from '../shared/models/category.model';
@@ -29,6 +29,7 @@ export class TransactionComponent implements OnInit {
   public categories: Array<Category>;
   public transactions: Array<Transaction>;
   public transactionVm: TransactionVm;
+  public errors: Array<string>;
 
   private _user: User;
   private _accountRepository: AccountRepository;
@@ -53,6 +54,7 @@ export class TransactionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.errors = [];
     this.accounts = this._accountRepository.getAll();
     this.categories = this._categoryRepository.getAll();
     this._user = this._userRepository.getUser();
@@ -76,6 +78,11 @@ export class TransactionComponent implements OnInit {
     var transaction = new Transaction(t.uuid, this._user.property, t.value, t.description,
       t.date, account.uuid, account.name,
       category.uuid, category.name, category.type);
+
+    if (!transaction.isValid()) {
+      this.errors = transaction.errors;
+      return;
+    }
 
     if (t.uuid === null) {
       this._api.saveTransaction(transaction, this._user,
@@ -107,7 +114,7 @@ export class TransactionComponent implements OnInit {
       MyDate.convertToUsString(transaction.date), transaction.propertyUuid,
       accountIndex, categoryIndex);
   };
-  
+
   private onSave(transaction: Transaction) {
     this._transactionRepository.save(transaction);
     this._router.navigate(['/transaction-list']);
