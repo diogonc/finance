@@ -11,10 +11,10 @@ export class Balance {
         for (var i = 0; i < numberOfItens; i++) {
             var transaction = transactions[i];
             var type = transaction.categoryType;
-            if (type === 'credit') {
+            if (type === 'credit' || type === 'creditTransfer') {
                 balance += transaction.value;
             }
-            if (type === 'debit') {
+            if (type === 'debit' || type === 'debitTransfer') {
                 balance -= transaction.value;
             }
         }

@@ -11,7 +11,7 @@ describe('FinanceApi', () => {
 
     it('should sum two credits', () => {
         transactions.push(createTransaction(12, 'credit'));
-        transactions.push(createTransaction(11, 'credit'));
+        transactions.push(createTransaction(11, 'creditTransfer'));
 
         var result = Balance.get(transactions);
 
@@ -20,11 +20,12 @@ describe('FinanceApi', () => {
 
     it('should subtract debit', () => {
         transactions.push(createTransaction(12, 'credit'));
-        transactions.push(createTransaction(11, 'debit'));
+        transactions.push(createTransaction(2, 'debit'));
+        transactions.push(createTransaction(1, 'debitTransfer'));
 
         var result = Balance.get(transactions);
 
-        expect(result).toEqual(1);
+        expect(result).toEqual(9);
     });
 });
 
