@@ -27,6 +27,7 @@ import {LoginEvent} from '../shared/events/login.event';
 export class LoginComponent implements OnInit {
   public username: string;
   public password: string;
+  public errors: Array<string>;
   private _userRepository: UserRepository;
   private _sync: Sync;
   private _sha1: Sha1;
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
   private _loginEvent: LoginEvent;
 
   constructor(userRepository: UserRepository, sync: Sync, sha1: Sha1, router: Router,
-     loginEvent: LoginEvent, loadEvent: LoadEvent) {
+    loginEvent: LoginEvent, loadEvent: LoadEvent) {
     this._userRepository = userRepository;
     this._sync = sync;
     this._sha1 = sha1;
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this._userRepository.deleteUser();
     this._sync.deleteAllLocalData();
-
+    this.errors = [];
     this._loginEvent.announceLogin('');
   }
 
@@ -55,13 +56,18 @@ export class LoginComponent implements OnInit {
     var hashedPassword = this._sha1.hash(password);
     var user = new User(username, hashedPassword);
     this._loadEvent.announceLoadStart('start');
-    this._sync.getAllDataFromServer(user, () => this.afterLogin(user));
+    this._sync.getAllDataFromServer(user, () => this.afterLogin(user), () => this.onError());
   }
 
   afterLogin(user: User): void {
     this._userRepository.saveUser(user);
     this._router.navigate(['/transaction-list']);
     this._loginEvent.announceLogin(user.login);
+    this._loadEvent.announceLoadEnd('finish');
+  }
+
+  onError(): void {
+    this.errors.push('Usuário ou senha inválidos');
     this._loadEvent.announceLoadEnd('finish');
   }
 }

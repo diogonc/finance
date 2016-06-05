@@ -1,4 +1,7 @@
 <form (submit)="login(username, password)">
+  <ul>
+    <li class="error" *ngFor="let error of errors">{{error}}</li>
+  </ul>
   <label for="login">Usuário</label>
   <input [(ngModel)]="username" type="text">
   <label for="senha">Senha</label>

@@ -13,15 +13,15 @@ export class FinanceApi {
     }
 
     getAccounts(user: User, success: (data: any) => any): void {
-        this.get('account', user, success);
+        this.get('account', user, success, null);
     }
 
     getCategories(user: User, success: (data: any) => any): void {
-        this.get('category', user, success);
+        this.get('category', user, success, null);
     }
 
-    getTransactions(user: User, success: (data: any) => any): void {
-        this.get('transaction', user, success);
+    getTransactions(user: User, success: (data: any) => any, error: (data: any) => any): void {
+        this.get('transaction', user, success, error);
     }
 
     saveTransaction(transaction: Transaction, user: User, success: (data: any) => any): void {
@@ -44,14 +44,14 @@ export class FinanceApi {
         return header;
     }
 
-    private get(action: string, user: User, success: (data: any) => any): boolean {
+    private get(action: string, user: User, success: (data: any) => any, error: (data: any) => any): boolean {
         this._http
             .get(
             this.DEFAULT_URL + '/' + action + '?where={"propertyUuid":"' + user.property + '"}',
             { headers: this.createHeader(user) })
             .subscribe(
             data => this.onSuccess(data, success),
-            err => this.logError(err));
+            err => this.onError(err, error));
         return false;
     }
 
@@ -63,7 +63,7 @@ export class FinanceApi {
             { headers: this.createHeader(user) })
             .subscribe(
             response => this.onSuccess(response, success),
-            err => this.logError(err),
+            err => this.onError(err, null),
             this.endRequest);
     }
 
@@ -76,7 +76,7 @@ export class FinanceApi {
             { headers: this.createHeader(user) })
             .subscribe(
             response => this.onSuccess(response, success),
-            err => this.logError(err),
+            err => this.onError(err, null),
             this.endRequest);
     }
 
@@ -88,13 +88,18 @@ export class FinanceApi {
             { headers: this.createHeader(user) })
             .subscribe(
             response => this.onSuccess(response, success),
-            err => this.logError(err),
+            err => this.onError(err, null),
             this.endRequest);
     }
 
     private onSuccess(response: any, success: (data: any) => any): void { success(response); }
 
-    private logError(err) { console.log('erro ao enviar a requisição: ' + JSON.stringify(err)); }
+    private onError(err: any, error: (data: any) => any) {
+        if (error !== null) {
+            error(err);
+        }
+        console.log('erro ao enviar a requisição: ' + JSON.stringify(err));
+    }
 
     private startRequest(): void { }
 

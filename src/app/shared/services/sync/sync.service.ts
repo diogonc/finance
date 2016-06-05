@@ -22,7 +22,7 @@ export class Sync {
     this._transactionRepository = transactionRepository;
   }
 
-  getAllDataFromServer(user: User, callback: () => any): void {
+  getAllDataFromServer(user: User, callback: () => any, error: () => any): void {
     this._api.getAccounts(user, (accounts) => this._accountRepository.saveAll(accounts._body));
     this._api.getCategories(
         user, (categories) => this._categoryRepository.saveAll(categories._body));
@@ -31,7 +31,7 @@ export class Sync {
                   this.convertTransactionFromServer(transactions._body, (transactionsConverted) => {
                     this._transactionRepository.saveAll(transactionsConverted);
                     callback();
-                  }));
+                  }), error);
   }
 
   deleteAllLocalData(): void {
