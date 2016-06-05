@@ -9,6 +9,7 @@ import {UserRepository} from './shared/services/repository/userRepository.servic
 import {LoaderComponent} from './loader/loader.component';
 import {LoginEvent} from './shared/events/login.event';
 import {LoadEvent} from './shared/events/load.event';
+import { TransferComponent } from './+transfer';
 
 @Component({
   moduleId: module.id,
@@ -23,7 +24,8 @@ import {LoadEvent} from './shared/events/load.event';
   {path: '/login', component: LoginComponent},
   {path: '/transaction-list', component: TransactionListComponent},
   {path: '/transaction-new', component: TransactionComponent},
-  {path: '/transaction-edit/:id', component: TransactionComponent}
+  {path: '/transaction-edit/:id', component: TransactionComponent},
+  {path: '/transfer', component: TransferComponent}
 
 ])
 
