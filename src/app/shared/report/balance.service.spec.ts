@@ -2,7 +2,7 @@ import {beforeEach, describe, expect, it} from '@angular/core/testing';
 import {Transaction} from '../models/transaction.model';
 import {Balance} from './balance.service';
 
-describe('FinanceApi', () => {
+describe('Balance', () => {
     let transactions;
 
     beforeEach(() => {

@@ -10,6 +10,7 @@ import {LoaderComponent} from './loader/loader.component';
 import {LoginEvent} from './shared/events/login.event';
 import {LoadEvent} from './shared/events/load.event';
 import { TransferComponent } from './+transfer';
+import { BalanceComponent } from './+balance';
 
 @Component({
   moduleId: module.id,
@@ -25,7 +26,8 @@ import { TransferComponent } from './+transfer';
   {path: '/transaction-list', component: TransactionListComponent},
   {path: '/transaction-new', component: TransactionComponent},
   {path: '/transaction-edit/:id', component: TransactionComponent},
-  {path: '/transfer', component: TransferComponent}
+  {path: '/transfer', component: TransferComponent},
+  {path: '/balance', component: BalanceComponent}
 
 ])
 

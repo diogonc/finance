@@ -23,6 +23,7 @@ const barrels: string[] = [
   'app', 'app/shared', 'app/+login', 'app/+transaction-list', 'app/+transaction',
   'app/loader',
   'app/+transfer',
+  'app/+balance',
   /** @cli-barrel */
 ];
 
