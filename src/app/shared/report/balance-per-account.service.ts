@@ -24,7 +24,7 @@ export class BalancePerAccount {
             var transactions = this._transactionRepository.getFiltered('', account.uuid, firstDate, date, null);
             var balance = Balance.get(transactions);
 
-            if (balance !== 0) {
+            if (Math.round(balance) !== 0) {
                balances.push(new BalancePerAccountDto(account.name, balance));
                total += balance;
             }

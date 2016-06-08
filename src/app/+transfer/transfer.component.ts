@@ -64,6 +64,10 @@ export class TransferComponent implements OnInit {
     this.transferVm = new TransferVm();
   }
 
+  back() {
+    this._router.navigate(['/transaction-list']);
+  }
+
   save() {
     var fromAccount = this.accounts[this.transferVm.fromAccountIndex];
     var toAccount = this.accounts[this.transferVm.toAccountIndex];

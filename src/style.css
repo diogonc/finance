@@ -1,18 +1,44 @@
+tml, body, input, textarea, keygen, select, button {
+  font-family: 'Roboto', sans-serif;
+  color:#444;
+}
+
 body{
     margin: 0;
 }
+
+label{
+    margin-left: 5px;
+}
+
+h2{
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+form{
+    margin: 0 5px;
+}
+
 input,
 select,
 button {
     width: 98%;
     margin: 5px auto;
     display: inline-block;
-    border: 1px 1px;
-    height: 30px;
+    border: 1px solid;
+    border-color: #EEE;
+    background-color: #FFF;
+    color:#888;
+    height: 35px;
 }
 
-label {
-    padding-top: 10px;
+button, submit{
+    background-color: #2196F3;
+    color: #FFF;
+    height: 40px;
+    width: 100%;
+    cursor: pointer;
 }
 
 ul {
@@ -24,4 +50,16 @@ ul {
     padding: 5px;
     color: #FFF;
     font-weight: bold;
+}
+
+table{
+    width: 100%;
+}
+
+th{
+    text-align: left;
+}
+
+tr{
+    height: 35px;
 }

@@ -103,6 +103,10 @@ export class TransactionComponent implements OnInit {
       () => this.onDelete(this.transactionVm.uuid));
   };
 
+  back() {
+    this._router.navigate(['/transaction-list']);
+  }
+
   private createTransactionVm(transaction: Transaction):
     TransactionVm {
     var accountIndex = 0;
