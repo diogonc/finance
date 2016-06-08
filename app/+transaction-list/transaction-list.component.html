@@ -25,7 +25,7 @@
         <th>Descrição</th>
         <th>Data</th>
         <th>Valor</th>
-        <th>-</th>
+        <th></th>
     </tr>
     <tr *ngFor="let transaction of transactions">
         <td>{{transaction.categoryName}}</td>
@@ -34,7 +34,9 @@
         <td>{{transaction.date | date:'dd'}}/{{transaction.date | date:'MM'}}/{{transaction.date | date:'y'}}</td>
         <td>{{transaction.value | number:'1.2-2'}}</td>
         <td>
-            <a [routerLink]="['/transaction-edit/'+transaction.uuid]">editar</a>
+            <a [routerLink]="['/transaction-edit/'+transaction.uuid]">
+            <img src="edit.png" alt="Editar" height="20">
+            </a>
         </td>
     </tr>
     <tr>
