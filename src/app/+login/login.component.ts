@@ -2,14 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from '@angular/common';
 import {Router} from '@angular/router';
 import {Sha1} from '../shared/services/sha1/sha1.service';
-import {UserRepository} from '../shared/services/repository/userRepository.service';
-import {AccountRepository} from '../shared/services/repository/accountRepository.service';
-import {CategoryRepository} from '../shared/services/repository/categoryRepository.service';
-import {TransactionRepository} from '../shared/services/repository/transactionRepository.service';
+import {UserRepository} from '../shared/services/repository/user-repository.service';
 import {FinanceApi} from '../shared/services/api/finance-api.service';
 import {Sync} from '../shared/services/sync/sync.service';
 import {User} from '../shared/models/user.model';
-import {MyDate} from '../shared/util/my-date';
 import {LoadEvent} from '../shared/events/load.event';
 import {LoginEvent} from '../shared/events/login.event';
 
@@ -19,10 +15,7 @@ import {LoginEvent} from '../shared/events/login.event';
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.css'],
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
-  providers: [
-    Sha1, UserRepository, Sync, FinanceApi, AccountRepository, CategoryRepository,
-    TransactionRepository, MyDate
-  ]
+  providers: [Sha1, Sync, FinanceApi]
 })
 export class LoginComponent implements OnInit {
   public username: string;

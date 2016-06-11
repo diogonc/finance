@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
-import {AccountRepository} from '../shared/services/repository/accountRepository.service';
-import {CategoryRepository} from '../shared/services/repository/categoryRepository.service';
-import {TransactionRepository} from '../shared/services/repository/transactionRepository.service';
 import {Balance} from '../shared/report/balance.service';
 import {BalancePerAccount, BalancePerAccountReportDto} from '../shared/report/balance-per-account.service';
 import {MyDate} from '../shared/util/my-date';
@@ -13,7 +10,7 @@ import {MyDate} from '../shared/util/my-date';
   templateUrl: 'balance.component.html',
   styleUrls: ['balance.component.css'],
   directives: [CORE_DIRECTIVES],
-  providers: [AccountRepository, CategoryRepository, TransactionRepository, MyDate, BalancePerAccount, Balance]
+  providers: [BalancePerAccount, Balance]
 })
 export class BalanceComponent implements OnInit {
   public date: string;

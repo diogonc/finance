@@ -2,8 +2,8 @@ import {beforeEach, describe, expect, it} from '@angular/core/testing';
 import {Account} from '../models/account.model';
 import {Transaction} from '../models/transaction.model';
 import {BalancePerAccount} from './balance-per-account.service';
-import {TransactionRepository} from '../services/repository/transactionRepository.service';
-import {AccountRepository} from '../services/repository/accountRepository.service';
+import {TransactionRepository} from '../services/repository/transaction-repository.service';
+import {AccountRepository} from '../services/repository/account-repository.service';
 
 describe('BalancePerAccount', () => {
     let balancePerAccount;

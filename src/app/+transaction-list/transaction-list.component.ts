@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {AccountRepository} from '../shared/services/repository/accountRepository.service';
-import {CategoryRepository} from '../shared/services/repository/categoryRepository.service';
-import {TransactionRepository} from '../shared/services/repository/transactionRepository.service';
+import {AccountRepository} from '../shared/services/repository/account-repository.service';
+import {CategoryRepository} from '../shared/services/repository/category-repository.service';
+import {TransactionRepository} from '../shared/services/repository/transaction-repository.service';
 import {Balance} from '../shared/report/balance.service';
 import {MyDate} from '../shared/util/my-date';
 import {Account} from '../shared/models/account.model';
@@ -16,7 +16,7 @@ import {Transaction} from '../shared/models/transaction.model';
   templateUrl: 'transaction-list.component.html',
   styleUrls: ['transaction-list.component.css'],
   directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES],
-  providers: [AccountRepository, CategoryRepository, TransactionRepository, MyDate, Balance]
+  providers: [Balance]
 })
 export class TransactionListComponent implements OnInit {
   public account: string;

@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it} from '@angular/core/testing';
 import {User} from '../../models/user.model';
-import {UserRepository} from './userRepository.service';
+import {UserRepository} from './user-repository.service';
 
 describe('User repository', () => {
   let repository;

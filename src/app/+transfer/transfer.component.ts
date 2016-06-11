@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {RouteSegment, Router} from '@angular/router';
-import {AccountRepository} from '../shared/services/repository/accountRepository.service';
-import {CategoryRepository} from '../shared/services/repository/categoryRepository.service';
-import {TransactionRepository} from '../shared/services/repository/transactionRepository.service';
-import {UserRepository} from '../shared/services/repository/userRepository.service';
+import {AccountRepository} from '../shared/services/repository/account-repository.service';
+import {CategoryRepository} from '../shared/services/repository/category-repository.service';
+import {TransactionRepository} from '../shared/services/repository/transaction-repository.service';
+import {UserRepository} from '../shared/services/repository/user-repository.service';
 import {MyDate} from '../shared/util/my-date';
 import {FinanceApi} from '../shared/services/api/finance-api.service';
 import {Account} from '../shared/models/account.model';
@@ -19,10 +19,7 @@ import {LoadEvent} from '../shared/events/load.event';
   templateUrl: 'transfer.component.html',
   styleUrls: ['transfer.component.css'],
   directives: [CORE_DIRECTIVES],
-  providers: [
-    AccountRepository, CategoryRepository, TransactionRepository, UserRepository, MyDate,
-    FinanceApi
-  ]
+  providers: [FinanceApi]
 })
 export class TransferComponent implements OnInit {
   public accounts: Array<Account>;

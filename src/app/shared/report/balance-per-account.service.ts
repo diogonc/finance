@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {TransactionRepository} from '../services/repository/transactionRepository.service';
-import {AccountRepository} from '../services/repository/accountRepository.service';
+import {TransactionRepository} from '../services/repository/transaction-repository.service';
+import {AccountRepository} from '../services/repository/account-repository.service';
 import {Balance} from './balance.service';
 
 @Injectable()

@@ -1,5 +1,5 @@
 import {beforeEach, describe, expect, it} from '@angular/core/testing';
-import {TransactionRepository} from './transactionRepository.service';
+import {TransactionRepository} from './transaction-repository.service';
 
 describe('Repository', () => {
   let repository;
