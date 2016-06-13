@@ -20,7 +20,7 @@ import {LoadEvent} from '../shared/events/load.event';
   templateUrl: 'transaction.component.html',
   styleUrls: ['transaction.component.css'],
   directives: [CORE_DIRECTIVES],
-  providers: [ FinanceApi ]
+  providers: [FinanceApi]
 })
 export class TransactionComponent implements OnInit {
   public accounts: Array<Account>;
@@ -28,46 +28,49 @@ export class TransactionComponent implements OnInit {
   public transactions: Array<Transaction>;
   public transactionVm: TransactionVm;
   public errors: Array<string>;
+  public isNew: boolean;
 
-  private _user: User;
-  private _accountRepository: AccountRepository;
-  private _categoryRepository: CategoryRepository;
-  private _transactionRepository: TransactionRepository;
-  private _userRepository: UserRepository;
-  private _api: FinanceApi;
-  private _params: RouteSegment;
-  private _router: Router;
-  private _loadEvent: LoadEvent;
+  private user: User;
+  private accountRepository: AccountRepository;
+  private categoryRepository: CategoryRepository;
+  private transactionRepository: TransactionRepository;
+  private userRepository: UserRepository;
+  private api: FinanceApi;
+  private params: RouteSegment;
+  private router: Router;
+  private loadEvent: LoadEvent;
 
   constructor(
     accountRepository: AccountRepository, categoryRepository: CategoryRepository,
     transactionRepository: TransactionRepository, userRepository: UserRepository,
     api: FinanceApi, params: RouteSegment, router: Router, loadEvent: LoadEvent) {
-    this._accountRepository = accountRepository;
-    this._categoryRepository = categoryRepository;
-    this._transactionRepository = transactionRepository;
-    this._userRepository = userRepository;
-    this._api = api;
-    this._params = params;
-    this._router = router;
-    this._loadEvent = loadEvent;
+    this.accountRepository = accountRepository;
+    this.categoryRepository = categoryRepository;
+    this.transactionRepository = transactionRepository;
+    this.userRepository = userRepository;
+    this.api = api;
+    this.params = params;
+    this.router = router;
+    this.loadEvent = loadEvent;
   }
 
   ngOnInit() {
     this.errors = [];
-    this.accounts = this._accountRepository.getAll();
-    this.categories = this._categoryRepository.getAll();
-    this._user = this._userRepository.getUser();
+    this.accounts = this.accountRepository.getAll();
+    this.categories = this.categoryRepository.getAll();
+    this.user = this.userRepository.getUser();
 
-    var uuid = this._params.getParam('id');
+    var uuid = this.params.getParam('id');
     if (typeof (uuid) !== 'undefined') {
-      var transaction = this._transactionRepository.get(uuid);
+      var transaction = this.transactionRepository.get(uuid);
       this.transactionVm = this.createTransactionVm(transaction);
+      this.isNew = false;
       return;
     }
     this.transactionVm = new TransactionVm(null, 0, '',
       MyDate.convertToUsString(new Date()),
-      this._user.property, 0, 0);
+      this.user.property, 0, 0);
+    this.isNew = true;
   }
 
   save(showList: boolean) {
@@ -75,7 +78,7 @@ export class TransactionComponent implements OnInit {
     var category = this.categories[this.transactionVm.categoryIndex];
 
     var t = this.transactionVm;
-    var transaction = new Transaction(t.uuid, this._user.property, t.value, t.description,
+    var transaction = new Transaction(t.uuid, this.user.property, t.value, t.description,
       t.date, account.uuid, account.name,
       category.uuid, category.name, category.type);
 
@@ -84,24 +87,28 @@ export class TransactionComponent implements OnInit {
       return;
     }
 
-    this._loadEvent.announceLoadStart('start');
+    this.loadEvent.announceLoadStart('start');
     if (t.uuid === null) {
-      this._api.saveTransaction(transaction, this._user,
+      this.api.saveTransaction(transaction, this.user,
         () => this.onSave(transaction, showList));
     } else {
-      this._api.updateTransaction(transaction, this._user,
+      this.api.updateTransaction(transaction, this.user,
         () => this.onSave(transaction, showList));
     }
   };
 
   delete() {
-    this._loadEvent.announceLoadStart('start');
-    this._api.deleteTransaction(this.transactionVm.uuid, this._user,
+    if (this.transactionVm.uuid === null) {
+      return;
+    }
+
+    this.loadEvent.announceLoadStart('start');
+    this.api.deleteTransaction(this.transactionVm.uuid, this.user,
       () => this.onDelete(this.transactionVm.uuid));
   };
 
   back() {
-    this._router.navigate(['/transaction-list']);
+    this.router.navigate(['/transaction-list']);
   }
 
   private createTransactionVm(transaction: Transaction):
@@ -122,15 +129,24 @@ export class TransactionComponent implements OnInit {
   };
 
   private onSave(transaction: Transaction, showList: boolean) {
-    this._transactionRepository.save(transaction);
-    this._router.navigate((showList) ? ['/transaction-list'] : ['/transaction-new']);
-    this._loadEvent.announceLoadEnd('finish');
+    this.transactionRepository.save(transaction);
+
+    if (showList) {
+      this.router.navigate(['/transaction-list']);
+    } else {
+      this.transactionVm = new TransactionVm(null, 0, '',
+        MyDate.convertToUsString(new Date()),
+        this.user.property, 0, 0);
+    }
+
+    this.loadEvent.announceLoadEnd('finish');
+
   };
 
   private onDelete(transactionUuid: string) {
-    this._transactionRepository.delete(transactionUuid);
-    this._router.navigate(['/transaction-list']);
-    this._loadEvent.announceLoadEnd('finish');
+    this.transactionRepository.delete(transactionUuid);
+    this.router.navigate(['/transaction-list']);
+    this.loadEvent.announceLoadEnd('finish');
   };
 }
 
@@ -152,9 +168,5 @@ class TransactionVm {
     this.propertyUuid = propertyUuid;
     this.accountIndex = accounIndex;
     this.categoryIndex = categoryIndex;
-  }
-
-  isNew(): boolean {
-    return this.uuid === null || this.uuid === '' || typeof (this.uuid) === 'undefined';
   }
 }

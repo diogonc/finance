@@ -31,14 +31,14 @@ export class LoginApp {
   }
 
   login(username: string, password: string,
-        onSucces: (user: User) => void,
+        onSuccess: (user: User) => void,
         onError: (error) => void):
         void {
     var hashedPassword = this.sha1.hash(password);
     var user = new User(username, hashedPassword);
     this.loadEvent.announceLoadStart('start');
     this.sync.getAllDataFromServer(user,
-       () => this.afterLogin(user, onSucces),
+       () => this.afterLogin(user, onSuccess),
        () => this.afterErrorOnLogin(onError));
   }
 
