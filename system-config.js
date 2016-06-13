@@ -20,6 +20,7 @@ var barrels = [
     'app/loader',
     'app/+transfer',
     'app/+balance',
+    'app/shared/application/login',
 ];
 var cliSystemConfigPackages = {};
 barrels.forEach(function (barrelName) { cliSystemConfigPackages[barrelName] = { main: 'index' }; });
