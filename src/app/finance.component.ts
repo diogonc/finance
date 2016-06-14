@@ -41,20 +41,20 @@ export class FinanceAppComponent implements OnInit {
   isLogged: boolean;
   title: 'Financeiro';
 
-  private _router: Router;
-  private _userRepository: UserRepository;
+  private router: Router;
+  private userRepository: UserRepository;
 
   constructor(repository: UserRepository, loginEvent: LoginEvent, router: Router) {
-    this._userRepository = repository;
-    this._router = router;
+    this.userRepository = repository;
+    this.router = router;
 
     loginEvent.logginAnnouced$.subscribe(
       user => {
-        this.isLogged = this._userRepository.isLogged();
+        this.isLogged = this.userRepository.isLogged();
       });
   }
 
   ngOnInit() {
-    this.isLogged = this._userRepository.isLogged();
+    this.isLogged = this.userRepository.isLogged();
   }
 }

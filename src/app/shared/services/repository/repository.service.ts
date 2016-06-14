@@ -1,9 +1,9 @@
 import {MyArray} from '../../util/my-array'
 
 export class Repository {
-  private _key: string;
+  private key: string;
 
-  constructor(key: string) { this._key = key; }
+  constructor(key: string) { this.key = key; }
 
   save(object): void {
     var dataObject = this.makeACopy(object);
@@ -45,12 +45,12 @@ export class Repository {
   protected makeACopy(object): any { return JSON.parse(JSON.stringify(object)); }
 
   protected getData(): any {
-    var data = JSON.parse(localStorage.getItem(this._key));
+    var data = JSON.parse(localStorage.getItem(this.key));
     return (data !== null) ? data : [];
   }
 
   protected setData(data: any): void {
     var jsonData = typeof(data) === 'string' ? JSON.parse(data) : data;
-    localStorage.setItem(this._key, JSON.stringify(jsonData));
+    localStorage.setItem(this.key, JSON.stringify(jsonData));
   }
 }

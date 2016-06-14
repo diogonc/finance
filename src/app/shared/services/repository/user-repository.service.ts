@@ -3,15 +3,15 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class UserRepository {
-  private _key: string;
+  private key: string;
 
-  constructor() { this._key = 'user'; }
+  constructor() { this.key = 'user'; }
 
-  saveUser(user: User) { localStorage.setItem(this._key, JSON.stringify(user)); }
+  saveUser(user: User) { localStorage.setItem(this.key, JSON.stringify(user)); }
 
-  deleteUser() { localStorage.removeItem(this._key); }
+  deleteUser() { localStorage.removeItem(this.key); }
 
-  getUser(): User { return JSON.parse(localStorage.getItem(this._key)); }
+  getUser(): User { return JSON.parse(localStorage.getItem(this.key)); }
 
   isLogged(): boolean {
     var user = this.getUser();

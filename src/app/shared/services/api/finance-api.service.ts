@@ -6,10 +6,10 @@ import {Http, Headers} from '@angular/http';
 @Injectable()
 export class FinanceApi {
     private DEFAULT_URL: string = 'http://financeserver-diogonc.rhcloud.com';
-    private _http: Http;
+    private http: Http;
 
     constructor(http: Http) {
-        this._http = http;
+        this.http = http;
     }
 
     getAccounts(user: User, success: (data: any) => any): void {
@@ -45,7 +45,7 @@ export class FinanceApi {
     }
 
     private get(action: string, user: User, success: (data: any) => any, error: (data: any) => any): boolean {
-        this._http
+        this.http
             .get(
             this.DEFAULT_URL + '/' + action + '?where={"propertyUuid":"' + user.property + '"}',
             { headers: this.createHeader(user) })
@@ -57,7 +57,7 @@ export class FinanceApi {
 
     private post(action: string, data: any, user: User, success: (response: any) => any): void {
         this.startRequest();
-        this._http
+        this.http
             .post(
             this.DEFAULT_URL + '/' + action, JSON.stringify(data),
             { headers: this.createHeader(user) })
@@ -69,7 +69,7 @@ export class FinanceApi {
 
     private put(action: string, data: any, user: User, success: (response: any) => any): void {
         this.startRequest();
-        this._http
+        this.http
             .put(
             this.DEFAULT_URL + '/' + action + '/' + data.uuid,
             JSON.stringify(data),
@@ -82,7 +82,7 @@ export class FinanceApi {
 
     delete(action: string, uuid: string, user: User, success: (response: any) => any): void {
         this.startRequest();
-        this._http
+        this.http
             .delete(
             this.DEFAULT_URL + '/' + action + '/' + uuid,
             { headers: this.createHeader(user) })

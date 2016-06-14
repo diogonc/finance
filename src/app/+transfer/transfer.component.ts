@@ -28,55 +28,55 @@ export class TransferComponent implements OnInit {
   public transferVm: TransferVm;
   public errors: Array<string>;
 
-  private _user: User;
-  private _accountRepository: AccountRepository;
-  private _categoryRepository: CategoryRepository;
-  private _transactionRepository: TransactionRepository;
-  private _userRepository: UserRepository;
-  private _api: FinanceApi;
-  private _params: RouteSegment;
-  private _router: Router;
-  private _loadEvent: LoadEvent;
+  private user: User;
+  private accountRepository: AccountRepository;
+  private categoryRepository: CategoryRepository;
+  private transactionRepository: TransactionRepository;
+  private userRepository: UserRepository;
+  private api: FinanceApi;
+  private params: RouteSegment;
+  private router: Router;
+  private loadEvent: LoadEvent;
 
   constructor(
     accountRepository: AccountRepository, categoryRepository: CategoryRepository,
     transactionRepository: TransactionRepository, userRepository: UserRepository,
     api: FinanceApi, params: RouteSegment, router: Router, loadEvent: LoadEvent) {
-    this._accountRepository = accountRepository;
-    this._categoryRepository = categoryRepository;
-    this._transactionRepository = transactionRepository;
-    this._userRepository = userRepository;
-    this._api = api;
-    this._params = params;
-    this._router = router;
-    this._loadEvent = loadEvent;
+    this.accountRepository = accountRepository;
+    this.categoryRepository = categoryRepository;
+    this.transactionRepository = transactionRepository;
+    this.userRepository = userRepository;
+    this.api = api;
+    this.params = params;
+    this.router = router;
+    this.loadEvent = loadEvent;
   }
 
   ngOnInit() {
     this.errors = [];
-    this.accounts = this._accountRepository.getAll();
-    this.categories = this._categoryRepository.getAll();
-    this._user = this._userRepository.getUser();
+    this.accounts = this.accountRepository.getAll();
+    this.categories = this.categoryRepository.getAll();
+    this.user = this.userRepository.getUser();
 
     this.transferVm = new TransferVm();
   }
 
   back() {
-    this._router.navigate(['/transaction-list']);
+    this.router.navigate(['/transaction-list']);
   }
 
   save() {
     var fromAccount = this.accounts[this.transferVm.fromAccountIndex];
     var toAccount = this.accounts[this.transferVm.toAccountIndex];
-    var creditCategory = this._categoryRepository.getCreditTransfer();
-    var debitCategory = this._categoryRepository.getDebitTransfer();
+    var creditCategory = this.categoryRepository.getCreditTransfer();
+    var debitCategory = this.categoryRepository.getDebitTransfer();
 
     var t = this.transferVm;
-    var fromTransaction = new Transaction(null, this._user.property, t.value, t.description,
+    var fromTransaction = new Transaction(null, this.user.property, t.value, t.description,
       t.date, fromAccount.uuid, fromAccount.name,
       debitCategory.uuid, debitCategory.name, debitCategory.type);
 
-    var toTransaction = new Transaction(null, this._user.property, t.value, t.description,
+    var toTransaction = new Transaction(null, this.user.property, t.value, t.description,
       t.date, toAccount.uuid, toAccount.name,
       creditCategory.uuid, creditCategory.name, creditCategory.type);
 
@@ -85,19 +85,19 @@ export class TransferComponent implements OnInit {
       return;
     }
 
-    this._loadEvent.announceLoadStart('start');
+    this.loadEvent.announceLoadStart('start');
 
-    this._api.saveTransaction(fromTransaction, this._user,
+    this.api.saveTransaction(fromTransaction, this.user,
       () => this.onSave(fromTransaction, false));
-    this._api.saveTransaction(toTransaction, this._user,
+    this.api.saveTransaction(toTransaction, this.user,
       () => this.onSave(toTransaction, true));
   };
 
   private onSave(transaction: Transaction, finish: boolean) {
-    this._transactionRepository.save(transaction);
+    this.transactionRepository.save(transaction);
     if (finish) {
-      this._router.navigate(['/transaction-list']);
-      this._loadEvent.announceLoadEnd('finish');
+      this.router.navigate(['/transaction-list']);
+      this.loadEvent.announceLoadEnd('finish');
     }
   };
 }

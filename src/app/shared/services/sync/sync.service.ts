@@ -8,36 +8,36 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class Sync {
-  private _accountRepository: AccountRepository;
-  private _categoryRepository: CategoryRepository;
-  private _transactionRepository: TransactionRepository;
-  private _api: FinanceApi;
+  private accountRepository: AccountRepository;
+  private categoryRepository: CategoryRepository;
+  private transactionRepository: TransactionRepository;
+  private api: FinanceApi;
 
   constructor(
       financeApi: FinanceApi, accountRepository: AccountRepository,
       categoryRepository: CategoryRepository, transactionRepository: TransactionRepository) {
-    this._api = financeApi;
-    this._accountRepository = accountRepository;
-    this._categoryRepository = categoryRepository;
-    this._transactionRepository = transactionRepository;
+    this.api = financeApi;
+    this.accountRepository = accountRepository;
+    this.categoryRepository = categoryRepository;
+    this.transactionRepository = transactionRepository;
   }
 
   getAllDataFromServer(user: User, callback: () => any, error: () => any): void {
-    this._api.getAccounts(user, (accounts) => this._accountRepository.saveAll(accounts._body));
-    this._api.getCategories(
-        user, (categories) => this._categoryRepository.saveAll(categories._body));
-    this._api.getTransactions(
+    this.api.getAccounts(user, (accounts) => this.accountRepository.saveAll(accounts._body));
+    this.api.getCategories(
+        user, (categories) => this.categoryRepository.saveAll(categories._body));
+    this.api.getTransactions(
         user, (transactions) =>
                   this.convertTransactionFromServer(transactions._body, (transactionsConverted) => {
-                    this._transactionRepository.saveAll(transactionsConverted);
+                    this.transactionRepository.saveAll(transactionsConverted);
                     callback();
                   }), error);
   }
 
   deleteAllLocalData(): void {
-    this._accountRepository.deleteAll();
-    this._categoryRepository.deleteAll();
-    this._transactionRepository.deleteAll();
+    this.accountRepository.deleteAll();
+    this.categoryRepository.deleteAll();
+    this.transactionRepository.deleteAll();
   }
 
   private convertTransactionFromServer(

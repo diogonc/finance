@@ -11,21 +11,21 @@ import {LoadEvent} from '../shared/events/load.event';
 })
 export class LoaderComponent implements OnInit {
   public isLoading: boolean;
-  private _loadEvent: LoadEvent;
+  private loadEvent: LoadEvent;
 
   constructor(loadEvent: LoadEvent) {
-    this._loadEvent = loadEvent;
+    this.loadEvent = loadEvent;
   }
 
   ngOnInit() {
     this.isLoading = false;
 
-    this._loadEvent.loadStartAnnouced$.subscribe(
+    this.loadEvent.loadStartAnnouced$.subscribe(
       load => {
         this.isLoading = true;
       });
 
-    this._loadEvent.loadEndAnnouced$.subscribe(
+    this.loadEvent.loadEndAnnouced$.subscribe(
       load => {
         this.isLoading = false;
       });

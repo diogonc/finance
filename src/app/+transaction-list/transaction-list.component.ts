@@ -29,16 +29,16 @@ export class TransactionListComponent implements OnInit {
   public categories: Array<Category>;
   public transactions: Array<Transaction>;
 
-  private _accountRepository: AccountRepository;
-  private _categoryRepository: CategoryRepository;
-  private _transactionRepository: TransactionRepository;
+  private accountRepository: AccountRepository;
+  private categoryRepository: CategoryRepository;
+  private transactionRepository: TransactionRepository;
 
   constructor(
     transactionRepository: TransactionRepository, dateService: MyDate,
     accountRepository: AccountRepository, categoryRepository: CategoryRepository) {
-    this._accountRepository = accountRepository;
-    this._categoryRepository = categoryRepository;
-    this._transactionRepository = transactionRepository;
+    this.accountRepository = accountRepository;
+    this.categoryRepository = categoryRepository;
+    this.transactionRepository = transactionRepository;
   }
 
   ngOnInit() {
@@ -52,9 +52,9 @@ export class TransactionListComponent implements OnInit {
     this.order = 'date';
     this.balance = 0;
 
-    this.accounts = this._accountRepository.getAll();
-    this.categories = this._categoryRepository.getAll();
-    this.transactions = this._transactionRepository.getFiltered('', '', firstDayOfMonth, lastDayOfMonth, this.order);
+    this.accounts = this.accountRepository.getAll();
+    this.categories = this.categoryRepository.getAll();
+    this.transactions = this.transactionRepository.getFiltered('', '', firstDayOfMonth, lastDayOfMonth, this.order);
     this.balance = Balance.get(this.transactions);
   }
 
@@ -62,7 +62,7 @@ export class TransactionListComponent implements OnInit {
     var initialDate = MyDate.convertToDateFromString(this.initialDate);
     var finalDate = MyDate.convertToDateFromString(this.finalDate);
 
-    this.transactions = this._transactionRepository.getFiltered(
+    this.transactions = this.transactionRepository.getFiltered(
       this.category, this.account, initialDate, finalDate, this.order);
     this.balance = Balance.get(this.transactions);
   }
