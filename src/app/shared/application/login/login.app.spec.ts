@@ -1,4 +1,4 @@
-import {describe, expect, it} from '@angular/core/testing';
+import {beforeEach, describe, expect, it} from '@angular/core/testing';
 import {LoginApp} from './login.app';
 
 describe('LoginApp', () => {
@@ -49,5 +49,5 @@ class LoginEvent {
   announceLogin(user: any): void { this.announceLoginCalled = true; }
 }
 
-class LoadEvent {}
+class LoadEvent { }
 

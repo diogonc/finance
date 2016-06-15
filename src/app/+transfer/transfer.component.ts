@@ -1,17 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
-import {RouteSegment, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {AccountRepository} from '../shared/services/repository/account-repository.service';
 import {CategoryRepository} from '../shared/services/repository/category-repository.service';
-import {TransactionRepository} from '../shared/services/repository/transaction-repository.service';
-import {UserRepository} from '../shared/services/repository/user-repository.service';
-import {MyDate} from '../shared/util/my-date';
 import {FinanceApi} from '../shared/services/api/finance-api.service';
 import {Account} from '../shared/models/account.model';
 import {Category} from '../shared/models/category.model';
-import {Transaction} from '../shared/models/transaction.model';
-import {User} from '../shared/models/user.model';
-import {LoadEvent} from '../shared/events/load.event';
+import {TransferApp} from '../shared/application/transfer/transfer.app';
+import {TransferVm} from '../shared/application/transfer/transfer-vm';
 
 @Component({
   moduleId: module.id,
@@ -19,45 +15,33 @@ import {LoadEvent} from '../shared/events/load.event';
   templateUrl: 'transfer.component.html',
   styleUrls: ['transfer.component.css'],
   directives: [CORE_DIRECTIVES],
-  providers: [FinanceApi]
+  providers: [FinanceApi, TransferApp]
 })
 export class TransferComponent implements OnInit {
   public accounts: Array<Account>;
   public categories: Array<Category>;
-  public transactions: Array<Transaction>;
   public transferVm: TransferVm;
   public errors: Array<string>;
 
-  private user: User;
   private accountRepository: AccountRepository;
   private categoryRepository: CategoryRepository;
-  private transactionRepository: TransactionRepository;
-  private userRepository: UserRepository;
-  private api: FinanceApi;
-  private params: RouteSegment;
   private router: Router;
-  private loadEvent: LoadEvent;
+
+  private transferApp: TransferApp;
 
   constructor(
     accountRepository: AccountRepository, categoryRepository: CategoryRepository,
-    transactionRepository: TransactionRepository, userRepository: UserRepository,
-    api: FinanceApi, params: RouteSegment, router: Router, loadEvent: LoadEvent) {
+    router: Router, transferApp: TransferApp) {
     this.accountRepository = accountRepository;
     this.categoryRepository = categoryRepository;
-    this.transactionRepository = transactionRepository;
-    this.userRepository = userRepository;
-    this.api = api;
-    this.params = params;
     this.router = router;
-    this.loadEvent = loadEvent;
+    this.transferApp = transferApp;
   }
 
   ngOnInit() {
     this.errors = [];
     this.accounts = this.accountRepository.getAll();
     this.categories = this.categoryRepository.getAll();
-    this.user = this.userRepository.getUser();
-
     this.transferVm = new TransferVm();
   }
 
@@ -71,51 +55,15 @@ export class TransferComponent implements OnInit {
     var creditCategory = this.categoryRepository.getCreditTransfer();
     var debitCategory = this.categoryRepository.getDebitTransfer();
 
-    var t = this.transferVm;
-    var fromTransaction = new Transaction(null, this.user.property, t.value, t.description,
-      t.date, fromAccount.uuid, fromAccount.name,
-      debitCategory.uuid, debitCategory.name, debitCategory.type);
-
-    var toTransaction = new Transaction(null, this.user.property, t.value, t.description,
-      t.date, toAccount.uuid, toAccount.name,
-      creditCategory.uuid, creditCategory.name, creditCategory.type);
-
-    if (!fromTransaction.isValid()) {
-      this.errors = fromTransaction.errors;
-      return;
-    }
-
-    this.loadEvent.announceLoadStart('start');
-
-    this.api.saveTransaction(fromTransaction, this.user,
-      () => this.onSave(fromTransaction, false));
-    this.api.saveTransaction(toTransaction, this.user,
-      () => this.onSave(toTransaction, true));
+    this.transferApp.save(this.transferVm, fromAccount, toAccount, creditCategory, debitCategory,
+      this.onSuccess.bind(this), this.onError.bind(this));
   };
 
-  private onSave(transaction: Transaction, finish: boolean) {
-    this.transactionRepository.save(transaction);
-    if (finish) {
-      this.router.navigate(['/transaction-list']);
-      this.loadEvent.announceLoadEnd('finish');
-    }
-  };
-}
+  private onError(errors: Array<string>): void {
+    this.errors = errors;
+  }
 
-class TransferVm {
-  value: number;
-  description: string;
-  date: string;
-  propertyUuid: string;
-  fromAccountIndex: number;
-  toAccountIndex: number;
-
-  constructor() {
-    this.value = 0;
-    this.description = '';
-    this.date = MyDate.convertToUsString(new Date());
-    this.propertyUuid = '0';
-    this.fromAccountIndex = 0;
-    this.toAccountIndex = 0;
+  private onSuccess(): void {
+    this.back();
   }
 }
