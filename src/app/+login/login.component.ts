@@ -6,6 +6,7 @@ import {FinanceApi} from '../shared/services/api/finance-api.service';
 import {Sync} from '../shared/services/sync/sync.service';
 import {User} from '../shared/models/user.model';
 import {LoginApp}from '../shared/application/login/login.app';
+import {UserRepository} from '../shared/services/repository/user-repository.service';
 
 @Component({
   moduleId: module.id,
@@ -21,15 +22,18 @@ export class LoginComponent implements OnInit {
   public errors: Array<string>;
   private loginApp: LoginApp;
   private router: Router;
+  private userRepository: UserRepository;
 
-  constructor(loginApp: LoginApp, router: Router) {
+  constructor(loginApp: LoginApp, router: Router, userRepository: UserRepository) {
     this.loginApp = loginApp;
     this.router = router;
+    this.userRepository = userRepository;
   }
 
   ngOnInit() {
-    this.loginApp.onInit();
-    this.errors = [];
+    if (this.userRepository.isLogged()) {
+      this.router.navigate(['/transaction-new']);
+    }
   }
 
   login(username: string, password: string): void {

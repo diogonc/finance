@@ -16,6 +16,7 @@ import {CategoryRepository} from './shared/services/repository/category-reposito
 import {TransactionRepository} from './shared/services/repository/transaction-repository.service';
 import {MyDate} from './shared/util/my-date';
 import {MyArray} from './shared/util/my-array';
+import { LogoutComponent } from './+logout';
 
 @Component({
   moduleId: module.id,
@@ -33,7 +34,8 @@ import {MyArray} from './shared/util/my-array';
   { path: '/transaction-new', component: TransactionComponent },
   { path: '/transaction-edit/:id', component: TransactionComponent },
   { path: '/transfer', component: TransferComponent },
-  { path: '/balance', component: BalanceComponent }
+  { path: '/balance', component: BalanceComponent },
+  { path: '/logout', component: LogoutComponent}
 
 ])
 

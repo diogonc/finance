@@ -24,7 +24,7 @@ export class LoginApp {
     this.loginEvent = loginEvent;
   }
 
-  onInit(): void {
+  logout(): void {
     this.userRepository.deleteUser();
     this.sync.deleteAllLocalData();
     this.loginEvent.announceLogin('');

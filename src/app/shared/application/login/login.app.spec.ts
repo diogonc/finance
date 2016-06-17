@@ -19,8 +19,8 @@ describe('LoginApp', () => {
     loginApp = new LoginApp(userRepository, sync, sha1, loginEvent, loadEvent);
   });
 
-  it('should reset data on init', () => {
-    loginApp.onInit();
+  it('should reset data on logout', () => {
+    loginApp.logout();
 
     expect(userRepository.deleteUserCalled).toEqual(true);
     expect(sync.deleteAllLocalDataCalled).toEqual(true);
