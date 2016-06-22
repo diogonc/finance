@@ -1,23 +1,23 @@
 import {Injectable} from '@angular/core';
 import {TransactionRepository} from '../services/repository/transaction-repository.service';
-import {AccountRepository} from '../services/repository/account-repository.service';
+import {CategoryRepository} from '../services/repository/category-repository.service';
 import {Balance} from './balance.service';
 
 @Injectable()
-export class BalancePerAccount {
+export class BalancePerCategory {
     private transactionRepository;
-    private accountRepository;
+    private categoryRepository;
 
-    constructor(transactionRepository: TransactionRepository, accountRepository: AccountRepository) {
+    constructor(transactionRepository: TransactionRepository, categoryRepository: CategoryRepository) {
         this.transactionRepository = transactionRepository;
-        this.accountRepository = accountRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     get(date: Date): BalancePerAccountReportDto {
         var total = 0;
         var firstDate = new Date(2000, 0, 1);
         var balances = [];
-        var accounts = this.accountRepository.getAll();
+        var accounts = this.categoryRepository.getAll();
         var totalAccounts = accounts.length;
         for (var index = 0; index < totalAccounts; index++) {
             var account = accounts[index];
