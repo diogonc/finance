@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class MyDate {
-  static convertToDateFromString(dateFromServer: string): Date {
+  public static convertToDateFromString(dateFromServer: string): Date {
     if (dateFromServer === null) {
       return null;
     }
@@ -13,11 +13,15 @@ export class MyDate {
     return new Date(year, month, day);
   }
 
-  static convertToUsString(date: Date): string {
+  public static convertToUsString(date: Date): string {
     var year = String(date.getFullYear());
     var month = this.pad((date.getMonth() + 1), 2);
     var day = this.pad(date.getDate(), 2);
     return year + '-' + month + '-' + day;
+  }
+
+  public static firstDayOfMonth(date: Date): Date {
+    return new Date(date.getFullYear(), date.getMonth(), 1);
   }
 
   private static pad(num: number, size: number): string {
