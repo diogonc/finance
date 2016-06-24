@@ -13,7 +13,7 @@ export class BalancePerAccount {
         this.accountRepository = accountRepository;
     }
 
-    get(date: Date): BalancePerAccountReportDto {
+    get(date: Date): BalancePerAccountReport {
         var total = 0;
         var firstDate = new Date(2000, 0, 1);
         var balances = [];
@@ -29,11 +29,11 @@ export class BalancePerAccount {
                total += balance;
             }
         }
-        return new BalancePerAccountReportDto(balances, total);
+        return new BalancePerAccountReport(balances, total);
     }
 }
 
-export class BalancePerAccountReportDto {
+export class BalancePerAccountReport {
     public balances: Array<BalancePerAccountDto>;
     public total: number;
 

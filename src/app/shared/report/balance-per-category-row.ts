@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Transaction} from '../models/transaction.model';
 import {MyArray} from '../util/my-array';
+import {MyDate} from '../util/my-date';
 import {BalancePerCategoryCell} from './balance-per-category-cell';
 
 @Injectable()
@@ -23,19 +23,13 @@ export class BalancePerCategoryRow {
         this.total += value;
     }
 
-    private getDateCell(date: Date):
-        BalancePerCategoryCell {
-        var index = MyArray.findIndex(date, this.balances);
+    private getDateCell(date: Date): BalancePerCategoryCell {
+        var index = MyArray.findIndex(MyDate.convertToUsString(date), this.balances);
         if (index === -1) {
             var cell = new BalancePerCategoryCell(date);
-            this.addCell(cell);
+            this.balances.push(cell);
             return cell;
         }
         return this.balances[index];
-    }
-
-    private addCell(balancePerCategoryCell: BalancePerCategoryCell): void {
-        this.balances.push(balancePerCategoryCell);
-        this.total += balancePerCategoryCell.balance;
     }
 }

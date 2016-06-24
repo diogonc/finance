@@ -26,6 +26,7 @@ const barrels: string[] = [
   'app/+balance',
   'app/shared/application/login',
   'app/+logout',
+  'app/+balance-per-category',
   /** @cli-barrel */
 ];
 

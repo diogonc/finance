@@ -19,7 +19,7 @@ export class BalancePerCategory {
             var transaction = transactions[index];
             balancePerCategory.addTransaction(transaction);
         }
-        return new BalancePerCategoryReport();
+        return balancePerCategory;
     }
 }
 

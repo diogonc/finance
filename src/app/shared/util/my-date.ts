@@ -20,6 +20,16 @@ export class MyDate {
     return year + '-' + month + '-' + day;
   }
 
+  public static getFirstDayOfMonth(): Date {
+    var today = new Date();
+    return new Date(today.getFullYear(), today.getMonth(), 1);
+  }
+
+  public static getLastDayOfMonth(): Date {
+    var today = new Date();
+    return new Date(today.getFullYear(), today.getMonth() + 1 , 0);
+  }
+
   public static firstDayOfMonth(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth(), 1);
   }

@@ -21,19 +21,19 @@ export class BalancePerCategoryReport {
     }
 
     public addTransaction(transaction: Transaction): void {
-        var categoryRow;
+        var categoryRow: BalancePerCategoryRow;
         var date = MyDate.firstDayOfMonth(transaction.date);
         var value = transaction.value;
         if (transaction.categoryType === 'credit') {
-            categoryRow = this.getCreditCategoriesRows(transaction.uuid, transaction.categoryName);
+            categoryRow = this.getCreditCategoriesRows(transaction.categoryUuid, transaction.categoryName);
 
-            categoryRow.addTransaction(transaction, date);
+            categoryRow.add(value, date);
             this.totalCredits.add(value, date);
             this.totalBalance.add(value, date);
         } else if (transaction.categoryType === 'debit') {
-            categoryRow = this.getDebitCategoriesRows(transaction.uuid, transaction.categoryName);
+            categoryRow = this.getDebitCategoriesRows(transaction.categoryUuid, transaction.categoryName);
 
-            categoryRow.addTransaction(transaction, date);
+            categoryRow.add(value, date);
             this.totalDebits.add(value, date);
             this.totalBalance.add((value * -1), date);
         }
@@ -49,16 +49,12 @@ export class BalancePerCategoryReport {
 
     private getCategoryRow(uuid: string, categoryName: string, array: Array<BalancePerCategoryRow>):
         BalancePerCategoryRow {
-        var categoryIndex = MyArray.findIndex(uuid, this.credits);
+        var categoryIndex = MyArray.findIndex(uuid, array);
         if (categoryIndex === -1) {
-            var creditRow = new BalancePerCategoryRow(uuid, categoryName);
-            this.addCreditRow(creditRow);
-            return creditRow;
+            var row = new BalancePerCategoryRow(uuid, categoryName);
+            array.push(row);
+            return row;
         }
-        return this.credits[categoryIndex];
-    }
-
-    private addCreditRow(categoryRow: BalancePerCategoryRow): void {
-        this.credits.push(categoryRow);
+        return array[categoryIndex];
     }
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {Balance} from '../shared/report/balance.service';
-import {BalancePerAccount, BalancePerAccountReportDto} from '../shared/report/balance-per-account.service';
+import {BalancePerAccount, BalancePerAccountReport} from '../shared/report/balance-per-account.service';
 import {MyDate} from '../shared/util/my-date';
 
 @Component({
@@ -14,22 +14,22 @@ import {MyDate} from '../shared/util/my-date';
 })
 export class BalanceComponent implements OnInit {
   public date: string;
-  public balanceReportDto: BalancePerAccountReportDto;
-  private _balancePerAccount: BalancePerAccount;
+  public balanceReportReport: BalancePerAccountReport;
+  private balancePerAccount: BalancePerAccount;
 
   constructor(balancePerAccount: BalancePerAccount) {
-    this._balancePerAccount = balancePerAccount;
+    this.balancePerAccount = balancePerAccount;
   }
 
   ngOnInit() {
     var today = new Date();
     this.date = MyDate.convertToUsString(today);
-    this.balanceReportDto = this._balancePerAccount.get(today);
+    this.balanceReportReport = this.balancePerAccount.get(today);
   }
 
   search() {
     var date = MyDate.convertToDateFromString(this.date);
 
-    this.balanceReportDto = this._balancePerAccount.get(date);
+    this.balanceReportReport = this.balancePerAccount.get(date);
   }
 }

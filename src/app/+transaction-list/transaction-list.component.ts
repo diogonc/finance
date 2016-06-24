@@ -42,9 +42,8 @@ export class TransactionListComponent implements OnInit {
   }
 
   ngOnInit() {
-    var today = new Date();
-    var firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-    var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 30);
+    var firstDayOfMonth = MyDate.getFirstDayOfMonth();
+    var lastDayOfMonth = MyDate.getLastDayOfMonth();
     this.initialDate = MyDate.convertToUsString(firstDayOfMonth);
     this.finalDate = MyDate.convertToUsString(lastDayOfMonth);
     this.account = '';
