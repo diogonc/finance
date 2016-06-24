@@ -14,7 +14,7 @@ import {MyDate} from '../shared/util/my-date';
 })
 export class BalanceComponent implements OnInit {
   public date: string;
-  public balanceReportReport: BalancePerAccountReport;
+  public balancePerAccountReport: BalancePerAccountReport;
   private balancePerAccount: BalancePerAccount;
 
   constructor(balancePerAccount: BalancePerAccount) {
@@ -24,12 +24,12 @@ export class BalanceComponent implements OnInit {
   ngOnInit() {
     var today = new Date();
     this.date = MyDate.convertToUsString(today);
-    this.balanceReportReport = this.balancePerAccount.get(today);
+    this.balancePerAccountReport = this.balancePerAccount.get(today);
   }
 
   search() {
     var date = MyDate.convertToDateFromString(this.date);
 
-    this.balanceReportReport = this.balancePerAccount.get(date);
+    this.balancePerAccountReport = this.balancePerAccount.get(date);
   }
 }

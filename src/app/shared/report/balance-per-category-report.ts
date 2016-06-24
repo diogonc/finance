@@ -39,6 +39,29 @@ export class BalancePerCategoryReport {
         }
     }
 
+    public fillEmptyCells() {
+        this.fillEmptyCellsFromRows(this.credits);
+        this.fillEmptyCellsFromRows(this.debits);
+        this.fillEmptyCellsInARow(this.totalCredits);
+        this.fillEmptyCellsInARow(this.totalDebits);
+    }
+
+    private fillEmptyCellsFromRows(list: Array<BalancePerCategoryRow>) {
+        var totalCredits = list.length;
+        for (var i = 0; i < totalCredits; i++) {
+            var row = list[i];
+            this.fillEmptyCellsInARow(row);
+        }
+    }
+
+    private fillEmptyCellsInARow(row: BalancePerCategoryRow) {
+            var totalMonths = this.totalBalance.balances.length;
+            for (var i = 0; i < totalMonths; i++) {
+                var month = this.totalBalance.balances[i].date;
+                row.add(0, month);
+            }
+    }
+
     private getCreditCategoriesRows(uuid: string, categoryName: string): BalancePerCategoryRow {
         return this.getCategoryRow(uuid, categoryName, this.credits);
     }
