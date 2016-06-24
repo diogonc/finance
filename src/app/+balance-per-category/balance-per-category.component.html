@@ -11,41 +11,41 @@
         <th *ngFor="let cell of balancePerCategoryReport.totalBalance.balances" class="money">
             {{cell.date | date:'MM'}}/{{cell.date | date:'y'}}
         </th>
-        <th class="money">Total</th>
+        <th class="money">Média</th>
     </tr>
     <tr class="bold">
         <td>Créditos</td>
         <td *ngFor="let cell of balancePerCategoryReport.totalCredits.balances" class="money">
             {{cell.balance | number:'1.2-2'}}
         </td>
-        <td class="money">{{balancePerCategoryReport.totalCredits.total | number:'1.2-2'}}</td>
+        <td class="money">{{balancePerCategoryReport.totalCredits.average | number:'1.2-2'}}</td>
     </tr>
     <tr *ngFor="let row of balancePerCategoryReport.credits">
         <td>{{row.category}}</td>
         <td *ngFor="let cell of row.balances" class="money">
             {{cell.balance | number:'1.2-2'}}
         </td>
-        <td class="money">{{row.total | number:'1.2-2'}}</td>
+        <td class="money">{{row.average | number:'1.2-2'}}</td>
     </tr>
     <tr class="bold">
         <td>Débitos</td>
         <td *ngFor="let cell of balancePerCategoryReport.totalDebits.balances" class="money">
             {{cell.balance | number:'1.2-2'}}
         </td>
-        <td class="money">{{balancePerCategoryReport.totalDebits.total | number:'1.2-2'}}</td>
+        <td class="money">{{balancePerCategoryReport.totalDebits.average | number:'1.2-2'}}</td>
     </tr>
     <tr *ngFor="let row of balancePerCategoryReport.debits">
         <td>{{row.category}}</td>
         <td *ngFor="let cell of row.balances" class="money">
             {{cell.balance | number:'1.2-2'}}
         </td>
-        <td class="money">{{row.total | number:'1.2-2'}}</td>
+        <td class="money">{{row.average | number:'1.2-2'}}</td>
     </tr>
     <tr class="bold">
         <td>Saldo</td>
         <td *ngFor="let cell of balancePerCategoryReport.totalBalance.balances" class="money">
             {{cell.balance | number:'1.2-2'}}
         </td>
-        <td class="money">{{balancePerCategoryReport.totalBalance.total | number:'1.2-2'}}</td>
+        <td class="money">{{balancePerCategoryReport.totalBalance.average | number:'1.2-2'}}</td>
     </tr>
 </table>

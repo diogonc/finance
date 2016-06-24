@@ -9,6 +9,7 @@ export class BalancePerCategoryRow {
     public category: string;
     public balances: Array<BalancePerCategoryCell>;
     public total: number;
+    public average: number;
 
     constructor(uuid: string, category: string) {
         this.uuid = uuid;
@@ -21,6 +22,7 @@ export class BalancePerCategoryRow {
         var cell = this.getDateCell(date);
         cell.add(value);
         this.total += value;
+        this.average = this.total / this.balances.length;
     }
 
     private getDateCell(date: Date): BalancePerCategoryCell {
