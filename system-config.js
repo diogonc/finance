@@ -22,6 +22,7 @@ var barrels = [
     'app/+balance',
     'app/shared/application/login',
     'app/+logout',
+    'app/+balance-per-category',
 ];
 var cliSystemConfigPackages = {};
 barrels.forEach(function (barrelName) { cliSystemConfigPackages[barrelName] = { main: 'index' }; });
