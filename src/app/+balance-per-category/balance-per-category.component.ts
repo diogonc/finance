@@ -15,6 +15,7 @@ import {MyDate} from '../shared/util/my-date';
 export class BalancePerCategoryComponent implements OnInit {
   public initialDate: string;
   public finalDate: string;
+  public show: string;
   public balancePerCategoryReport: BalancePerCategoryReport;
   public balancePerCategory: BalancePerCategory;
 
@@ -27,9 +28,9 @@ export class BalancePerCategoryComponent implements OnInit {
     var lastDayOfMonth = MyDate.getLastDayOfMonth();;
     this.initialDate = MyDate.convertToUsString(firstDayOfMonth);
     this.finalDate = MyDate.convertToUsString(lastDayOfMonth);
+    this.show = 'last';
 
     this.balancePerCategoryReport = this.balancePerCategory.get(firstDayOfMonth, lastDayOfMonth);
-    console.log(this.balancePerCategoryReport);
   }
 
   search() {
@@ -37,5 +38,12 @@ export class BalancePerCategoryComponent implements OnInit {
     var finalDate = MyDate.convertToDateFromString(this.finalDate);
 
     this.balancePerCategoryReport = this.balancePerCategory.get(initialDate, finalDate);
+  }
+
+  hide(index: number, length: number) {
+    if (this.show === 'all') {
+      return false;
+    }
+    return index !== length - 1;
   }
 }

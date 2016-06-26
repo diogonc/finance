@@ -3,47 +3,58 @@
     <label for="initialDate">Data</label>
     <input [(ngModel)]="initialDate" type="date">
     <input [(ngModel)]="finalDate" type="date">
+    <label for="show">Exibir</label>
+    <select [(ngModel)]="show">
+        <option value="last">Último</option>
+        <option value="all">Todos</option>
+    </select>
     <button type="submit">Procurar</button>
 </form>
 <table>
     <tr>
         <th>Categoria</th>
-        <th *ngFor="let cell of balancePerCategoryReport.totalBalance.balances" class="money">
+        <th *ngFor="let cell of balancePerCategoryReport.totalBalance.balances;let i = index" class="money"
+            [hidden]="hide(i, balancePerCategoryReport.totalBalance.balances.length)">
             {{cell.date | date:'MM'}}/{{cell.date | date:'y'}}
         </th>
         <th class="money">Média</th>
     </tr>
     <tr class="bold">
         <td>Créditos</td>
-        <td *ngFor="let cell of balancePerCategoryReport.totalCredits.balances" class="money">
+        <td *ngFor="let cell of balancePerCategoryReport.totalCredits.balances;let i = index" class="money"
+            [hidden]="hide(i, balancePerCategoryReport.totalCredits.balances.length)">
             {{cell.balance | number:'1.2-2'}}
         </td>
         <td class="money">{{balancePerCategoryReport.totalCredits.average | number:'1.2-2'}}</td>
     </tr>
     <tr *ngFor="let row of balancePerCategoryReport.credits">
         <td>{{row.category}}</td>
-        <td *ngFor="let cell of row.balances" class="money">
+        <td *ngFor="let cell of row.balances;let i = index" class="money"
+            [hidden]="hide(i, row.balances.length)" >
             {{cell.balance | number:'1.2-2'}}
         </td>
         <td class="money">{{row.average | number:'1.2-2'}}</td>
     </tr>
     <tr class="bold">
         <td>Débitos</td>
-        <td *ngFor="let cell of balancePerCategoryReport.totalDebits.balances" class="money">
+        <td *ngFor="let cell of balancePerCategoryReport.totalDebits.balances;let i = index" class="money"
+            [hidden]="hide(i, balancePerCategoryReport.totalBalance.balances.length)">
             {{cell.balance | number:'1.2-2'}}
         </td>
         <td class="money">{{balancePerCategoryReport.totalDebits.average | number:'1.2-2'}}</td>
     </tr>
     <tr *ngFor="let row of balancePerCategoryReport.debits">
         <td>{{row.category}}</td>
-        <td *ngFor="let cell of row.balances" class="money">
+        <td *ngFor="let cell of row.balances;let i = index" class="money"
+            [hidden]="hide(i, row.balances.length)">
             {{cell.balance | number:'1.2-2'}}
         </td>
         <td class="money">{{row.average | number:'1.2-2'}}</td>
     </tr>
     <tr class="bold">
         <td>Saldo</td>
-        <td *ngFor="let cell of balancePerCategoryReport.totalBalance.balances" class="money">
+        <td *ngFor="let cell of balancePerCategoryReport.totalBalance.balances;let i = index" class="money"
+            [hidden]="hide(i, balancePerCategoryReport.totalBalance.balances.length)">
             {{cell.balance | number:'1.2-2'}}
         </td>
         <td class="money">{{balancePerCategoryReport.totalBalance.average | number:'1.2-2'}}</td>

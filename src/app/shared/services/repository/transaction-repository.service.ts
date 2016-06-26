@@ -46,13 +46,13 @@ export class TransactionRepository extends Repository {
       return data.sort(function (transaction, anotherTransaction) {
         return anotherTransaction.value - transaction.value;
       });
-    } else if (order === 'date') {
-      return data.sort(function (transaction, anotherTransaction) {
-        return anotherTransaction.date.valueOf() - transaction.date.valueOf();
-      });
     } else if (order === 'date asc') {
       return data.sort(function (transaction, anotherTransaction) {
         return transaction.date.valueOf() - anotherTransaction.date.valueOf();
+      });
+    } else { // date desc
+      return data.sort(function (transaction, anotherTransaction) {
+        return anotherTransaction.date.valueOf() - transaction.date.valueOf();
       });
     }
   }

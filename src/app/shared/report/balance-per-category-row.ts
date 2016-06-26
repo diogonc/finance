@@ -18,11 +18,15 @@ export class BalancePerCategoryRow {
         this.total = 0;
     }
 
-    add(value: number, date: Date): void {
+    public add(value: number, date: Date): void {
         var cell = this.getDateCell(date);
         cell.add(value);
         this.total += value;
         this.average = this.total / this.balances.length;
+    }
+
+    public getLastBalance(): BalancePerCategoryCell {
+        return this.balances[this.balances.length];
     }
 
     private getDateCell(date: Date): BalancePerCategoryCell {
