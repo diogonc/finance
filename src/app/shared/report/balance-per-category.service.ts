@@ -20,6 +20,7 @@ export class BalancePerCategory {
             balancePerCategory.addTransaction(transaction);
         }
         balancePerCategory.fillEmptyCells();
+        balancePerCategory.sortCells();
         return balancePerCategory;
     }
 }

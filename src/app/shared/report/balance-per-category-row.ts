@@ -29,6 +29,12 @@ export class BalancePerCategoryRow {
         return this.balances[this.balances.length];
     }
 
+    public sortCells(): void {
+        this.balances = this.balances.sort(function (cell, anotherCell) {
+            return cell.date.valueOf() - anotherCell.date.valueOf();
+        });
+    }
+
     private getDateCell(date: Date): BalancePerCategoryCell {
         var index = MyArray.findIndex(MyDate.convertToUsString(date), this.balances);
         if (index === -1) {

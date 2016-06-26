@@ -46,9 +46,20 @@ export class BalancePerCategoryReport {
         this.fillEmptyCellsInARow(this.totalDebits);
     }
 
+    public sortCells() {
+        this.totalCredits.sortCells();
+        this.totalDebits.sortCells();
+        this.credits.forEach(row => {
+            row.sortCells();
+        });
+        this.debits.forEach(row => {
+            row.sortCells();
+        });
+    }
+
     private fillEmptyCellsFromRows(list: Array<BalancePerCategoryRow>) {
-        var totalCredits = list.length;
-        for (var i = 0; i < totalCredits; i++) {
+        var length = list.length;
+        for (var i = 0; i < length; i++) {
             var row = list[i];
             this.fillEmptyCellsInARow(row);
         }
