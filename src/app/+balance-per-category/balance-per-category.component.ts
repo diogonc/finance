@@ -47,4 +47,14 @@ export class BalancePerCategoryComponent implements OnInit {
     }
     return index !== length - 1;
   }
+
+  setCreditClass(value: number, average: number) {
+    var isGreater = value >= average;
+    return {green: isGreater, red: !isGreater};
+  }
+
+  setDebitClass(value: number, average: number) {
+    var isGreater = value >= average;
+    return {green: !isGreater, red: isGreater};
+  }
 }
