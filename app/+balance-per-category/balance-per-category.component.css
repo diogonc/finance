@@ -1,7 +1,15 @@
-.bold{
+.bold {
     font-weight: bold;
 }
 
-.money{
+.money {
     text-align: right;
+}
+
+.green {
+    color: seagreen;
+}
+
+.red {
+    color: orangered
 }

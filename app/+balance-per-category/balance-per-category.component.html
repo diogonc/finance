@@ -22,14 +22,16 @@
     <tr class="bold">
         <td>Créditos</td>
         <td *ngFor="let cell of balancePerCategoryReport.totalCredits.balances;let i = index" class="money"
+            [ngClass]="setCreditClass(cell.balance, balancePerCategoryReport.totalCredits.average)"
             [hidden]="hide(i, balancePerCategoryReport.totalCredits.balances.length)">
             {{cell.balance | number:'1.2-2'}}
         </td>
-        <td class="money">{{balancePerCategoryReport.totalCredits.average | number:'1.2-2'}}</td>
+        <td class="money">{{ balancePerCategoryReport.totalCredits.average | number:'1.2-2'}}</td>
     </tr>
     <tr *ngFor="let row of balancePerCategoryReport.credits">
         <td>{{row.category}}</td>
         <td *ngFor="let cell of row.balances;let i = index" class="money"
+            [ngClass]="setCreditClass(cell.balance, row.average)"
             [hidden]="hide(i, row.balances.length)" >
             {{cell.balance | number:'1.2-2'}}
         </td>
@@ -38,6 +40,7 @@
     <tr class="bold">
         <td>Débitos</td>
         <td *ngFor="let cell of balancePerCategoryReport.totalDebits.balances;let i = index" class="money"
+            [ngClass]="setDebitClass(cell.balance, balancePerCategoryReport.totalDebits.average)"
             [hidden]="hide(i, balancePerCategoryReport.totalBalance.balances.length)">
             {{cell.balance | number:'1.2-2'}}
         </td>
@@ -46,6 +49,7 @@
     <tr *ngFor="let row of balancePerCategoryReport.debits">
         <td>{{row.category}}</td>
         <td *ngFor="let cell of row.balances;let i = index" class="money"
+            [ngClass]="setDebitClass(cell.balance, row.average)"
             [hidden]="hide(i, row.balances.length)">
             {{cell.balance | number:'1.2-2'}}
         </td>
@@ -54,6 +58,7 @@
     <tr class="bold">
         <td>Saldo</td>
         <td *ngFor="let cell of balancePerCategoryReport.totalBalance.balances;let i = index" class="money"
+            [ngClass]="setDebitClass(cell.balance, balancePerCategoryReport.totalBalance.average)"
             [hidden]="hide(i, balancePerCategoryReport.totalBalance.balances.length)">
             {{cell.balance | number:'1.2-2'}}
         </td>
