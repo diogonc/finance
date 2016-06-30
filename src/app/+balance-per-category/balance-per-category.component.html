@@ -58,7 +58,7 @@
     <tr class="bold">
         <td>Saldo</td>
         <td *ngFor="let cell of balancePerCategoryReport.totalBalance.balances;let i = index" class="money"
-            [ngClass]="setDebitClass(cell.balance, balancePerCategoryReport.totalBalance.average)"
+            [ngClass]="setCreditClass(cell.balance, balancePerCategoryReport.totalBalance.average)"
             [hidden]="hide(i, balancePerCategoryReport.totalBalance.balances.length)">
             {{cell.balance | number:'1.2-2'}}
         </td>

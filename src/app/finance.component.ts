@@ -37,7 +37,7 @@ import { BalancePerCategoryComponent } from './+balance-per-category';
   { path: '/transfer', component: TransferComponent },
   { path: '/balance', component: BalanceComponent },
   { path: '/logout', component: LogoutComponent},
-  {path: '/balance-per-category', component: BalancePerCategoryComponent}
+  { path: '/balance-per-category', component: BalancePerCategoryComponent}
 
 ])
 
