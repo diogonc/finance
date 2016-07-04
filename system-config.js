@@ -33,4 +33,4 @@ System.config({
 });
 // Apply the user's configuration.
 System.config({ map: map, packages: packages });
-//# sourceMappingURL=system-config.js.map
+//# sourceMappingURL=../system-config.js.map
