@@ -1,0 +1,57 @@
+import {AccountRepository} from '../repository/account-repository';
+import {CategoryRepository} from '../repository/category-repository';
+import {TransactionRepository} from '../repository/transaction-repository';
+import {User} from '../../models/user';
+import {FinanceApi} from '../api/finance-api';
+import {MyDate} from '../../util/my-date';
+import {Injectable} from '@angular/core';
+
+@Injectable()
+export class Sync {
+  private accountRepository: AccountRepository;
+  private categoryRepository: CategoryRepository;
+  private transactionRepository: TransactionRepository;
+  private api: FinanceApi;
+
+  constructor(
+      financeApi: FinanceApi, accountRepository: AccountRepository,
+      categoryRepository: CategoryRepository, transactionRepository: TransactionRepository) {
+    this.api = financeApi;
+    this.accountRepository = accountRepository;
+    this.categoryRepository = categoryRepository;
+    this.transactionRepository = transactionRepository;
+  }
+
+  getAllDataFromServer(user: User, callback: () => any, error: () => any): void {
+    this.api.getAccounts(user, (accounts) => this.accountRepository.saveAll(accounts._body));
+    this.api.getCategories(
+        user, (categories) => this.categoryRepository.saveAll(categories._body));
+    this.api.getTransactions(
+        user, (transactions) =>
+                  this.convertTransactionFromServer(transactions._body, (transactionsConverted) => {
+                    this.transactionRepository.saveAll(transactionsConverted);
+                    callback();
+                  }), error);
+  }
+
+  deleteAllLocalData(): void {
+    this.accountRepository.deleteAll();
+    this.categoryRepository.deleteAll();
+    this.transactionRepository.deleteAll();
+  }
+
+  private convertTransactionFromServer(
+      transactionsFromServer: string, callback: (transactionsConverted: any) => any): void {
+    let transactionsFromServerAsObject = JSON.parse(transactionsFromServer);
+    let lenght = transactionsFromServerAsObject.length;
+    let transactions = [];
+
+    for (let i = 0; i < lenght; i++) {
+      let transaction = transactionsFromServerAsObject[i];
+      transaction.date = MyDate.convertToDateFromString(transaction.date);
+
+      transactions.push(transaction);
+    }
+    callback(transactions);
+  }
+}
