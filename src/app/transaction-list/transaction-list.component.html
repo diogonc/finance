@@ -1,0 +1,47 @@
+<h2>Lista de transações</h2>
+<form (submit)="search()">
+    <label for="initialDate">Data</label>
+    <input [(ngModel)]="initialDate" type="date">
+    <input [(ngModel)]="finalDate" type="date">
+    <label for="category">Categoria</label>
+    <select [(ngModel)]="category">
+        <option *ngFor="let c of categories" [value]="c.uuid">{{c.name}}</option>
+    </select>
+    <label for="account">Conta</label>
+    <select [(ngModel)]="account">
+        <option *ngFor="let a of accounts" [value]="a.uuid">{{a.name}}</option>
+    </select>
+    <label for="order">Ordem</label>
+    <select [(ngModel)]="order">
+        <option value="date">Data</option>
+        <option value="value">Valor</option>
+    </select>
+    <button type="submit">Procurar</button>
+</form>
+<table>
+    <tr>
+        <th>Categoria</th>
+        <th>Conta</th>
+        <th>Descrição</th>
+        <th>Data</th>
+        <th>Valor</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let transaction of transactions">
+        <td>{{transaction.categoryName}}</td>
+        <td>{{transaction.accountName}}</td>
+        <td>{{transaction.description}}</td>
+        <td>{{transaction.date | date:'dd'}}/{{transaction.date | date:'MM'}}/{{transaction.date | date:'y'}}</td>
+        <td>{{transaction.value | number:'1.2-2'}}</td>
+        <td>
+            <a [routerLink]="['/transaction-edit/'+transaction.uuid]">
+            <img src="edit.png" alt="Editar" height="20">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3"></td>
+        <td>Total:</td>
+        <td>{{balance | number:'1.2-2'}}</td>
+    </tr>
+</table>

@@ -1,0 +1,66 @@
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AccountRepository} from '../services/repository/account-repository';
+import {CategoryRepository} from '../services/repository/category-repository';
+import {FinanceApi} from '../services/api/finance-api';
+import {Account} from '../models/account';
+import {Category} from '../models/category';
+import {TransferApp} from '../application/transfer/transfer';
+import {TransferVm} from '../application/transfer/transfer-vm';
+
+@Component({
+  selector: 'app-transfer',
+  templateUrl: 'transfer.component.html',
+  styleUrls: ['transfer.component.css'],
+  providers: [FinanceApi, TransferApp]
+})
+export class TransferComponent implements OnInit {
+  public accounts: Array<Account>;
+  public categories: Array<Category>;
+  public transferVm: TransferVm;
+  public errors: Array<string>;
+
+  private accountRepository: AccountRepository;
+  private categoryRepository: CategoryRepository;
+  private router: Router;
+
+  private transferApp: TransferApp;
+
+  constructor(
+    accountRepository: AccountRepository, categoryRepository: CategoryRepository,
+    router: Router, transferApp: TransferApp) {
+    this.accountRepository = accountRepository;
+    this.categoryRepository = categoryRepository;
+    this.router = router;
+    this.transferApp = transferApp;
+  }
+
+  ngOnInit() {
+    this.errors = [];
+    this.accounts = this.accountRepository.getAll();
+    this.categories = this.categoryRepository.getAll();
+    this.transferVm = new TransferVm();
+  }
+
+  back() {
+    this.router.navigate(['/transaction-list']);
+  }
+
+  save() {
+    let fromAccount = this.accounts[this.transferVm.fromAccountIndex];
+    let toAccount = this.accounts[this.transferVm.toAccountIndex];
+    let creditCategory = this.categoryRepository.getCreditTransfer();
+    let debitCategory = this.categoryRepository.getDebitTransfer();
+
+    this.transferApp.save(this.transferVm, fromAccount, toAccount, creditCategory, debitCategory,
+      this.onSuccess.bind(this), this.onError.bind(this));
+  };
+
+  private onError(errors: Array<string>): void {
+    this.errors = errors;
+  }
+
+  private onSuccess(): void {
+    this.back();
+  }
+}
