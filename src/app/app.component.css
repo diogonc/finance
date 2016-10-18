@@ -1,0 +1,20 @@
+nav{
+    background-color: #2196F3;    
+    width: 100%;
+    color: #FFF;
+    font-size: 18px;
+    line-height: 56px;
+}
+a, a:link, a:visited{
+    color:#FFF;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0 10px;
+}
+a:last-of-type{
+    float: right;
+}
+
+a:hover{
+    color:#DDD;
+}
