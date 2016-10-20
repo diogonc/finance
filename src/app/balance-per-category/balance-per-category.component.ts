@@ -4,12 +4,18 @@ import {BalancePerCategoryReport} from '../report/balance-per-category-report';
 import {BalancePerCategoryRow} from '../report/balance-per-category-row';
 import {BalancePerCategoryCell} from '../report/balance-per-category-cell';
 import {MyDate} from '../util/my-date';
+import {AccountRepository} from '../services/repository/account-repository';
+import {CategoryRepository} from '../services/repository/category-repository';
+import {TransactionRepository} from '../services/repository/transaction-repository';
+import {UserRepository} from '../services/repository/user-repository';
+import {LoadEvent} from '../events/load-event';
 
 @Component({
   selector: 'app-balance-per-category',
   templateUrl: 'balance-per-category.component.html',
   styleUrls: ['balance-per-category.component.css'],
-  providers: [BalancePerCategory, BalancePerCategoryReport, BalancePerCategoryRow, BalancePerCategoryCell]
+  providers: [BalancePerCategory, BalancePerCategoryReport, BalancePerCategoryRow, BalancePerCategoryCell,
+      AccountRepository, CategoryRepository, TransactionRepository, UserRepository, LoadEvent]
 })
 export class BalancePerCategoryComponent implements OnInit {
   public initialDate: string;

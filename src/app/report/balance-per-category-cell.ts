@@ -7,10 +7,10 @@ export class BalancePerCategoryCell {
     public date: Date;
     public uuid: string;
 
-    constructor(date: Date) {
+    constructor(date: string) {
         this.balance = 0;
-        this.date = date;
-        this.uuid = MyDate.convertToUsString(date);
+        // this.date = date;
+        //this.uuid = MyDate.convertToUsString(date);
     }
 
     public add(value: number) {

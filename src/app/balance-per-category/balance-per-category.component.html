@@ -1,10 +1,10 @@
 <h2>Histórico</h2>
-<form (submit)="search()">
+<form (ngSubmit)="search()">
     <label for="initialDate">Data</label>
-    <input [(ngModel)]="initialDate" type="date">
-    <input [(ngModel)]="finalDate" type="date">
+    <input [(ngModel)]="initialDate" type="date" name="initialDate">
+    <input [(ngModel)]="finalDate" type="date" name="finalDate">
     <label for="show">Exibir</label>
-    <select [(ngModel)]="show">
+    <select [(ngModel)]="show" name="show">
         <option value="last">Último</option>
         <option value="all">Todos</option>
     </select>

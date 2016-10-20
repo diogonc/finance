@@ -7,18 +7,18 @@ import {LoaderComponent} from './loader/loader.component';
 import {TransferComponent} from './transfer/transfer.component';
 import {BalanceComponent} from './balance/balance.component';
 import { LogoutComponent } from './logout/logout.component';
-// import { BalancePerCategoryComponent } from './balance-per-category/balance-per-category.component';
+import { BalancePerCategoryComponent } from './balance-per-category/balance-per-category.component';
 
 const routes: Routes = [
-  { path: 'finance', component: LoginComponent },
-  { path: '/login', component: LoginComponent },
-  { path: '/transaction-list', component: TransactionListComponent },
-  { path: '/transaction-new', component: TransactionComponent },
-  { path: '/transaction-edit/:id', component: TransactionComponent },
-  { path: '/transfer', component: TransferComponent },
-  { path: '/balance', component: BalanceComponent },
-  { path: '/logout', component: LogoutComponent},
-  // { path: '/balance-per-category', component: BalancePerCategoryComponent}
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'transaction-list', component: TransactionListComponent },
+  { path: 'transaction-new', component: TransactionComponent },
+  { path: 'transaction-edit/:id', component: TransactionComponent },
+  { path: 'transfer', component: TransferComponent },
+  { path: 'balance', component: BalanceComponent },
+  { path: 'logout', component: LogoutComponent},
+  { path: 'balance-per-category', component: BalancePerCategoryComponent}
 ];
 
 @NgModule({

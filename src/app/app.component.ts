@@ -13,8 +13,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  providers: [AccountRepository, CategoryRepository,
-    UserRepository, TransactionRepository, MyDate, MyArray, LoginEvent, LoadEvent, RouterOutlet]
+  providers: [ AccountRepository, CategoryRepository, TransactionRepository, UserRepository, LoadEvent, LoginEvent]
 })
 export class AppComponent implements OnInit {
   isLogged: boolean;

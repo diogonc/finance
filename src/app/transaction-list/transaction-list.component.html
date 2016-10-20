@@ -1,18 +1,18 @@
 <h2>Lista de transações</h2>
-<form (submit)="search()">
+<form (ngSubmit)="search()">
     <label for="initialDate">Data</label>
-    <input [(ngModel)]="initialDate" type="date">
-    <input [(ngModel)]="finalDate" type="date">
+    <input [(ngModel)]="initialDate" type="date" name="initialDate">
+    <input [(ngModel)]="finalDate" type="date" name="finalDate">
     <label for="category">Categoria</label>
-    <select [(ngModel)]="category">
+    <select [(ngModel)]="category" name="category">
         <option *ngFor="let c of categories" [value]="c.uuid">{{c.name}}</option>
     </select>
     <label for="account">Conta</label>
-    <select [(ngModel)]="account">
+    <select [(ngModel)]="account" name="account">
         <option *ngFor="let a of accounts" [value]="a.uuid">{{a.name}}</option>
     </select>
     <label for="order">Ordem</label>
-    <select [(ngModel)]="order">
+    <select [(ngModel)]="order" name="order">
         <option value="date">Data</option>
         <option value="value">Valor</option>
     </select>
@@ -34,7 +34,7 @@
         <td>{{transaction.date | date:'dd'}}/{{transaction.date | date:'MM'}}/{{transaction.date | date:'y'}}</td>
         <td>{{transaction.value | number:'1.2-2'}}</td>
         <td>
-            <a routerLink="['/transaction-edit/'+transaction.uuid]">
+            <a [routerLink]="['/transaction-edit', transaction.uuid]">
             <img src="/assets/edit.png" alt="Editar" height="20">
             </a>
         </td>

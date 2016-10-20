@@ -1,22 +1,22 @@
 <h2>Nova transação</h2>
-<form (submit)="save(true)">
+<form (ngSubmit)="save(true)">
     <ul>
         <li class="error" *ngFor="let error of errors">{{error}}</li>
     </ul>
     <label for="value">Valor:</label>
-    <input id="value" [(ngModel)]="transactionVm.value" type="number" step="0.01" min="0">
+    <input id="value" [(ngModel)]="transactionVm.value" type="number" step="0.01" min="0" name="value">
     <label for="description">Descrição:</label>
-    <input [(ngModel)]="transactionVm.description" type="text">
+    <input [(ngModel)]="transactionVm.description" type="text" name="description">
     <label for="category">Categoria</label>
-    <select [(ngModel)]="transactionVm.categoryIndex">
+    <select [(ngModel)]="transactionVm.categoryIndex" name="categoryIndex">
         <option *ngFor="let c of categories; let i = index" [value]="i">{{c.name}}</option>
     </select>
     <label for="account">Conta</label>
-    <select [(ngModel)]="transactionVm.accountIndex">
+    <select [(ngModel)]="transactionVm.accountIndex" name="accountIndex">
         <option *ngFor="let a of accounts; let i = index" [value]="i">{{a.name}}</option>
     </select>
     <label for="date">Data</label>
-    <input [(ngModel)]="transactionVm.date" type="date">
+    <input [(ngModel)]="transactionVm.date" type="date" name="date">
     <button type="submit">Salvar</button>
     <button type="button" (click)="save(false)">Salvar e novo</button>
     <button [hidden]="isNew" type="button" (click)="delete()">Excluir</button>

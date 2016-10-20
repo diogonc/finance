@@ -1,7 +1,7 @@
 <h2>Saldo</h2>
-<form (submit)="search()">
+<form (ngSubmit)="search()">
     <label for="date">Data</label>
-    <input [(ngModel)]="date" type="date">
+    <input [(ngModel)]="date" type="date" name="date">
     <button type="submit">Procurar</button>
 </form>
 <table>

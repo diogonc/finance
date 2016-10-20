@@ -1,6 +1,8 @@
 import {Repository} from './repository';
 import {Account} from '../../models/account';
+import {Injectable} from '@angular/core';
 
+@Injectable()
 export class AccountRepository extends Repository {
 
   constructor() { super('account'); }

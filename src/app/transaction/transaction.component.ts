@@ -16,7 +16,8 @@ import {TransactionApp} from '../application/transaction/transaction';
   selector: 'app-transaction',
   templateUrl: 'transaction.component.html',
   styleUrls: ['transaction.component.css'],
-  providers: [FinanceApi, TransactionApp, TransactionVm]
+  providers: [FinanceApi, TransactionApp, TransactionVm,  AccountRepository, CategoryRepository,
+      TransactionRepository, UserRepository, LoadEvent]
 })
 export class TransactionComponent implements OnInit {
   public accounts: Array<Account>;
