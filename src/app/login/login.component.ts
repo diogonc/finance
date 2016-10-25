@@ -9,15 +9,14 @@ import {AccountRepository} from '../services/repository/account-repository';
 import {CategoryRepository} from '../services/repository/category-repository';
 import {TransactionRepository} from '../services/repository/transaction-repository';
 import {UserRepository} from '../services/repository/user-repository';
-import {LoadEvent} from '../events/load-event';
-import {LoginEvent} from '../events/login-event';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.css'],
   providers: [Sha1, Sync, FinanceApi, LoginApp, AccountRepository, CategoryRepository, 
-      TransactionRepository, UserRepository, LoadEvent, LoginEvent]
+      TransactionRepository, UserRepository]
 })
 export class LoginComponent implements OnInit {
   public username: string;

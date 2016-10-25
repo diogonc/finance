@@ -6,8 +6,8 @@ import {TransactionComponent} from './transaction/transaction.component';
 import {LoaderComponent} from './loader/loader.component';
 import {TransferComponent} from './transfer/transfer.component';
 import {BalanceComponent} from './balance/balance.component';
-import { LogoutComponent } from './logout/logout.component';
-import { BalancePerCategoryComponent } from './balance-per-category/balance-per-category.component';
+import {LogoutComponent } from './logout/logout.component';
+import {BalancePerCategoryComponent } from './balance-per-category/balance-per-category.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },

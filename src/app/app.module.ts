@@ -12,6 +12,8 @@ import { TransactionListComponent } from './transaction-list/transaction-list.co
 import { TransferComponent } from './transfer/transfer.component';
 import { FinanceRoutingModule} from './app-routing.module';
 import { LoaderComponent } from './loader/loader.component';
+import {LoginEvent} from './events/login-event';
+import {LoadEvent} from './events/load-event';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import { LoaderComponent } from './loader/loader.component';
     FinanceRoutingModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [],
+  providers: [LoginEvent, LoadEvent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
