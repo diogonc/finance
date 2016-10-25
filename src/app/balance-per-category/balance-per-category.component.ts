@@ -30,7 +30,7 @@ export class BalancePerCategoryComponent implements OnInit {
   ngOnInit() {
     let today = new Date();
     let firstDayOfMonth = new Date(today.getFullYear(), 0, 1);
-    let lastDayOfMonth = MyDate.getLastDayOfMonth();;
+    let lastDayOfMonth = MyDate.getLastDayOfMonth();
     this.initialDate = MyDate.convertToUsString(firstDayOfMonth);
     this.finalDate = MyDate.convertToUsString(lastDayOfMonth);
     this.show = 'last';

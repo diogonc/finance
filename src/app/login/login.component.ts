@@ -10,12 +10,11 @@ import {CategoryRepository} from '../services/repository/category-repository';
 import {TransactionRepository} from '../services/repository/transaction-repository';
 import {UserRepository} from '../services/repository/user-repository';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.css'],
-  providers: [Sha1, Sync, FinanceApi, LoginApp, AccountRepository, CategoryRepository, 
+  providers: [Sha1, Sync, FinanceApi, LoginApp, AccountRepository, CategoryRepository,
       TransactionRepository, UserRepository]
 })
 export class LoginComponent implements OnInit {

@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {TransactionListComponent} from './transaction-list/transaction-list.component';
 import {TransactionComponent} from './transaction/transaction.component';
-import {LoaderComponent} from './loader/loader.component';
 import {TransferComponent} from './transfer/transfer.component';
 import {BalanceComponent} from './balance/balance.component';
 import {LogoutComponent } from './logout/logout.component';

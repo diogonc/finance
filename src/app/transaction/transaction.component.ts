@@ -50,7 +50,7 @@ export class TransactionComponent implements OnInit {
     this.errors = [];
     this.accounts = this.accountRepository.getAll();
     this.categories = this.categoryRepository.getAll();
-    let uuid = this.route.snapshot.params['id']; 
+    let uuid = this.route.snapshot.params['id'];
     this.transactionVm = this.transactionApp.load(uuid, this.accounts, this.categories);
   }
 
