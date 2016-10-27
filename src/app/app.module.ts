@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
+import { FinanceRoutingModule} from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { BalanceComponent } from './balance/balance.component';
@@ -10,10 +13,15 @@ import { LogoutComponent } from './logout/logout.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { TransferComponent } from './transfer/transfer.component';
-import { FinanceRoutingModule} from './app-routing.module';
+
 import { LoaderComponent } from './loader/loader.component';
 import {LoginEvent} from './events/login-event';
 import {LoadEvent} from './events/load-event';
+
+import {AccountRepository} from './services/repository/account-repository';
+import {CategoryRepository} from './services/repository/category-repository';
+import {TransactionRepository} from './services/repository/transaction-repository';
+import {UserRepository} from './services/repository/user-repository';
 
 @NgModule({
   declarations: [
@@ -34,7 +42,8 @@ import {LoadEvent} from './events/load-event';
     FinanceRoutingModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [LoginEvent, LoadEvent],
+  providers: [LoginEvent, LoadEvent, AccountRepository, CategoryRepository,
+     TransactionRepository, UserRepository],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

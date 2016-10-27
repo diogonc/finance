@@ -7,15 +7,12 @@ import {MyDate} from '../util/my-date';
 import {Account} from '../models/account';
 import {Category} from '../models/category';
 import {Transaction} from '../models/transaction';
-import {UserRepository} from '../services/repository/user-repository';
-import {LoadEvent} from '../events/load-event';
 
 @Component({
   selector: 'app-transaction-list',
   templateUrl: 'transaction-list.component.html',
   styleUrls: ['transaction-list.component.css'],
-  providers: [Balance, AccountRepository, CategoryRepository,
-      TransactionRepository, UserRepository, LoadEvent, MyDate]
+  providers: [Balance, MyDate]
 })
 export class TransactionListComponent implements OnInit {
   public account: string;

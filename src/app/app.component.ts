@@ -1,17 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {UserRepository} from './services/repository/user-repository';
-import {LoadEvent} from './events/load-event';
-import {AccountRepository} from './services/repository/account-repository';
-import {CategoryRepository} from './services/repository/category-repository';
-import {TransactionRepository} from './services/repository/transaction-repository';
 import {LoginEvent} from './events/login-event';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css'],
-  providers: [AccountRepository, CategoryRepository, TransactionRepository, UserRepository,
-  LoadEvent]
+  styleUrls: ['app.component.css']
 })
 export class AppComponent implements OnInit {
   isLogged: boolean;

@@ -5,17 +5,13 @@ import {FinanceApi} from '../services/api/finance-api';
 import {Sync} from '../services/sync/sync';
 import {User} from '../models/user';
 import {LoginApp}from '../application/login/login';
-import {AccountRepository} from '../services/repository/account-repository';
-import {CategoryRepository} from '../services/repository/category-repository';
-import {TransactionRepository} from '../services/repository/transaction-repository';
 import {UserRepository} from '../services/repository/user-repository';
 
 @Component({
   selector: 'app-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.css'],
-  providers: [Sha1, Sync, FinanceApi, LoginApp, AccountRepository, CategoryRepository,
-      TransactionRepository, UserRepository]
+  providers: [Sha1, Sync, FinanceApi, LoginApp]
 })
 export class LoginComponent implements OnInit {
   public username: string;
