@@ -1,8 +1,3 @@
-.editar{
-    background-color: #2196F3;
-    color: #FFF;
-    height: 40px;
+tr{
     cursor: pointer;
-    text-decoration:none; 
-    padding: 4px 8px;
 }

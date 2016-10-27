@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+
 import {AccountRepository} from '../services/repository/account-repository';
 import {CategoryRepository} from '../services/repository/category-repository';
 import {TransactionRepository} from '../services/repository/transaction-repository';
@@ -28,13 +30,16 @@ export class TransactionListComponent implements OnInit {
   private accountRepository: AccountRepository;
   private categoryRepository: CategoryRepository;
   private transactionRepository: TransactionRepository;
+  private router: Router;
 
   constructor(
     transactionRepository: TransactionRepository, dateService: MyDate,
-    accountRepository: AccountRepository, categoryRepository: CategoryRepository) {
+    accountRepository: AccountRepository, categoryRepository: CategoryRepository,
+    router: Router) {
     this.accountRepository = accountRepository;
     this.categoryRepository = categoryRepository;
     this.transactionRepository = transactionRepository;
+    this.router = router;
   }
 
   ngOnInit() {
@@ -60,5 +65,9 @@ export class TransactionListComponent implements OnInit {
     this.transactions = this.transactionRepository.getFiltered(
       this.category, this.account, initialDate, finalDate, this.order);
     this.balance = Balance.get(this.transactions);
+  }
+
+  edit(uuid: string) {
+    this.router.navigate(['/transaction-edit', uuid]);
   }
 }

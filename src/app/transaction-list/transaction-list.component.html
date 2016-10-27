@@ -25,19 +25,13 @@
         <th>Descrição</th>
         <th>Data</th>
         <th>Valor</th>
-        <th></th>
     </tr>
-    <tr *ngFor="let transaction of transactions">
+    <tr *ngFor="let transaction of transactions" (click)="edit(transaction.uuid)" > 
         <td>{{transaction.categoryName}}</td>
         <td>{{transaction.accountName}}</td>
         <td>{{transaction.description}}</td>
         <td>{{transaction.date | date:'dd'}}/{{transaction.date | date:'MM'}}/{{transaction.date | date:'y'}}</td>
         <td>{{transaction.value | number:'1.2-2'}}</td>
-        <td>
-            <a [routerLink]="['/transaction-edit', transaction.uuid]" class="editar">
-            Editar
-            </a>
-        </td>
     </tr>
     <tr>
         <td colspan="3"></td>
