@@ -8,9 +8,8 @@ import {FinanceApi} from '../services/api/finance-api';
 import {Account} from '../models/account';
 import {Category} from '../models/category';
 import {Transaction} from '../models/transaction';
-import {LoadEvent} from '../events/load-event';
-import {TransactionVm} from '../application/transaction/transaction-vm';
-import {TransactionApp} from '../application/transaction/transaction';
+import {TransactionVm} from './app/transaction-vm';
+import {TransactionApp} from './app/transaction';
 
 @Component({
   selector: 'app-transaction',
@@ -36,7 +35,7 @@ export class TransactionComponent implements OnInit {
   constructor(
     accountRepository: AccountRepository, categoryRepository: CategoryRepository,
     transactionRepository: TransactionRepository, userRepository: UserRepository,
-    api: FinanceApi, route: ActivatedRoute, router: Router, loadEvent: LoadEvent,
+    api: FinanceApi, route: ActivatedRoute, router: Router,
     transactionApp: TransactionApp) {
     this.accountRepository = accountRepository;
     this.categoryRepository = categoryRepository;

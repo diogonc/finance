@@ -1,11 +1,11 @@
 import {Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {Sha1} from '../services/sha1/sha1';
+import {LoginApp}from './app/login';
+import {Sha1} from './sha1/sha1';
 import {FinanceApi} from '../services/api/finance-api';
 import {Sync} from '../services/sync/sync';
-import {User} from '../models/user';
-import {LoginApp}from '../application/login/login';
 import {UserRepository} from '../services/repository/user-repository';
+import {User} from '../models/user';
 
 @Component({
   selector: 'app-login',

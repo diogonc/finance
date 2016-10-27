@@ -10,6 +10,7 @@ a, a:link, a:visited{
     font-weight: bold;
     text-decoration: none;
     padding: 0 10px;
+    cursor: pointer;
 }
 a:last-of-type{
     float: right;

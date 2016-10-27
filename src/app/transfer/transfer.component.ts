@@ -2,21 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AccountRepository} from '../services/repository/account-repository';
 import {CategoryRepository} from '../services/repository/category-repository';
-import {TransactionRepository} from '../services/repository/transaction-repository';
-import {UserRepository} from '../services/repository/user-repository';
 import {FinanceApi} from '../services/api/finance-api';
 import {Account} from '../models/account';
 import {Category} from '../models/category';
-import {TransferApp} from '../application/transfer/transfer';
-import {TransferVm} from '../application/transfer/transfer-vm';
-import {LoadEvent} from '../events/load-event';
+import {TransferApp} from './app/transfer';
+import {TransferVm} from './app/transfer-vm';
 
 @Component({
   selector: 'app-transfer',
   templateUrl: 'transfer.component.html',
   styleUrls: ['transfer.component.css'],
-  providers: [FinanceApi, TransferApp, AccountRepository, CategoryRepository, TransactionRepository,
-             UserRepository, LoadEvent]
+  providers: [FinanceApi, TransferApp]
 })
 export class TransferComponent implements OnInit {
   public accounts: Array<Account>;
