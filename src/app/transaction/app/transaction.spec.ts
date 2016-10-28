@@ -5,15 +5,13 @@ describe('TransactionApp', () => {
   let userRepository;
   let transactionRepository;
   let api;
-  let loadEvent;
 
   beforeEach(() => {
     userRepository = new UserRepository();
     transactionRepository = new TransactionRepository();
     api = new Api();
-    loadEvent = new LoadEvent();
 
-    transactionApp = new TransactionApp(transactionRepository, userRepository, api, loadEvent);
+    transactionApp = new TransactionApp(transactionRepository, userRepository, api);
   });
 
   it('should test', () => {
@@ -40,10 +38,4 @@ class Api {
 }
 
 class Sha1 {
-}
-
-class LoadEvent {
-  public announceLoadStartCalled: boolean = false;
-
-  announceLoadStart(user: any): void { this.announceLoadStartCalled = true; }
 }
