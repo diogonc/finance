@@ -1,4 +1,4 @@
-import {Transaction} from '../models/transaction';
+import {Transaction} from '../../models/transaction';
 import {Injectable} from '@angular/core';
 
 @Injectable()

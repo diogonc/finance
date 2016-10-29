@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {TransactionRepository} from '../../services/repository/transaction-repository';
-import {UserRepository} from '../../services/repository/user-repository';
-import {FinanceApi} from '../../services/api/finance-api';
-import {Account} from '../../models/account';
-import {Category} from '../../models/category';
-import {Transaction} from '../../models/transaction';
+import {TransactionRepository} from '../../shared/services/repository/transaction-repository';
+import {UserRepository} from '../../shared/services/repository/user-repository';
+import {FinanceApi} from '../../shared/services/api/finance-api';
+import {Account} from '../../shared/models/account';
+import {Category} from '../../shared/models/category';
+import {Transaction} from '../../shared/models/transaction';
 import {TransferVm} from './transfer-vm';
 
 @Injectable()

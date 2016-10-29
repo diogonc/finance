@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {AccountRepository} from '../services/repository/account-repository';
-import {CategoryRepository} from '../services/repository/category-repository';
-import {TransactionRepository} from '../services/repository/transaction-repository';
-import {Balance} from '../report/balance';
-import {MyDate} from '../util/my-date';
-import {Account} from '../models/account';
-import {Category} from '../models/category';
-import {Transaction} from '../models/transaction';
+import {AccountRepository} from '../shared/services/repository/account-repository';
+import {CategoryRepository} from '../shared/services/repository/category-repository';
+import {TransactionRepository} from '../shared/services/repository/transaction-repository';
+import {Balance} from '../shared/services/balance/balance';
+import {MyDate} from '../shared/util/my-date';
+import {Account} from '../shared/models/account';
+import {Category} from '../shared/models/category';
+import {Transaction} from '../shared/models/transaction';
 
 @Component({
   selector: 'app-transaction-list',

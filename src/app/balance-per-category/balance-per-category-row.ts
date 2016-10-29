@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {MyArray} from '../util/my-array';
-import {MyDate} from '../util/my-date';
+import {MyArray} from '../shared/util/my-array';
+import {MyDate} from '../shared/util/my-date';
 import {BalancePerCategoryCell} from './balance-per-category-cell';
 
 @Injectable()

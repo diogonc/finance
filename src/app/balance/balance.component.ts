@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Balance} from '../report/balance';
-import {BalancePerAccount, BalancePerAccountReport} from '../report/balance-per-account';
-import {MyDate} from '../util/my-date';
+import {Balance} from '../shared/services/balance/balance';
+import {MyDate} from '../shared/util/my-date';
+import {BalancePerAccount, BalancePerAccountReport} from './balance-per-account';
 
 @Component({
   selector: 'app-balance',

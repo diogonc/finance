@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Sha1} from '../sha1/sha1';
-import {UserRepository} from '../../services/repository/user-repository';
-import {Sync} from '../../services/sync/sync';
-import {User} from '../../models/user';
+import {UserRepository} from '../../shared/services/repository/user-repository';
+import {Sync} from '../../shared/services/sync/sync';
+import {User} from '../../shared/models/user';
 import {LoginEvent} from '../../events/login-event';
 
 @Injectable()

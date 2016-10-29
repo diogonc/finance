@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {AccountRepository} from '../services/repository/account-repository';
-import {CategoryRepository} from '../services/repository/category-repository';
-import {FinanceApi} from '../services/api/finance-api';
-import {Account} from '../models/account';
-import {Category} from '../models/category';
+import {AccountRepository} from '../shared/services/repository/account-repository';
+import {CategoryRepository} from '../shared/services/repository/category-repository';
+import {FinanceApi} from '../shared/services/api/finance-api';
+import {Account} from '../shared/models/account';
+import {Category} from '../shared/models/category';
 import {TransferApp} from './app/transfer';
 import {TransferVm} from './app/transfer-vm';
 

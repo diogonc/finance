@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Transaction} from '../models/transaction';
-import {MyArray} from '../util/my-array';
-import {MyDate} from '../util/my-date';
+import {Transaction} from '../shared/models/transaction';
+import {MyArray} from '../shared/util/my-array';
+import {MyDate} from '../shared/util/my-date';
 import {BalancePerCategoryRow} from './balance-per-category-row';
 
 @Injectable()

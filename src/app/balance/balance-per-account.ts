@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {TransactionRepository} from '../services/repository/transaction-repository';
-import {AccountRepository} from '../services/repository/account-repository';
-import {Balance} from './balance';
+import {TransactionRepository} from '../shared/services/repository/transaction-repository';
+import {AccountRepository} from '../shared/services/repository/account-repository';
+import {Balance} from '../shared/services/balance/balance';
 
 @Injectable()
 export class BalancePerAccount {

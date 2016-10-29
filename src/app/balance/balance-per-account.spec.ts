@@ -1,8 +1,8 @@
-import {Account} from '../models/account';
-import {Transaction} from '../models/transaction';
+import {Account} from '../shared/models/account';
+import {Transaction} from '../shared/models/transaction';
 import {BalancePerAccount} from './balance-per-account';
-import {TransactionRepository} from '../services/repository/transaction-repository';
-import {AccountRepository} from '../services/repository/account-repository';
+import {TransactionRepository} from '../shared/services/repository/transaction-repository';
+import {AccountRepository} from '../shared/services/repository/account-repository';
 
 describe('BalancePerAccount', () => {
     let balancePerAccount;

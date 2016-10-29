@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {TransactionRepository} from '../services/repository/transaction-repository';
+import {TransactionRepository} from '../shared/services/repository/transaction-repository';
 import {BalancePerCategoryReport} from './balance-per-category-report';
 
 @Injectable()

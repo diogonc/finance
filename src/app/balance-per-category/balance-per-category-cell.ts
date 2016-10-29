@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MyDate} from '../util/my-date';
+import {MyDate} from '../shared/util/my-date';
 
 @Injectable()
 export class BalancePerCategoryCell {

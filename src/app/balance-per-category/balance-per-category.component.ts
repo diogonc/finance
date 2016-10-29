@@ -1,8 +1,8 @@
 import {Component, OnInit } from '@angular/core';
-import {BalancePerCategory} from '../report/balance-per-category';
-import {BalancePerCategoryReport} from '../report/balance-per-category-report';
-import {BalancePerCategoryRow} from '../report/balance-per-category-row';
-import {MyDate} from '../util/my-date';
+import {BalancePerCategory} from './balance-per-category';
+import {BalancePerCategoryReport} from './balance-per-category-report';
+import {BalancePerCategoryRow} from './balance-per-category-row';
+import {MyDate} from '../shared/util/my-date';
 
 @Component({
   selector: 'app-balance-per-category',

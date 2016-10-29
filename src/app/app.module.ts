@@ -15,10 +15,10 @@ import { TransferComponent } from './transfer/transfer.component';
 
 import {LoginEvent} from './events/login-event';
 
-import {AccountRepository} from './services/repository/account-repository';
-import {CategoryRepository} from './services/repository/category-repository';
-import {TransactionRepository} from './services/repository/transaction-repository';
-import {UserRepository} from './services/repository/user-repository';
+import {AccountRepository} from './shared/services/repository/account-repository';
+import {CategoryRepository} from './shared/services/repository/category-repository';
+import {TransactionRepository} from './shared/services/repository/transaction-repository';
+import {UserRepository} from './shared/services/repository/user-repository';
 
 @NgModule({
   declarations: [

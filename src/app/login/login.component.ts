@@ -2,10 +2,10 @@ import {Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginApp}from './app/login';
 import {Sha1} from './sha1/sha1';
-import {FinanceApi} from '../services/api/finance-api';
-import {Sync} from '../services/sync/sync';
-import {UserRepository} from '../services/repository/user-repository';
-import {User} from '../models/user';
+import {FinanceApi} from '../shared/services/api/finance-api';
+import {Sync} from '../shared/services/sync/sync';
+import {UserRepository} from '../shared/services/repository/user-repository';
+import {User} from '../shared/models/user';
 
 @Component({
   selector: 'app-login',
