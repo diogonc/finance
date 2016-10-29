@@ -1,5 +1,5 @@
 import {BalancePerCategory} from './balance-per-category';
-import {TransactionRepository} from '../services/repository/transaction-repository';
+import {TransactionRepository} from '../shared/services/repository/transaction-repository';
 
 describe('BalancePerCategory', () => {
     let balancePerCategory;

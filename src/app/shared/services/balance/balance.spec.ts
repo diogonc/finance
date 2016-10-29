@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import {Transaction} from '../models/transaction';
+import {Transaction} from '../../models/transaction';
 import {Balance} from './balance';
 
 describe('Balance', () => {
