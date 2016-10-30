@@ -23,13 +23,15 @@ export class AppComponent implements OnInit {
   private loginApp: LoginApp;
   private router: Router;
   private backupService: BackupService;
+  private sync: Sync;
 
   constructor(repository: UserRepository, loginEvent: LoginEvent, loginApp: LoginApp,
-    router: Router, backupService: BackupService) {
+    router: Router, backupService: BackupService, sync: Sync) {
     this.userRepository = repository;
     this.loginApp = loginApp;
     this.router = router;
     this.backupService = backupService;
+    this.sync = sync;
 
     loginEvent.logginAnnouced$.subscribe(
       user => {
@@ -44,6 +46,11 @@ export class AppComponent implements OnInit {
   logout() {
     this.loginApp.logout();
     this.router.navigate(['/login']);
+  }
+
+  download() {
+    let user = this.userRepository.getUser();
+    this.sync.getAllDataFromServer(user, () => {}, () => {});
   }
 
   export() {

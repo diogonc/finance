@@ -5,10 +5,12 @@
     <input [(ngModel)]="searchFilter.finalDate" type="date" name="searchFilter.finalDate">
     <label for="searchFilter.category">Categoria</label>
     <select [(ngModel)]="searchFilter.category" name="searchFilter.category">
+        <option value=""></option>
         <option *ngFor="let c of categories" [value]="c.uuid">{{c.name}}</option>
     </select>
     <label for="searchFilter.account">Conta</label>
     <select [(ngModel)]="searchFilter.account" name="searchFilter.account">
+        <option value=""></option>
         <option *ngFor="let a of accounts" [value]="a.uuid">{{a.name}}</option>
     </select>
     <label for="searchFilter.order">Ordem</label>
