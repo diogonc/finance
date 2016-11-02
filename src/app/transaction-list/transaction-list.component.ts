@@ -11,7 +11,6 @@ import {MyDate} from '../shared/util/my-date';
 import {Account} from '../shared/models/account';
 import {Category} from '../shared/models/category';
 import {Transaction} from '../shared/models/transaction';
-import {MyArray} from '../shared/util/my-array';
 
 @Component({
   selector: 'app-transaction-list',
@@ -43,7 +42,7 @@ export class TransactionListComponent implements OnInit {
   }
 
   ngOnInit() {
-    let savedFilter = this.searchRepository.getAll()[1];
+    let savedFilter = this.searchRepository.getAll()[0];
     if (savedFilter) {
       this.searchFilter = savedFilter;
     }else {

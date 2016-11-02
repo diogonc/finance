@@ -4,13 +4,11 @@
     <input [(ngModel)]="searchFilter.initialDate" type="date" name="searchFilter.initialDate">
     <input [(ngModel)]="searchFilter.finalDate" type="date" name="searchFilter.finalDate">
     <label for="searchFilter.categorys">Categoria</label>
-    <select [(ngModel)]="searchFilter.categorys[0]" name="searchFilter.categorys[0]">
-        <option value=""></option>
+    <select [(ngModel)]="searchFilter.categorys" name="searchFilter.categorys" multiple>
         <option *ngFor="let c of categories" [value]="c.uuid">{{c.name}}</option>
     </select>
     <label for="searchFilter.accounts">Conta</label>
-    <select [(ngModel)]="searchFilter.accounts[0]" name="searchFilter.accounts[0]">
-        <option value=""></option>
+    <select [(ngModel)]="searchFilter.accounts" name="searchFilter.accounts" multiple>
         <option *ngFor="let a of accounts" [value]="a.uuid">{{a.name}}</option>
     </select>
     <label for="searchFilter.order">Ordem</label>

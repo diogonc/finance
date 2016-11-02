@@ -1,3 +1,7 @@
 tr{
     cursor: pointer;
 }
+
+select[multiple] {
+    height: 88px;
+}

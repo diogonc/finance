@@ -3,9 +3,9 @@
     <ul>
         <li class="error" *ngFor="let error of errors">{{error}}</li>
     </ul>
-    <label for="value">Valor:</label>
+    <label for="value">Valor</label>
     <input id="value" [(ngModel)]="transactionVm.value" type="number" step="0.01" min="0" name="value">
-    <label for="description">Descrição:</label>
+    <label for="description">Descrição</label>
     <input [(ngModel)]="transactionVm.description" type="text" name="description">
     <label for="category">Categoria</label>
     <select [(ngModel)]="transactionVm.categoryIndex" name="categoryIndex">
