@@ -3,17 +3,17 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class SearchFilter {
     public uuid: string;
-    public account: string;
-    public category: string;
+    public accounts: Array<any>;
+    public categorys: Array<string>;
     public initialDate: string;
     public finalDate: string;
     public order: string;
 
-    constructor(initialDate: string, finalDate: string, account: string,
-                 category: string, order: string) {
+    constructor(initialDate: string, finalDate: string, account: Array<any>,
+                 category: Array<string>, order: string) {
         this.uuid = '1';
-        this.account = account;
-        this.category = category;
+        this.accounts = account;
+        this.categorys = category;
         this.initialDate = initialDate;
         this.finalDate = finalDate;
         this.order = order;

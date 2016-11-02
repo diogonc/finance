@@ -6,7 +6,6 @@ export class Balance {
 
     static get(transactions: Array<Transaction>): number {
         let numberOfItens = transactions.length;
-
         let balance = 0;
         for (let i = 0; i < numberOfItens; i++) {
             let transaction = transactions[i];

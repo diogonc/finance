@@ -21,7 +21,7 @@ export class BalancePerAccount {
         let totalAccounts = accounts.length;
         for (let index = 0; index < totalAccounts; index++) {
             let account = accounts[index];
-            let transactions = this.transactionRepository.getFiltered('', account.uuid, firstDate, date, null);
+            let transactions = this.transactionRepository.getFiltered('', [account.uuid], firstDate, date, null);
             let balance = Balance.get(transactions);
 
             if (Math.round(balance) !== 0) {

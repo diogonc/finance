@@ -18,33 +18,39 @@ describe('Repository', () => {
   });
 
   it('should filter by category', () => {
-    let result = repository.getFiltered('1004', '', null, null, null);
+    let result = repository.getFiltered(['1004'], [], null, null, null);
 
     expect(result[0].categoryUuid).toEqual('1004');
   });
 
   it('should filter by account', () => {
-    let result = repository.getFiltered('', '15', null, null, null);
+    let result = repository.getFiltered([], ['15'], null, null, null);
 
     expect(result[0].accountUuid).toEqual('15');
+  });
+
+  it('should return empty if thereis no account', () => {
+    let result = repository.getFiltered([], ['10'], null, null, null);
+
+    expect(result.length).toEqual(0);
   });
 
   it('should filter by date', () => {
     let initialDate = new Date(2010, 0, 1);
     let finalDate = new Date(2010, 0, 1);
-    let result = repository.getFiltered('', '', initialDate, finalDate, null);
+    let result = repository.getFiltered([], [], initialDate, finalDate, null);
 
     expect(result[0].date).toEqual(initialDate);
   });
 
   it('should order by date desc', () => {
-    let result = repository.getFiltered('', '', null, null, null);
+    let result = repository.getFiltered([], [], null, null, null);
 
     expect(result[0].date).toEqual(new Date(2010, 0, 3));
   });
 
   it('should order by value desc', () => {
-    let result = repository.getFiltered('', '', null, null, 'value');
+    let result = repository.getFiltered([], [], null, null, 'value');
 
     expect(result[0].value).toEqual(15);
   });

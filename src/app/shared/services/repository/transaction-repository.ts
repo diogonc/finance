@@ -1,6 +1,7 @@
 import {Repository} from './repository';
 import {Injectable} from '@angular/core';
 import {Transaction} from '../../models/transaction';
+import {MyArray} from '../../util/my-array';
 
 @Injectable()
 export class TransactionRepository extends Repository {
@@ -19,7 +20,7 @@ export class TransactionRepository extends Repository {
     return null;
   }
 
-  getFiltered(categoryUuid: string, accountUuid: string, initialDate: Date, finalDate: Date, order):
+  getFiltered(categoryUuids: Array<string>, accountUuids: Array<string>, initialDate: Date, finalDate: Date, order):
     Array<Transaction> {
     let filtered = [];
     let transactions = this.getAll();
@@ -30,10 +31,10 @@ export class TransactionRepository extends Repository {
       let transaction = new Transaction(t.uuid, t.propertyUuid, t.value, t.description, t.date,
         t.accountUuid, t.accountName, t.categoryUuid, t.categoryName, t.categoryType);
 
-      if ((transaction.categoryUuid === categoryUuid || categoryUuid === '') &&
-        (transaction.accountUuid === accountUuid || accountUuid === '') &&
-        (initialDate <= transaction.date || initialDate === null) &&
-        (transaction.date <= finalDate || finalDate === null)) {
+      if ((categoryUuids.length === 0 || MyArray.any(transaction.categoryUuid, categoryUuids)) &&
+        ( accountUuids.length === 0 || MyArray.any(transaction.accountUuid, accountUuids)) &&
+        ( initialDate === null || initialDate <= transaction.date) &&
+        ( finalDate === null || transaction.date <= finalDate)) {
         filtered.push(transaction);
       }
     }

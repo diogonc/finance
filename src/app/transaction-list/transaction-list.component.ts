@@ -11,6 +11,7 @@ import {MyDate} from '../shared/util/my-date';
 import {Account} from '../shared/models/account';
 import {Category} from '../shared/models/category';
 import {Transaction} from '../shared/models/transaction';
+import {MyArray} from '../shared/util/my-array';
 
 @Component({
   selector: 'app-transaction-list',
@@ -24,7 +25,6 @@ export class TransactionListComponent implements OnInit {
   public accounts: Array<Account>;
   public categories: Array<Category>;
   public transactions: Array<Transaction>;
-
   private accountRepository: AccountRepository;
   private categoryRepository: CategoryRepository;
   private searchRepository: SearchRepository;
@@ -43,7 +43,7 @@ export class TransactionListComponent implements OnInit {
   }
 
   ngOnInit() {
-    let savedFilter = this.searchRepository.get('1');
+    let savedFilter = this.searchRepository.getAll()[1];
     if (savedFilter) {
       this.searchFilter = savedFilter;
     }else {
@@ -59,8 +59,8 @@ export class TransactionListComponent implements OnInit {
   search() {
     this.searchRepository.save(this.searchFilter);
     this.transactions = this.transactionRepository.getFiltered(
-             this.searchFilter.category,
-             this.searchFilter.account,
+             this.searchFilter.categorys,
+             this.searchFilter.accounts,
              MyDate.convertToDateFromString(this.searchFilter.initialDate),
              MyDate.convertToDateFromString(this.searchFilter.finalDate),
              this.searchFilter.order);
@@ -76,9 +76,8 @@ export class TransactionListComponent implements OnInit {
     let lastDayOfMonth = MyDate.getLastDayOfMonth();
     this.searchFilter = new SearchFilter(MyDate.convertToUsString(firstDayOfMonth),
                                          MyDate.convertToUsString(lastDayOfMonth),
-                                         '',
-                                         '',
+                                         [],
+                                         [],
                                          'date');
   }
-
 }
