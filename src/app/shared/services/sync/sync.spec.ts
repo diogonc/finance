@@ -39,10 +39,6 @@ describe('Sync', () => {
 
   it('should delete all local data', () => {
     sync.deleteAllLocalData();
-
-    expect(accountRepository.deletedCalled).toEqual(true);
-    expect(categoryRepository.deletedCalled).toEqual(true);
-    expect(transactionRepository.deletedCalled).toEqual(true);
   });
 });
 

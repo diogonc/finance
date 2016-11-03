@@ -23,21 +23,19 @@ export class Sync {
   }
 
   getAllDataFromServer(user: User, callback: () => any, error: () => any): void {
-    this.api.getAccounts(user, (accounts) => this.accountRepository.saveAll(accounts._body));
-    this.api.getCategories(
-        user, (categories) => this.categoryRepository.saveAll(categories._body));
     this.api.getTransactions(
         user, (transactions) =>
                   this.convertTransactionFromServer(transactions._body, (transactionsConverted) => {
                     this.transactionRepository.saveAll(transactionsConverted);
                     callback();
                   }), error);
+    this.api.getAccounts(user, (accounts) => this.accountRepository.saveAll(accounts._body));
+    this.api.getCategories(
+        user, (categories) => this.categoryRepository.saveAll(categories._body));
   }
 
   deleteAllLocalData(): void {
-    this.accountRepository.deleteAll();
-    this.categoryRepository.deleteAll();
-    this.transactionRepository.deleteAll();
+    localStorage.clear();
   }
 
   private convertTransactionFromServer(
