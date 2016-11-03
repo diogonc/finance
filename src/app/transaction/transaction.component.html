@@ -17,8 +17,10 @@
     </select>
     <label for="date">Data</label>
     <input [(ngModel)]="transactionVm.date" type="date" name="date">
-    <button type="submit">Salvar</button>
-    <button type="button" (click)="save(false)">Salvar e novo</button>
-    <button [hidden]="isNew" type="button" (click)="delete()">Excluir</button>
-    <button type="button" (click)="back()">Voltar</button>
+    <div>
+        <button type="submit">Salvar</button>
+        <button type="button" (click)="save(false)">Salvar e novo</button>
+        <button [hidden]="isNew" type="button" (click)="delete()">Excluir</button>
+        <button type="button" (click)="back()">Voltar</button>
+    </div>
 </form>
