@@ -3,6 +3,8 @@ import {BalancePerCategory} from './balance-per-category';
 import {BalancePerCategoryReport} from './balance-per-category-report';
 import {BalancePerCategoryRow} from './balance-per-category-row';
 import {MyDate} from '../shared/util/my-date';
+import {AccountRepository} from '../shared/services/repository/account-repository';
+import {Account} from '../shared/models/account';
 
 @Component({
   selector: 'app-balance-per-category',
@@ -11,14 +13,18 @@ import {MyDate} from '../shared/util/my-date';
   providers: [BalancePerCategory, BalancePerCategoryReport, BalancePerCategoryRow]
 })
 export class BalancePerCategoryComponent implements OnInit {
+  public accountRepository: AccountRepository;
   public initialDate: string;
   public finalDate: string;
+  public accounts: Array<string>;
   public show: string;
   public balancePerCategoryReport: BalancePerCategoryReport;
   public balancePerCategory: BalancePerCategory;
+  public allAccounts: Array<Account>;
 
-  constructor(balancePerCategory: BalancePerCategory) {
+  constructor(balancePerCategory: BalancePerCategory, accountRepository: AccountRepository) {
     this.balancePerCategory = balancePerCategory;
+    this.accountRepository = accountRepository;
   }
 
   ngOnInit() {
@@ -27,16 +33,18 @@ export class BalancePerCategoryComponent implements OnInit {
     let lastDayOfMonth = MyDate.getLastDayOfMonth();
     this.initialDate = MyDate.convertToUsString(firstDayOfMonth);
     this.finalDate = MyDate.convertToUsString(lastDayOfMonth);
+    this.accounts = [];
     this.show = 'last';
+    this.allAccounts = this.accountRepository.getAll();
 
-    this.balancePerCategoryReport = this.balancePerCategory.get(firstDayOfMonth, lastDayOfMonth);
+    this.balancePerCategoryReport = this.balancePerCategory.get(this.accounts, firstDayOfMonth, lastDayOfMonth);
   }
 
   search() {
     let initialDate = MyDate.convertToDateFromString(this.initialDate);
     let finalDate = MyDate.convertToDateFromString(this.finalDate);
 
-    this.balancePerCategoryReport = this.balancePerCategory.get(initialDate, finalDate);
+    this.balancePerCategoryReport = this.balancePerCategory.get(this.accounts, initialDate, finalDate);
   }
 
   hide(index: number, length: number) {

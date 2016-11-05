@@ -34,6 +34,32 @@ button {
     color:#888;
     height: 35px;
 }
+input[type="date"]{
+    width: 140px;
+}
+
+select[multiple] {
+    height: 107px;
+    width: 170px;
+    vertical-align: middle;
+}
+
+@media only screen and (max-device-width: 600px) {
+    input,
+    select,
+    button {
+        width: 98%;
+    }
+
+    input[type="date"]{
+        width: 98%;
+    }
+
+    select[multiple] {
+        height: 21px;
+        width: 98%;
+    }
+}
 
 button, submit{
     background-color: #009688;
@@ -63,12 +89,4 @@ th{
 
 tr{
     height: 35px;
-}
-
-@media only screen and (max-device-width: 600px) {
-    input,
-    select,
-    button {
-        width: 98%;
-    }
 }

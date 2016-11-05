@@ -10,8 +10,8 @@ export class BalancePerCategory {
         this.transactionRepository = transactionRepository;
     }
 
-    get(initialDate: Date, finalDate: Date): BalancePerCategoryReport {
-        let transactions = this.transactionRepository.getFiltered([], [], initialDate, finalDate, 'date asc');
+    get(accounts: Array<string>, initialDate: Date, finalDate: Date): BalancePerCategoryReport {
+        let transactions = this.transactionRepository.getFiltered([], accounts, initialDate, finalDate, 'date asc');
         let totalTransactions = transactions.length;
         let balancePerCategory = new BalancePerCategoryReport();
 

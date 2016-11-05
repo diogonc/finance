@@ -3,6 +3,10 @@
     <label for="initialDate">Data</label>
     <input [(ngModel)]="initialDate" type="date" name="initialDate">
     <input [(ngModel)]="finalDate" type="date" name="finalDate">
+    <label for="accounts">Conta</label>
+    <select [(ngModel)]="accounts" name="accounts" multiple>
+        <option *ngFor="let a of allAccounts" [value]="a.uuid">{{a.name}}</option>
+    </select>
     <label for="show">Exibir</label>
     <select [(ngModel)]="show" name="show">
         <option value="last">Último</option>
