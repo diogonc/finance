@@ -11,6 +11,7 @@ import { BalancePerCategoryComponent } from './balance-per-category/balance-per-
 import { TransactionComponent } from './transaction/transaction.component';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { TransferComponent } from './transfer/transfer.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 import {LoginEvent} from './events/login-event';
 
@@ -27,7 +28,8 @@ import {UserRepository} from './shared/services/repository/user-repository';
     BalancePerCategoryComponent,
     TransactionComponent,
     TransactionListComponent,
-    TransferComponent
+    TransferComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

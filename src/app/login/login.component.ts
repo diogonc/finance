@@ -6,14 +6,17 @@ import {FinanceApi} from '../shared/services/api/finance-api';
 import {Sync} from '../shared/services/sync/sync';
 import {UserRepository} from '../shared/services/repository/user-repository';
 import {User} from '../shared/models/user';
+import {SpinnerComponent} from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.css'],
-  providers: [Sha1, Sync, FinanceApi, LoginApp]
+  providers: [Sha1, Sync, FinanceApi, LoginApp],
+  entryComponents:[SpinnerComponent]
 })
 export class LoginComponent implements OnInit {
+  public isRequesting: boolean;
   public username: string;
   public password: string;
   public errors: Array<string>;
@@ -25,6 +28,7 @@ export class LoginComponent implements OnInit {
     this.loginApp = loginApp;
     this.router = router;
     this.userRepository = userRepository;
+    this.isRequesting = false;
   }
 
   ngOnInit() {
@@ -34,14 +38,17 @@ export class LoginComponent implements OnInit {
   }
 
   login(username: string, password: string): void {
+    this.isRequesting = true;
     this.loginApp.login(username, password, this.onSuccess.bind(this), this.onError.bind(this));
   }
 
   onSuccess(user: User): void {
     this.router.navigate(['/transaction-list']);
+    this.isRequesting = false;
   }
 
   onError(errors: string): void {
     this.errors.push(errors);
+    this.isRequesting = false;
   }
 }
