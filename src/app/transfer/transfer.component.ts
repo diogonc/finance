@@ -10,8 +10,8 @@ import {TransferVm} from './app/transfer-vm';
 
 @Component({
   selector: 'app-transfer',
-  templateUrl: 'transfer.component.html',
-  styleUrls: ['transfer.component.css'],
+  templateUrl: 'app/transfer/transfer.component.html',
+  styleUrls: ['app/transfer/transfer.component.css'],
   providers: [FinanceApi, TransferApp]
 })
 export class TransferComponent implements OnInit {

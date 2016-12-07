@@ -3,8 +3,8 @@ import {Component, Input, OnDestroy} from '@angular/core';
 
 @Component({
     selector: 'app-spinner',
-    styleUrls: ['spinner.component.css'],
-    templateUrl: 'spinner.component.html'
+    styleUrls: ['app/spinner/spinner.component.css'],
+    templateUrl: 'app/spinner/spinner.component.html'
 })
 export class SpinnerComponent implements OnDestroy {
     private currentTimeout;

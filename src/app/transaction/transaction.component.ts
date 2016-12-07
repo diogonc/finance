@@ -13,8 +13,8 @@ import {TransactionApp} from './app/transaction';
 
 @Component({
   selector: 'app-transaction',
-  templateUrl: 'transaction.component.html',
-  styleUrls: ['transaction.component.css'],
+  templateUrl: 'app/transaction/transaction.component.html',
+  styleUrls: ['app/transaction/transaction.component.css'],
   providers: [FinanceApi, TransactionApp, TransactionVm]
 })
 export class TransactionComponent implements OnInit {

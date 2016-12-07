@@ -12,8 +12,8 @@ import {CsvCreatorService} from './shared/services/backup/csv/csv-creator.servic
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css'],
+  templateUrl: 'app/app.component.html',
+  styleUrls: ['app/app.component.css'],
   providers: [Sha1, Sync, FinanceApi, LoginApp, LoginEvent, BackupService, CsvCreatorService]
 })
 export class AppComponent implements OnInit {

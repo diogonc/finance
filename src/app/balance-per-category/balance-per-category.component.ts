@@ -8,8 +8,8 @@ import {Account} from '../shared/models/account';
 
 @Component({
   selector: 'app-balance-per-category',
-  templateUrl: 'balance-per-category.component.html',
-  styleUrls: ['balance-per-category.component.css'],
+  templateUrl: 'app/balance-per-category/balance-per-category.component.html',
+  styleUrls: ['app/balance-per-category/balance-per-category.component.css'],
   providers: [BalancePerCategory, BalancePerCategoryReport, BalancePerCategoryRow]
 })
 export class BalancePerCategoryComponent implements OnInit {
