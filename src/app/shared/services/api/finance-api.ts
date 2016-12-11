@@ -24,16 +24,19 @@ export class FinanceApi {
         this.get('transaction', user, success, error);
     }
 
-    saveTransaction(transaction: Transaction, user: User, success: (data: any) => any): void {
-        this.post('transaction', transaction, user, success);
+    saveTransaction(transaction: Transaction, user: User, success: (data: any) => any,
+        error: (data: any) => any): void {
+        this.post('transaction', transaction, user, success, error);
     }
 
-    updateTransaction(transaction: Transaction, user: User, success: (data: any) => any): void {
-        this.put('transaction', transaction, user, success);
+    updateTransaction(transaction: Transaction, user: User, success: (data: any) => any, 
+        error: (data: any) => any): void {
+        this.put('transaction', transaction, user, success, error);
     }
 
-    deleteTransaction(transactionUuid: string, user: User, success: (data: any) => any): void {
-        this.delete('transaction', transactionUuid, user, success);
+    deleteTransaction(transactionUuid: string, user: User, success: (data: any) => any, 
+        error: (data: any) => any): void {
+        this.delete('transaction', transactionUuid, user, success, error);
     }
 
     private createHeader(user: User): Headers {
@@ -55,7 +58,8 @@ export class FinanceApi {
         return false;
     }
 
-    private post(action: string, data: any, user: User, success: (response: any) => any): void {
+    private post(action: string, data: any, user: User, success: (response: any) => any,
+                error: (data: any) => any): void {
         this.startRequest();
         this.http
             .post(
@@ -63,11 +67,12 @@ export class FinanceApi {
             { headers: this.createHeader(user) })
             .subscribe(
             response => this.onSuccess(response, success),
-            err => this.onError(err, null),
+            err => this.onError(err, error),
             this.endRequest);
     }
 
-    private put(action: string, data: any, user: User, success: (response: any) => any): void {
+    private put(action: string, data: any, user: User, success: (response: any) => any,
+            error: (data: any) => any): void {
         this.startRequest();
         this.http
             .put(
@@ -76,11 +81,12 @@ export class FinanceApi {
             { headers: this.createHeader(user) })
             .subscribe(
             response => this.onSuccess(response, success),
-            err => this.onError(err, null),
+            err => this.onError(err, error),
             this.endRequest);
     }
 
-    delete(action: string, uuid: string, user: User, success: (response: any) => any): void {
+    delete(action: string, uuid: string, user: User, success: (response: any) => any,
+            error: (data: any) => any): void {
         this.startRequest();
         this.http
             .delete(
@@ -88,7 +94,7 @@ export class FinanceApi {
             { headers: this.createHeader(user) })
             .subscribe(
             response => this.onSuccess(response, success),
-            err => this.onError(err, null),
+            err => this.onError(err, error),
             this.endRequest);
     }
 

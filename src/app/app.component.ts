@@ -9,21 +9,25 @@ import {FinanceApi} from './shared/services/api/finance-api';
 import {UserRepository} from './shared/services/repository/user-repository';
 import {BackupService} from './shared/services/backup/backup.service';
 import {CsvCreatorService} from './shared/services/backup/csv/csv-creator.service';
+import {SpinnerComponent} from './spinner/spinner.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app/app.component.html',
   styleUrls: ['app/app.component.css'],
-  providers: [Sha1, Sync, FinanceApi, LoginApp, LoginEvent, BackupService, CsvCreatorService]
+  providers: [Sha1, Sync, FinanceApi, LoginApp, LoginEvent, BackupService, CsvCreatorService],
+  entryComponents: [SpinnerComponent]
 })
 export class AppComponent implements OnInit {
   isLogged: boolean;
+  isRequesting: boolean;
   title: 'Financeiro';
   private userRepository: UserRepository;
   private loginApp: LoginApp;
   private router: Router;
   private backupService: BackupService;
   private sync: Sync;
+
 
   constructor(repository: UserRepository, loginEvent: LoginEvent, loginApp: LoginApp,
     router: Router, backupService: BackupService, sync: Sync) {
@@ -32,6 +36,7 @@ export class AppComponent implements OnInit {
     this.router = router;
     this.backupService = backupService;
     this.sync = sync;
+    this.isRequesting = false;
 
     loginEvent.logginAnnouced$.subscribe(
       user => {
@@ -49,8 +54,11 @@ export class AppComponent implements OnInit {
   }
 
   download() {
+    this.isRequesting = true;
     let user = this.userRepository.getUser();
-    this.sync.getAllDataFromServer(user, () => {}, () => {});
+    this.sync.getAllDataFromServer(user,
+    () => { this.isRequesting = false; },
+    () => { this.isRequesting = false; });
   }
 
   export() {

@@ -47,9 +47,11 @@ export class TransferApp {
 
     this.finished = false;
     this.api.saveTransaction(fromTransaction, user,
-      () => this.onSave(fromTransaction, onSuccess));
+      () => this.onSave(fromTransaction, onSuccess),
+      onError);
     this.api.saveTransaction(toTransaction, user,
-      () => this.onSave(toTransaction, onSuccess));
+      () => this.onSave(toTransaction, onSuccess),
+      onError);
   };
 
   private onSave(transaction: Transaction, onSuccess: () => void) {

@@ -7,18 +7,21 @@ import {Account} from '../shared/models/account';
 import {Category} from '../shared/models/category';
 import {TransferApp} from './app/transfer';
 import {TransferVm} from './app/transfer-vm';
+import {SpinnerComponent} from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-transfer',
   templateUrl: 'app/transfer/transfer.component.html',
   styleUrls: ['app/transfer/transfer.component.css'],
-  providers: [FinanceApi, TransferApp]
+  providers: [FinanceApi, TransferApp],
+  entryComponents: [SpinnerComponent]
 })
 export class TransferComponent implements OnInit {
   public accounts: Array<Account>;
   public categories: Array<Category>;
   public transferVm: TransferVm;
   public errors: Array<string>;
+  public isRequesting: boolean;
 
   private accountRepository: AccountRepository;
   private categoryRepository: CategoryRepository;
@@ -33,6 +36,7 @@ export class TransferComponent implements OnInit {
     this.categoryRepository = categoryRepository;
     this.router = router;
     this.transferApp = transferApp;
+    this.isRequesting = false;
   }
 
   ngOnInit() {
@@ -52,15 +56,18 @@ export class TransferComponent implements OnInit {
     let creditCategory = this.categoryRepository.getCreditTransfer();
     let debitCategory = this.categoryRepository.getDebitTransfer();
 
+    this.isRequesting = true;
     this.transferApp.save(this.transferVm, fromAccount, toAccount, creditCategory, debitCategory,
       this.onSuccess.bind(this), this.onError.bind(this));
   };
 
   private onError(errors: Array<string>): void {
+    this.isRequesting = false;
     this.errors = errors;
   }
 
   private onSuccess(): void {
+    this.isRequesting = false;
     this.back();
   }
 }

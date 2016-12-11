@@ -10,12 +10,14 @@ import {Category} from '../shared/models/category';
 import {Transaction} from '../shared/models/transaction';
 import {TransactionVm} from './app/transaction-vm';
 import {TransactionApp} from './app/transaction';
+import {SpinnerComponent} from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-transaction',
   templateUrl: 'app/transaction/transaction.component.html',
   styleUrls: ['app/transaction/transaction.component.css'],
-  providers: [FinanceApi, TransactionApp, TransactionVm]
+  providers: [FinanceApi, TransactionApp, TransactionVm],
+  entryComponents: [SpinnerComponent]
 })
 export class TransactionComponent implements OnInit {
   public accounts: Array<Account>;
@@ -25,6 +27,7 @@ export class TransactionComponent implements OnInit {
   public errors: Array<string>;
   public isNew: boolean;
   public showList: boolean;
+  public isRequesting: boolean;
 
   private accountRepository: AccountRepository;
   private categoryRepository: CategoryRepository;
@@ -42,6 +45,7 @@ export class TransactionComponent implements OnInit {
     this.route = route;
     this.router = router;
     this.transactionApp = transactionApp;
+    this.isRequesting = false;
   }
 
   ngOnInit() {
@@ -57,12 +61,16 @@ export class TransactionComponent implements OnInit {
     let category = this.categories[this.transactionVm.categoryIndex];
     this.showList = showList;
 
+    this.isRequesting = true;
     this.transactionApp.save(this.transactionVm, account, category,
                              this.onSuccess.bind(this), this.onError.bind(this));
   };
 
   delete() {
-    this.transactionApp.delete(this.transactionVm.uuid, this.onDelete.bind(this));
+    this.isRequesting = true;
+    this.transactionApp.delete(this.transactionVm.uuid,
+      this.onDelete.bind(this),
+      this.onError.bind(this));
   };
 
   back() {
@@ -70,6 +78,7 @@ export class TransactionComponent implements OnInit {
   }
 
   private onSuccess() {
+    this.isRequesting = false;
     if (this.showList) {
       this.router.navigate(['/transaction-list']);
     } else {
@@ -78,10 +87,12 @@ export class TransactionComponent implements OnInit {
   };
 
   private onError(errors) {
+    this.isRequesting = false;
     this.errors = errors;
   }
 
   private onDelete() {
+    this.isRequesting = false;
     this.router.navigate(['/transaction-list']);
   };
 }

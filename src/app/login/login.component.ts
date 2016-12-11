@@ -13,7 +13,7 @@ import {SpinnerComponent} from '../spinner/spinner.component';
   templateUrl: 'app/login/login.component.html',
   styleUrls: ['app/login/login.component.css'],
   providers: [Sha1, Sync, FinanceApi, LoginApp],
-  entryComponents:[SpinnerComponent]
+  entryComponents: [SpinnerComponent]
 })
 export class LoginComponent implements OnInit {
   public isRequesting: boolean;
@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
     this.router = router;
     this.userRepository = userRepository;
     this.isRequesting = false;
+    this.errors = [];
   }
 
   ngOnInit() {
@@ -48,7 +49,9 @@ export class LoginComponent implements OnInit {
   }
 
   onError(errors: string): void {
-    this.errors.push(errors);
+    if (errors !== undefined) {
+      this.errors.push(errors);
+    }
     this.isRequesting = false;
   }
 }

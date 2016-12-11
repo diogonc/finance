@@ -51,20 +51,23 @@ export class TransactionApp {
 
     if (transactionVm.uuid === null) {
       this.api.saveTransaction(transaction, user,
-        () => this.onSave(transaction, onSuccess));
+        () => this.onSave(transaction, onSuccess),
+        onError);
     } else {
       this.api.updateTransaction(transaction, user,
-        () => this.onSave(transaction, onSuccess));
+        () => this.onSave(transaction, onSuccess),
+        onError);
     }
   };
 
-  delete(uuid: string, onSuccess: () => void) {
+  delete(uuid: string, onSuccess: () => void, onError: () => void) {
     if (uuid === null) {
       return;
     }
     let user = this.userRepository.getUser();
     this.api.deleteTransaction(uuid, user,
-      () => this.onDelete(uuid, onSuccess));
+      () => this.onDelete(uuid, onSuccess),
+      onError);
   };
 
   private createTransactionVm(transaction: Transaction, accounts: Array<Account>, categories: Array<Category>):
