@@ -1,11 +1,15 @@
-<form (ngSubmit)="login(username, password)">
-  <ul>
-    <li class="error" *ngFor="let error of errors">{{error}}</li>
-  </ul>
-  <label for="login">Usuário</label>
-  <input [(ngModel)]="username" type="text" name="username">
-  <label for="senha">Senha</label>
-  <input [(ngModel)]="password" type="password" name="password">
-  <button type="submit">Entrar</button>
+<form class="column" (ngSubmit)="login(username, password)">
+  <div class="notification is-danger" *ngFor="let error of errors">
+     {{error}}
+  </div>
+  <label class="label" for="login">Usuário</label>
+  <p class="control">
+    <input class="input" [(ngModel)]="username" type="text" name="username">
+  </p>
+  <label class="label" for="senha">Senha</label>
+  <p class="control">
+    <input class="input" [(ngModel)]="password" type="password" name="password">
+  </p>
+  <button class="button is-primary" type="submit">Entrar</button>
 </form>
 <app-spinner [isRunning]="isRequesting"></app-spinner>
