@@ -1,12 +1,20 @@
-<nav [hidden]="!isLogged">
-  <a [routerLink]="['/transaction-list']">Transações</a>
-  <a [routerLink]="['/transaction-new']">Adicionar</a>
-  <a [routerLink]="['/transfer']">Transferência</a>
-  <a [routerLink]="['/balance']">Saldo</a>
-  <a [routerLink]="['/balance-per-category']">Histórico</a>
-  <a (click)="export()">Backup</a>
-  <a (click)="download()">Atualizar</a>
-  <a (click)="logout()">Sair</a>  
+<nav class="nav has-shadow" [hidden]="!isLogged">
+  <div class="container">
+    <div class="nav-left">
+      <a class="nav-item is-tab" [routerLink]="['/transaction-list']">Transações</a>
+      <a class="nav-item is-tab" [routerLink]="['/transaction-new']">Adicionar</a>
+      <a class="nav-item is-tab" [routerLink]="['/transfer']">Transferência</a>
+      <a class="nav-item is-tab" [routerLink]="['/balance']">Saldo</a>
+      <a class="nav-item is-tab" [routerLink]="['/balance-per-category']">Histórico</a>
+    </div>
+    <div class="nav-right">
+      <a class="nav-item is-tab" (click)="export()">Backup</a>
+      <a class="nav-item is-tab" (click)="download()">Atualizar</a>
+      <a class="nav-item is-tab" (click)="logout()">Sair</a>
+    </div>
+  </div>
 </nav>
-<router-outlet></router-outlet>
+<div class="container is-fluid">
+  <router-outlet></router-outlet>
+</div>
 <app-spinner [isRunning]="isRequesting"></app-spinner>

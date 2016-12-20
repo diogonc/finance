@@ -1,41 +1,61 @@
-<h2>Lista de transações</h2>
+<h1 class="title is-5">Lista de transações</h1>
 <form (ngSubmit)="search()">
-    <label for="searchFilter.initialDate">Data</label>
-    <input [(ngModel)]="searchFilter.initialDate" type="date" name="searchFilter.initialDate">
-    <input [(ngModel)]="searchFilter.finalDate" type="date" name="searchFilter.finalDate">
-    <label for="searchFilter.categorys">Categoria</label>
-    <select [(ngModel)]="searchFilter.categorys" name="searchFilter.categorys" multiple>
-        <option *ngFor="let c of categories" [value]="c.uuid">{{c.name}}</option>
-    </select>
-    <label for="searchFilter.accounts">Conta</label>
-    <select [(ngModel)]="searchFilter.accounts" name="searchFilter.accounts" multiple>
-        <option *ngFor="let a of accounts" [value]="a.uuid">{{a.name}}</option>
-    </select>
-    <label for="searchFilter.order">Ordem</label>
-    <select [(ngModel)]="searchFilter.order" name="searchFilter.order">
-        <option value="date">Data</option>
-        <option value="value">Valor</option>
-    </select>
-    <button type="submit">Procurar</button>
+    <label class="label" for="searchFilter.initialDate">Data</label>
+    <p class="control">
+        <input class="input" [(ngModel)]="searchFilter.initialDate" type="date" name="searchFilter.initialDate">
+        <input class="input" [(ngModel)]="searchFilter.finalDate" type="date" name="searchFilter.finalDate">
+    </p>
+    <label class="label" for="searchFilter.categorys">Categoria</label>
+    <p class="control">
+        <span class="select multiple">
+            <select [(ngModel)]="searchFilter.categorys" name="searchFilter.categorys" multiple>
+            <option *ngFor="let c of categories" [value]="c.uuid">{{c.name}}</option>
+            </select>
+        </span>
+    </p>
+    <label class="label" for="searchFilter.accounts">Conta</label>
+    <p class="control">
+        <span class="select multiple">
+           <select [(ngModel)]="searchFilter.accounts" name="searchFilter.accounts" multiple>
+            <option *ngFor="let a of accounts" [value]="a.uuid">{{a.name}}</option>
+            </select>
+        </span>
+    </p>
+    <label class="label" for="searchFilter.order">Ordem</label>
+    <p class="control">
+        <span class="select">
+            <select [(ngModel)]="searchFilter.order" name="searchFilter.order">
+            <option value="date">Data</option>
+            <option value="value">Valor</option>
+            </select>
+        </span>
+    </p>
+    <button class="button is-primary" type="submit">Procurar</button>
 </form>
-<table>
-    <tr>
-        <th>Categoria</th>
-        <th>Conta</th>
-        <th>Descrição</th>
-        <th>Data</th>
-        <th>Valor</th>
-    </tr>
-    <tr *ngFor="let transaction of transactions" (click)="edit(transaction.uuid)" > 
-        <td>{{transaction.categoryName}}</td>
-        <td>{{transaction.accountName}}</td>
-        <td>{{transaction.description}}</td>
-        <td>{{transaction.date | date:'dd'}}/{{transaction.date | date:'MM'}}/{{transaction.date | date:'y'}}</td>
-        <td>{{transaction.value | number:'1.2-2'}}</td>
-    </tr>
-    <tr>
-        <td colspan="3"></td>
-        <td>Total:</td>
-        <td>{{balance | number:'1.2-2'}}</td>
-    </tr>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Categoria</th>
+            <th>Conta</th>
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>Valor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let transaction of transactions" (click)="edit(transaction.uuid)">
+            <td>{{transaction.categoryName}}</td>
+            <td>{{transaction.accountName}}</td>
+            <td>{{transaction.description}}</td>
+            <td>{{transaction.date | date:'dd'}}/{{transaction.date | date:'MM'}}/{{transaction.date | date:'y'}}</td>
+            <td>{{transaction.value | number:'1.2-2'}}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3"></td>
+            <td>Total:</td>
+            <td>{{balance | number:'1.2-2'}}</td>
+        </tr>
+    </tfoot>
 </table>

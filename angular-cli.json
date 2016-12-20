@@ -9,6 +9,7 @@
       "outDir": "dist",
       "assets": [
         "assets",
+        "assets/bulma.css",
         "favicon.ico"
       ],
       "index": "index.html",

@@ -2,3 +2,10 @@ tr{
     cursor: pointer;
 }
 
+.grid{
+    margin-top: 20px;
+}
+
+select[multiple], .multiple {
+    height: 54px;
+}
