@@ -6544,3 +6544,6 @@ h1 {
     padding-top: 10px;
 }
 
+.money{
+  text-align: right !important;
+}

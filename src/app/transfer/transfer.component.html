@@ -1,25 +1,39 @@
-<h2>Nova transferência</h2>
+<h1 class="title is-5">Nova transferência</h1>
 <form (ngSubmit)="save()">
-    <ul>
-        <li class="error" *ngFor="let error of errors">{{error}}</li>
-    </ul>
-    <label for="value">Valor:</label>
-    <input id="value" [(ngModel)]="transferVm.value" type="number" step="0.01" min="0" name="value">
-    <label for="description">Descrição:</label>
-    <input [(ngModel)]="transferVm.description" type="text" name="description">
-    <label for="fromAccount">Conta origem</label>
-    <select [(ngModel)]="transferVm.fromAccountIndex" name="fromAccountIndex">
-        <option *ngFor="let a of accounts; let i = index" [value]="i">{{a.name}}</option>
-    </select>
-    <label for="toAccount">Conta destino</label>
-    <select [(ngModel)]="transferVm.toAccountIndex" name="toAccountIndex">
-        <option *ngFor="let a of accounts; let i = index" [value]="i">{{a.name}}</option>
-    </select>
-    <label for="date">Data</label>
-    <input [(ngModel)]="transferVm.date" type="date" name="date">
-    <div>
-        <button type="submit">Salvar</button>
-        <button type="button" (click)="back()">Voltar</button>
+    <div class="notification is-danger" *ngFor="let error of errors">
+        {{error}}
     </div>
+    <label class="label" for="value">Valor:</label>
+    <p class="control">
+        <input class="input" id="value" [(ngModel)]="transferVm.value" type="number" step="0.01" min="0" name="value">
+    </p>
+    <label class="label" for="description">Descrição:</label>
+    <p class="control">
+        <input class="input" [(ngModel)]="transferVm.description" type="text" name="description">
+    </p>
+    <label class="label" for="fromAccount">Conta origem</label>
+    <p class="control">
+        <span class="select">
+        <select [(ngModel)]="transferVm.fromAccountIndex" name="fromAccountIndex">
+            <option *ngFor="let a of accounts; let i = index" [value]="i">{{a.name}}</option>
+        </select>
+         </span>
+    </p>
+    <label class="label" for="toAccount">Conta destino</label>
+    <p class="control">
+        <span class="select">
+        <select [(ngModel)]="transferVm.toAccountIndex" name="toAccountIndex">
+            <option *ngFor="let a of accounts; let i = index" [value]="i">{{a.name}}</option>
+        </select>
+         </span>
+    </p>
+    <label class="label" for="date">Data</label>
+    <p class="control">
+        <input class="input" [(ngModel)]="transferVm.date" type="date" name="date">
+    </p>
+    <p class="control">
+        <button class="button is-primary" type="submit">Salvar</button>
+        <button class="button" type="button" (click)="back()">Voltar</button>
+    </p>
 </form>
 <app-spinner [isRunning]="isRequesting"></app-spinner>

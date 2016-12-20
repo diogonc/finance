@@ -1,14 +1,18 @@
-<h2>Saldo</h2>
+<h1 class="title is-5">Saldo</h1>
 <form (ngSubmit)="search()">
-    <label for="date">Data</label>
-    <input [(ngModel)]="date" type="date" name="date">
-    <button type="submit">Procurar</button>
+    <label class="label" for="date">Data</label>
+    <p class="control">
+        <input class="input" [(ngModel)]="date" type="date" name="date">
+    </p>
+    <button class="button is-primary" type="submit">Procurar</button>
 </form>
-<table>
+<table class="table grid">
     <tr *ngFor="let balance of balancePerAccountReport.balances">
-        <td><b>{{balance.account}}</b>: {{balance.balance | number:'1.2-2'}}</td>
+        <td><b>{{balance.account}}</b></td>
+        <td class="money">{{balance.balance | number:'1.2-2'}}</td>
     </tr>
     <tr>
-        <td><b>Total</b>: {{balancePerAccountReport.total | number:'1.2-2'}}</td>
+        <td><b>Total</b></td>
+        <td class="money"> {{balancePerAccountReport.total | number:'1.2-2'}}</td>
     </tr>
 </table>
