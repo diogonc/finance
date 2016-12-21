@@ -16,7 +16,7 @@ export class BalancePerCategoryComponent implements OnInit {
   public accountRepository: AccountRepository;
   public initialDate: string;
   public finalDate: string;
-  public accounts: Array<string>;
+  public accounts: Array<any>;
   public show: string;
   public balancePerCategoryReport: BalancePerCategoryReport;
   public balancePerCategory: BalancePerCategory;
@@ -35,7 +35,7 @@ export class BalancePerCategoryComponent implements OnInit {
     this.finalDate = MyDate.convertToUsString(lastDayOfMonth);
     this.accounts = [];
     this.show = 'last';
-    this.allAccounts = this.accountRepository.getAll();
+    this.allAccounts = this.formatAccountsFilter(this.accountRepository.getAll());
 
     this.balancePerCategoryReport = this.balancePerCategory.get(this.accounts, firstDayOfMonth, lastDayOfMonth);
   }
@@ -62,5 +62,15 @@ export class BalancePerCategoryComponent implements OnInit {
   setDebitClass(value: number, average: number) {
     let isGreater = value >= average;
     return {green: !isGreater, red: isGreater};
+  }
+
+   private formatAccountsFilter(accounts: Array<Account>) {
+    let options = [];
+    let length = accounts.length;
+    for (let i = 0; i < length; i++) {
+      let account = accounts[i];
+      options.push({ value: account.uuid, label: account.name });
+    }
+    return options;
   }
 }

@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import {AccountRepository} from '../shared/services/repository/account-repository';
-import {CategoryRepository} from '../shared/services/repository/category-repository';
-import {TransactionRepository} from '../shared/services/repository/transaction-repository';
-import {SearchRepository} from './search-repository';
-import {SearchFilter} from './search-filter';
-import {Balance} from '../shared/services/balance/balance';
-import {MyDate} from '../shared/util/my-date';
-import {Account} from '../shared/models/account';
-import {Category} from '../shared/models/category';
-import {Transaction} from '../shared/models/transaction';
+import { AccountRepository } from '../shared/services/repository/account-repository';
+import { CategoryRepository } from '../shared/services/repository/category-repository';
+import { TransactionRepository } from '../shared/services/repository/transaction-repository';
+import { SearchRepository } from './search-repository';
+import { SearchFilter } from './search-filter';
+import { Balance } from '../shared/services/balance/balance';
+import { MyDate } from '../shared/util/my-date';
+import { Account } from '../shared/models/account';
+import { Category } from '../shared/models/category';
+import { Transaction } from '../shared/models/transaction';
 
 @Component({
   selector: 'app-transaction-list',
@@ -22,7 +22,7 @@ export class TransactionListComponent implements OnInit {
   public searchFilter: SearchFilter;
   public balance: number;
   public accounts: Array<Account>;
-  public categories: Array<Category>;
+  public categories: Array<any>;
   public transactions: Array<Transaction>;
   private accountRepository: AccountRepository;
   private categoryRepository: CategoryRepository;
@@ -45,24 +45,24 @@ export class TransactionListComponent implements OnInit {
     let savedFilter = this.searchRepository.getAll()[0];
     if (savedFilter) {
       this.searchFilter = savedFilter;
-    }else {
+    } else {
       this.fillDefaultSearch();
     }
 
     this.balance = 0;
-    this.accounts = this.accountRepository.getAll();
-    this.categories = this.categoryRepository.getAll();
+    this.accounts = this.formatAccountsFilter(this.accountRepository.getAll());
+    this.categories = this.formatCategoryFilter(this.categoryRepository.getAll());
     this.search();
   }
 
   search() {
     this.searchRepository.save(this.searchFilter);
     this.transactions = this.transactionRepository.getFiltered(
-             this.searchFilter.categorys,
-             this.searchFilter.accounts,
-             MyDate.convertToDateFromString(this.searchFilter.initialDate),
-             MyDate.convertToDateFromString(this.searchFilter.finalDate),
-             this.searchFilter.order);
+      this.searchFilter.categorys,
+      this.searchFilter.accounts,
+      MyDate.convertToDateFromString(this.searchFilter.initialDate),
+      MyDate.convertToDateFromString(this.searchFilter.finalDate),
+      this.searchFilter.order);
     this.balance = Balance.get(this.transactions);
   }
 
@@ -74,9 +74,29 @@ export class TransactionListComponent implements OnInit {
     let firstDayOfMonth = MyDate.getFirstDayOfMonth();
     let lastDayOfMonth = MyDate.getLastDayOfMonth();
     this.searchFilter = new SearchFilter(MyDate.convertToUsString(firstDayOfMonth),
-                                         MyDate.convertToUsString(lastDayOfMonth),
-                                         [],
-                                         [],
-                                         'date');
+      MyDate.convertToUsString(lastDayOfMonth),
+      [],
+      [],
+      'date');
+  }
+
+  private formatCategoryFilter(categories: Array<Category>) {
+    let options = [];
+    let length = categories.length;
+    for (let i = 0; i < length; i++) {
+      let category = categories[i];
+      options.push({ value: category.uuid, label: category.name });
+    }
+    return options;
+  }
+
+   private formatAccountsFilter(accounts: Array<Account>) {
+    let options = [];
+    let length = accounts.length;
+    for (let i = 0; i < length; i++) {
+      let account = accounts[i];
+      options.push({ value: account.uuid, label: account.name });
+    }
+    return options;
   }
 }

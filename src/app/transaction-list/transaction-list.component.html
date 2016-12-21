@@ -7,19 +7,21 @@
     </p>
     <label class="label" for="searchFilter.categorys">Categoria</label>
     <p class="control">
-        <span class="select multiple">
-            <select [(ngModel)]="searchFilter.categorys" name="searchFilter.categorys" multiple>
-            <option *ngFor="let c of categories" [value]="c.uuid">{{c.name}}</option>
-            </select>
-        </span>
+        <ng-select  
+            [(ngModel)]="searchFilter.categorys" 
+            name="searchFilter.categorys"
+            multiple="true" 
+            [options]="categories" >
+        </ng-select>
     </p>
     <label class="label" for="searchFilter.accounts">Conta</label>
     <p class="control">
-        <span class="select multiple">
-           <select [(ngModel)]="searchFilter.accounts" name="searchFilter.accounts" multiple>
-            <option *ngFor="let a of accounts" [value]="a.uuid">{{a.name}}</option>
-            </select>
-        </span>
+         <ng-select  
+            [(ngModel)]="searchFilter.accounts" 
+            name="searchFilter.accounts"
+            multiple="true" 
+            [options]="accounts" >
+        </ng-select>
     </p>
     <label class="label" for="searchFilter.order">Ordem</label>
     <p class="control">

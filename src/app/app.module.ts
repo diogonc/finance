@@ -20,6 +20,8 @@ import {CategoryRepository} from './shared/services/repository/category-reposito
 import {TransactionRepository} from './shared/services/repository/transaction-repository';
 import {UserRepository} from './shared/services/repository/user-repository';
 
+import {SelectModule} from 'angular2-select';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,8 @@ import {UserRepository} from './shared/services/repository/user-repository';
     BrowserModule,
     FormsModule,
     HttpModule,
-    FinanceRoutingModule
+    FinanceRoutingModule,
+    SelectModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [LoginEvent, AccountRepository, CategoryRepository,
