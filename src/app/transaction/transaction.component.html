@@ -1,41 +1,43 @@
 <h1 class="title is-5">Nova transação</h1>
-<form (ngSubmit)="save(true)">
-    <div class="notification is-danger" *ngFor="let error of errors">
-        {{error}}
-    </div>
-    <label class="label" for="value">Valor</label>
-    <p class="control">
-        <input class="input" id="value" [(ngModel)]="transactionVm.value" type="number" step="0.01" min="0" name="value">
-    </p>
-    <label class="label" for="description">Descrição</label>
-    <p class="control">
-        <input class="input" [(ngModel)]="transactionVm.description" type="text" name="description">
-    </p>
-    <label class="label" for="category">Categoria</label>
-    <p class="control">
-        <span class="select">
+<div class="formulario">
+    <form (ngSubmit)="save(true)">
+        <div class="notification is-danger" *ngFor="let error of errors">
+            {{error}}
+        </div>
+        <label class="label" for="value">Valor</label>
+        <p class="control">
+            <input class="input" id="value" [(ngModel)]="transactionVm.value" type="number" step="0.01" min="0" name="value">
+        </p>
+        <label class="label" for="description">Descrição</label>
+        <p class="control">
+            <input class="input" [(ngModel)]="transactionVm.description" type="text" name="description">
+        </p>
+        <label class="label" for="category">Categoria</label>
+        <p class="control">
+            <span class="select">
         <select [(ngModel)]="transactionVm.categoryIndex" name="categoryIndex">
         <option *ngFor="let c of categories; let i = index" [value]="i">{{c.name}}</option>
         </select>
         </span>
-    </p>
-    <label class="label" for="account">Conta</label>
-    <p class="control">
-        <span class="select">
+        </p>
+        <label class="label" for="account">Conta</label>
+        <p class="control">
+            <span class="select">
         <select [(ngModel)]="transactionVm.accountIndex" name="accountIndex">
             <option *ngFor="let a of accounts; let i = index" [value]="i">{{a.name}}</option>
         </select>
         </span>
-    </p>
-    <label class="label" for="date">Data</label>
-    <p class="control">
-        <input class="input" [(ngModel)]="transactionVm.date" type="date" name="date">
-    </p>
-    <p class="control">
-        <button class="button is-primary" type="submit">Salvar</button>
-        <button class="button is-info" type="button" (click)="save(false)">Salvar e novo</button>
-        <button class="button is-danger" [hidden]="isNew" type="button" (click)="delete()">Excluir</button>
-        <button class="button" type="button" (click)="back()">Voltar</button>
-    </p>
-</form>
+        </p>
+        <label class="label" for="date">Data</label>
+        <p class="control">
+            <input class="input" [(ngModel)]="transactionVm.date" type="date" name="date">
+        </p>
+        <p class="control">
+            <button class="button is-primary" type="submit">Salvar</button>
+            <button class="button is-info" type="button" (click)="save(false)">Salvar e novo</button>
+            <button class="button is-danger" [hidden]="isNew" type="button" (click)="delete()">Excluir</button>
+            <button class="button" type="button" (click)="back()">Voltar</button>
+        </p>
+    </form>
+</div>
 <app-spinner [isRunning]="isRequesting"></app-spinner>

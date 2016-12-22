@@ -1,10 +1,10 @@
-import {Component, OnInit } from '@angular/core';
-import {BalancePerCategory} from './balance-per-category';
-import {BalancePerCategoryReport} from './balance-per-category-report';
-import {BalancePerCategoryRow} from './balance-per-category-row';
-import {MyDate} from '../shared/util/my-date';
-import {AccountRepository} from '../shared/services/repository/account-repository';
-import {Account} from '../shared/models/account';
+import { Component, OnInit } from '@angular/core';
+import { BalancePerCategory } from './balance-per-category';
+import { BalancePerCategoryReport } from './balance-per-category-report';
+import { BalancePerCategoryRow } from './balance-per-category-row';
+import { MyDate } from '../shared/util/my-date';
+import { AccountRepository } from '../shared/services/repository/account-repository';
+import { Account } from '../shared/models/account';
 
 @Component({
   selector: 'app-balance-per-category',
@@ -13,6 +13,7 @@ import {Account} from '../shared/models/account';
   providers: [BalancePerCategory, BalancePerCategoryReport, BalancePerCategoryRow]
 })
 export class BalancePerCategoryComponent implements OnInit {
+  public showSearch: Boolean;
   public accountRepository: AccountRepository;
   public initialDate: string;
   public finalDate: string;
@@ -28,6 +29,7 @@ export class BalancePerCategoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showSearch = false;
     let today = new Date();
     let firstDayOfMonth = new Date(today.getFullYear(), 0, 1);
     let lastDayOfMonth = MyDate.getLastDayOfMonth();
@@ -56,15 +58,19 @@ export class BalancePerCategoryComponent implements OnInit {
 
   setCreditClass(value: number, average: number) {
     let isGreater = value >= average;
-    return {green: isGreater, red: !isGreater};
+    return { green: isGreater, red: !isGreater };
   }
 
   setDebitClass(value: number, average: number) {
     let isGreater = value >= average;
-    return {green: !isGreater, red: isGreater};
+    return { green: !isGreater, red: isGreater };
   }
 
-   private formatAccountsFilter(accounts: Array<Account>) {
+  toogle() {
+    this.showSearch = !this.showSearch;
+  }
+
+  private formatAccountsFilter(accounts: Array<Account>) {
     let options = [];
     let length = accounts.length;
     for (let i = 0; i < length; i++) {

@@ -1142,7 +1142,7 @@ a.box:active {
 }
 
 .content a:not(.button):visited {
-  color: #b86bff;
+  color: #00d1b2;
 }
 
 .content a:not(.button):hover {
@@ -6546,4 +6546,12 @@ h1 {
 
 .money{
   text-align: right !important;
+}
+
+input, select, .select-dnc{
+    width: 303px !important;
+}
+
+.date {
+    width: 150px !important;
 }

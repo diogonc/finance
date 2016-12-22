@@ -19,6 +19,7 @@ import { Transaction } from '../shared/models/transaction';
   providers: [Balance, MyDate, SearchRepository]
 })
 export class TransactionListComponent implements OnInit {
+  public showSearch: Boolean;
   public searchFilter: SearchFilter;
   public balance: number;
   public accounts: Array<Account>;
@@ -42,6 +43,7 @@ export class TransactionListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showSearch = false;
     let savedFilter = this.searchRepository.getAll()[0];
     if (savedFilter) {
       this.searchFilter = savedFilter;
@@ -68,6 +70,10 @@ export class TransactionListComponent implements OnInit {
 
   edit(uuid: string) {
     this.router.navigate(['/transaction-edit', uuid]);
+  }
+
+  toogle() {
+    this.showSearch = !this.showSearch;
   }
 
   private fillDefaultSearch() {
