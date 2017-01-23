@@ -1,7 +1,8 @@
 <nav class="nav has-shadow">
   <div class="nav-left">
     <span class="nav-item is-brand" href="#">
-      <h1 class="is-4">Financeiro</h1>
+      <h1 class="is-4" *ngIf="!isLogged">Financeiro</h1>
+      <h1 class="is-4" *ngIf="isLogged">{{user}}</h1>
     </span>
     <a *ngIf="isLogged" class="nav-item is-tab" [routerLink]="['/transaction-list']">Transações</a>
     <a *ngIf="isLogged" class="nav-item is-tab" [routerLink]="['/transaction-new']">Adicionar</a>

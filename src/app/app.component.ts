@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   isLogged: boolean;
   isRequesting: boolean;
   title: 'Financeiro';
+  user: string;
   private userRepository: UserRepository;
   private loginApp: LoginApp;
   private router: Router;
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit {
     this.backupService = backupService;
     this.sync = sync;
     this.isRequesting = false;
+    this.user = '';
 
     loginEvent.logginAnnouced$.subscribe(
       user => {
@@ -46,6 +48,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.isLogged = this.userRepository.isLogged();
+
+    if (this.isLogged) {
+      let user = this.userRepository.getUser();
+      this.user = user.login;
+    }
   }
 
   logout() {

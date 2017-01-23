@@ -6555,3 +6555,6 @@ input, select, .select-dnc{
 .date {
     width: 150px !important;
 }
+ table{
+   margin-top: 15px;
+ }
