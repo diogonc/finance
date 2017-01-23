@@ -14,8 +14,8 @@ import {SpinnerComponent} from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-transaction',
-  templateUrl: 'app/transaction/transaction.component.html',
-  styleUrls: ['app/transaction/transaction.component.css'],
+  templateUrl: 'transaction.component.html',
+  styleUrls: ['transaction.component.css'],
   providers: [FinanceApi, TransactionApp, TransactionVm],
   entryComponents: [SpinnerComponent]
 })

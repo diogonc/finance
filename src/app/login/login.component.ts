@@ -10,8 +10,8 @@ import {SpinnerComponent} from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-login',
-  templateUrl: 'app/login/login.component.html',
-  styleUrls: ['app/login/login.component.css'],
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.css'],
   providers: [Sha1, Sync, FinanceApi, LoginApp],
   entryComponents: [SpinnerComponent]
 })

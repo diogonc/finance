@@ -11,8 +11,8 @@ import {SpinnerComponent} from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-transfer',
-  templateUrl: 'app/transfer/transfer.component.html',
-  styleUrls: ['app/transfer/transfer.component.css'],
+  templateUrl: 'transfer.component.html',
+  styleUrls: ['transfer.component.css'],
   providers: [FinanceApi, TransferApp],
   entryComponents: [SpinnerComponent]
 })

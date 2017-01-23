@@ -5,8 +5,8 @@ import {BalancePerAccount, BalancePerAccountReport} from './balance-per-account'
 
 @Component({
   selector: 'app-balance',
-  templateUrl: 'app/balance/balance.component.html',
-  styleUrls: ['app/balance/balance.component.css'],
+  templateUrl: 'balance.component.html',
+  styleUrls: ['balance.component.css'],
   providers: [BalancePerAccount, Balance]
 })
 export class BalanceComponent implements OnInit {

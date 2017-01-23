@@ -14,8 +14,8 @@ import { Transaction } from '../shared/models/transaction';
 
 @Component({
   selector: 'app-transaction-list',
-  templateUrl: 'app/transaction-list/transaction-list.component.html',
-  styleUrls: ['app/transaction-list/transaction-list.component.css'],
+  templateUrl: 'transaction-list.component.html',
+  styleUrls: ['transaction-list.component.css'],
   providers: [Balance, MyDate, SearchRepository]
 })
 export class TransactionListComponent implements OnInit {

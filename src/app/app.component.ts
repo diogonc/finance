@@ -13,8 +13,8 @@ import {SpinnerComponent} from './spinner/spinner.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app/app.component.html',
-  styleUrls: ['app/app.component.css'],
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.css'],
   providers: [Sha1, Sync, FinanceApi, LoginApp, LoginEvent, BackupService, CsvCreatorService],
   entryComponents: [SpinnerComponent]
 })
