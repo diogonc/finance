@@ -5,7 +5,7 @@ import {Http, Headers} from '@angular/http';
 
 @Injectable()
 export class FinanceApi {
-    private DEFAULT_URL: string = 'http://financeserver-diogonc.rhcloud.com';
+    private DEFAULT_URL: string = 'http://corefinance.azurewebsites.net/api/';
     private http: Http;
 
     constructor(http: Http) {
@@ -44,13 +44,14 @@ export class FinanceApi {
         header.append('username', user.login);
         header.append('token', user.password);
         header.append('propertyUuid', user.property);
+        header.append('Content-type', 'application/json');
         return header;
     }
 
     private get(action: string, user: User, success: (data: any) => any, error: (data: any) => any): boolean {
         this.http
             .get(
-            this.DEFAULT_URL + '/' + action + '?where={"propertyUuid":"' + user.property + '"}',
+            this.DEFAULT_URL + action,
             { headers: this.createHeader(user) })
             .subscribe(
             data => this.onSuccess(data, success),
@@ -63,7 +64,7 @@ export class FinanceApi {
         this.startRequest();
         this.http
             .post(
-            this.DEFAULT_URL + '/' + action, JSON.stringify(data),
+            this.DEFAULT_URL + action, JSON.stringify(data),
             { headers: this.createHeader(user) })
             .subscribe(
             response => this.onSuccess(response, success),
@@ -76,7 +77,7 @@ export class FinanceApi {
         this.startRequest();
         this.http
             .put(
-            this.DEFAULT_URL + '/' + action + '/' + data.uuid,
+            this.DEFAULT_URL + action + '/' + data.uuid,
             JSON.stringify(data),
             { headers: this.createHeader(user) })
             .subscribe(
@@ -90,7 +91,7 @@ export class FinanceApi {
         this.startRequest();
         this.http
             .delete(
-            this.DEFAULT_URL + '/' + action + '/' + uuid,
+            this.DEFAULT_URL + action + '/' + uuid,
             { headers: this.createHeader(user) })
             .subscribe(
             response => this.onSuccess(response, success),
