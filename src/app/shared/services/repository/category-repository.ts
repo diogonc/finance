@@ -1,5 +1,5 @@
-import {Repository} from './repository';
-import {Category} from '../../models/category';
+import { Repository } from './repository';
+import { Category } from '../../models/category';
 
 export class CategoryRepository extends Repository {
   constructor() { super('category'); }
@@ -13,7 +13,7 @@ export class CategoryRepository extends Repository {
       accounts.push(new Category(item.uuid, item.name, item.categoryType, item.priority));
     }
 
-    return this.order(accounts);
+    return this.orderByPriorityAndName(accounts);
   }
 
   getCreditTransfer(): Category {
@@ -24,9 +24,27 @@ export class CategoryRepository extends Repository {
     return this.getFiltered('debitTransfer');
   }
 
-  private order(data: Array<Category>): Array<Category> {
+  private orderByPriority(data: Array<Category>): Array<Category> {
     return data.sort(function (item, anotherItem) {
       return anotherItem.priority - item.priority;
+    });
+  }
+
+  private orderByPriorityAndName(data: Array<Category>): Array<Category> {
+    return data.sort(function (item, anotherItem) {
+      if ( anotherItem.priority - item.priority !== 0 ) {
+        return anotherItem.priority - item.priority;
+      }
+
+      if (item.name > anotherItem.name) {
+        return 1;
+      }
+
+      if (item.name < anotherItem.name) {
+        return -1;
+      }
+
+      return 0;
     });
   }
 

@@ -6,11 +6,13 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { TransferComponent } from './transfer/transfer.component';
 import { BalanceComponent } from './balance/balance.component';
 import { BalancePerCategoryComponent } from './balance-per-category/balance-per-category.component';
+import { CategoryListComponent } from './category-list/category-list.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'transaction-list', component: TransactionListComponent },
+  { path: 'category-list', component: CategoryListComponent },
   { path: 'transaction-new', component: TransactionComponent },
   { path: 'transaction-edit/:id', component: TransactionComponent },
   { path: 'transfer', component: TransferComponent },
