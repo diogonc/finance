@@ -52,13 +52,13 @@ export class TransactionComponent implements OnInit {
     this.errors = [];
     this.accounts = this.accountRepository.getAll();
     this.categories = this.categoryRepository.getAll();
-    let uuid = this.route.snapshot.params['id'];
+    const uuid = this.route.snapshot.params['id'];
     this.transactionVm = this.transactionApp.load(uuid, this.accounts, this.categories);
   }
 
   save(showList: boolean) {
-    let account = this.accounts[this.transactionVm.accountIndex];
-    let category = this.categories[this.transactionVm.categoryIndex];
+    const account = this.accounts[this.transactionVm.accountIndex];
+    const category = this.categories[this.transactionVm.categoryIndex];
     this.showList = showList;
 
     this.isRequesting = true;

@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 export class MyArray {
 
   static findIndex(key: any, data: any): number {
-    let length = data.length;
+    const length = data.length;
     for (let i = 0; i < length; i++) {
       if (data[i].uuid === key || (data[i].uuid === undefined && data[i] === key)) {
         return i;

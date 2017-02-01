@@ -32,11 +32,11 @@ export class TransferApp {
 
     let fromTransaction = new Transaction(null, user.property, transferVm.value, transferVm.description,
       transferVm.date, fromAccount.uuid, fromAccount.name,
-      debitCategory.uuid, debitCategory.name, debitCategory.type);
+      debitCategory.uuid, debitCategory.name, debitCategory.categoryType);
 
     let toTransaction = new Transaction(null, user.property, transferVm.value, transferVm.description,
       transferVm.date, toAccount.uuid, toAccount.name,
-      creditCategory.uuid, creditCategory.name, creditCategory.type);
+      creditCategory.uuid, creditCategory.name, creditCategory.categoryType);
 
     if (!fromTransaction.isValid() || !toTransaction.isValid()) {
       let errors = fromTransaction.errors;

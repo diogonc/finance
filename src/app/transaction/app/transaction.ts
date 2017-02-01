@@ -42,7 +42,7 @@ export class TransactionApp {
     let transaction = new Transaction(transactionVm.uuid, user.property, transactionVm.value,
       transactionVm.description,
       transactionVm.date, account.uuid, account.name,
-      category.uuid, category.name, category.type);
+      category.uuid, category.name, category.categoryType);
 
     if (!transaction.isValid()) {
       onError(transaction.errors);

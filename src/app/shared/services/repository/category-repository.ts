@@ -32,7 +32,7 @@ export class CategoryRepository extends Repository {
 
   private orderByPriorityAndName(data: Array<Category>): Array<Category> {
     return data.sort(function (item, anotherItem) {
-      if ( anotherItem.priority - item.priority !== 0 ) {
+      if (anotherItem.priority - item.priority !== 0) {
         return anotherItem.priority - item.priority;
       }
 
@@ -55,7 +55,7 @@ export class CategoryRepository extends Repository {
     for (let i = 0; i < lenght; i++) {
       let c = categories[i];
 
-      if (c.type === categoryType) {
+      if (c.categoryType === categoryType) {
         return c;
       }
     }

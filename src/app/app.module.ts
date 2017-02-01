@@ -22,6 +22,7 @@ import {UserRepository} from './shared/services/repository/user-repository';
 
 import {SelectModule} from 'angular2-select';
 import { CategoryListComponent } from './category-list/category-list.component';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CategoryListComponent } from './category-list/category-list.component';
     TransactionListComponent,
     TransferComponent,
     SpinnerComponent,
-    CategoryListComponent
+    CategoryListComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,

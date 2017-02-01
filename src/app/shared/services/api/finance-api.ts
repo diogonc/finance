@@ -1,7 +1,8 @@
-import {User} from '../../models/user';
-import {Transaction} from '../../models/transaction';
-import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import { User } from '../../models/user';
+import { Transaction } from '../../models/transaction';
+import { Category } from '../../models/category';
+import { Injectable } from '@angular/core';
+import { Http, Headers } from '@angular/http';
 
 @Injectable()
 export class FinanceApi {
@@ -29,18 +30,33 @@ export class FinanceApi {
         this.post('transaction', transaction, user, success, error);
     }
 
-    updateTransaction(transaction: Transaction, user: User, success: (data: any) => any, 
+    updateTransaction(transaction: Transaction, user: User, success: (data: any) => any,
         error: (data: any) => any): void {
         this.put('transaction', transaction, user, success, error);
     }
 
-    deleteTransaction(transactionUuid: string, user: User, success: (data: any) => any, 
+    deleteTransaction(transactionUuid: string, user: User, success: (data: any) => any,
         error: (data: any) => any): void {
         this.delete('transaction', transactionUuid, user, success, error);
     }
 
+    saveCategory(category: Category, user: User, success: (data: any) => any,
+        error: (data: any) => any): void {
+        this.post('category', category, user, success, error);
+    }
+
+    updateCategory(category: Category, user: User, success: (data: any) => any,
+        error: (data: any) => any): void {
+        this.put('category', category, user, success, error);
+    }
+
+    deleteCategory(categoryUuid: string, user: User, success: (data: any) => any,
+        error: (data: any) => any): void {
+        this.delete('category', categoryUuid, user, success, error);
+    }
+
     private createHeader(user: User): Headers {
-        let header = new Headers();
+        const header = new Headers();
         header.append('username', user.login);
         header.append('token', user.password);
         header.append('propertyUuid', user.property);
@@ -60,7 +76,7 @@ export class FinanceApi {
     }
 
     private post(action: string, data: any, user: User, success: (response: any) => any,
-                error: (data: any) => any): void {
+        error: (data: any) => any): void {
         this.startRequest();
         this.http
             .post(
@@ -73,7 +89,7 @@ export class FinanceApi {
     }
 
     private put(action: string, data: any, user: User, success: (response: any) => any,
-            error: (data: any) => any): void {
+        error: (data: any) => any): void {
         this.startRequest();
         this.http
             .put(
@@ -87,7 +103,7 @@ export class FinanceApi {
     }
 
     delete(action: string, uuid: string, user: User, success: (response: any) => any,
-            error: (data: any) => any): void {
+        error: (data: any) => any): void {
         this.startRequest();
         this.http
             .delete(
