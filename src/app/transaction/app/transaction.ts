@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {TransactionRepository} from '../../shared/services/repository/transaction-repository';
-import {UserRepository} from '../../shared/services/repository/user-repository';
-import {MyDate} from '../../shared/util/my-date';
-import {MyArray} from '../../shared/util/my-array';
-import {FinanceApi} from '../../shared/services/api/finance-api';
-import {Account} from '../../shared/models/account';
-import {Category} from '../../shared/models/category';
-import {Transaction} from '../../shared/models/transaction';
-import {TransactionVm} from './transaction-vm';
+import { Injectable } from '@angular/core';
+import { TransactionRepository } from '../../shared/services/repository/transaction-repository';
+import { UserRepository } from '../../shared/services/repository/user-repository';
+import { MyDate } from '../../shared/util/my-date';
+import { MyArray } from '../../shared/util/my-array';
+import { FinanceApi } from '../../shared/services/api/finance-api';
+import { Account } from '../../shared/models/account';
+import { Category } from '../../shared/models/category';
+import { Transaction } from '../../shared/models/transaction';
+import { TransactionVm } from './transaction-vm';
 
 @Injectable()
 export class TransactionApp {
@@ -38,8 +38,8 @@ export class TransactionApp {
     onSuccess: () => void,
     onError: (error) => void):
     void {
-    let user = this.userRepository.getUser();
-    let transaction = new Transaction(transactionVm.uuid, user.property, transactionVm.value,
+    const user = this.userRepository.getUser();
+    const transaction = new Transaction(transactionVm.uuid, user.property, transactionVm.value,
       transactionVm.description,
       transactionVm.date, account.uuid, account.name,
       category.uuid, category.name, category.categoryType);
@@ -51,7 +51,10 @@ export class TransactionApp {
 
     if (transactionVm.uuid === null) {
       this.api.saveTransaction(transaction, user,
-        () => this.onSave(transaction, onSuccess),
+        (response) => {
+          transaction.uuid = response._body;
+          this.onSave(transaction, onSuccess);
+        },
         onError);
     } else {
       this.api.updateTransaction(transaction, user,
@@ -64,7 +67,7 @@ export class TransactionApp {
     if (uuid === null) {
       return;
     }
-    let user = this.userRepository.getUser();
+    const user = this.userRepository.getUser();
     this.api.deleteTransaction(uuid, user,
       () => this.onDelete(uuid, onSuccess),
       onError);

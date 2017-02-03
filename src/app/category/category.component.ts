@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { MyArray } from '../shared/util/my-array';
 import { Category } from '../shared/models/category';
+import { CategoryType } from '../shared/models/categoryType';
 import { CategoryRepository } from '../shared/services/repository/category-repository';
 import { UserRepository } from '../shared/services/repository/user-repository';
 import { FinanceApi } from '../shared/services/api/finance-api';
@@ -14,7 +14,7 @@ import { FinanceApi } from '../shared/services/api/finance-api';
 })
 export class CategoryComponent implements OnInit {
   public category: Category;
-  public types: Array<Object>;
+  public types: Array<CategoryType>;
   public typeIndex: number;
   public isRequesting: boolean;
   public isNew: boolean;
@@ -37,12 +37,13 @@ export class CategoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.types = this.getTypes();
+    this.types = CategoryType.getTypes();
 
     const uuid = this.route.snapshot.params['id'];
     if (typeof (uuid) !== 'undefined' && uuid !== null) {
-      this.category = this.categoryRepository.get(uuid);
-      this.typeIndex = this.getTypeIndex(this.category.categoryType);
+      const category = this.categoryRepository.get(uuid);
+      this.category = new Category(category.uuid, category.name, category.categoryType, category.priority);
+      this.typeIndex = CategoryType.getTypeIndex(this.category.categoryType);
       this.isNew = false;
     } else {
       this.isNew = true;
@@ -53,7 +54,7 @@ export class CategoryComponent implements OnInit {
   save(showList: boolean) {
     const user = this.userRepository.getUser();
     this.isRequesting = true;
-    this.category.categoryType = String(this.types[(this.typeIndex)]);
+    this.category.categoryType = this.types[(this.typeIndex)].uuid;
     this.category.propertyUuid = user.property;
 
     if (!this.category.isValid()) {
@@ -63,18 +64,29 @@ export class CategoryComponent implements OnInit {
 
     if (this.category.uuid === null) {
       this.api.saveCategory(this.category, user,
-        () => this.onSave(this.category, this.onSuccess),
-        this.onError);
+        (response) => {
+          this.category.uuid = response._body;
+          this.onSave(this.category, this.onSuccess.bind(this))
+        },
+        this.onError.bind(this));
     } else {
       this.api.updateCategory(this.category, user,
-        () => this.onSave(this.category, this.onSuccess),
-        this.onError);
+        () => this.onSave(this.category, this.onSuccess.bind(this)),
+        this.onError.bind(this));
     }
     this.showList = showList;
   };
 
   delete() {
     this.isRequesting = true;
+    const uuid = this.category.uuid;
+    if (uuid === null) {
+      return;
+    }
+    const user = this.userRepository.getUser();
+    this.api.deleteCategory(uuid, user,
+      () => this.onDelete(uuid, this.onSuccess.bind(this)),
+      this.onError.bind(this));
   };
 
   back() {
@@ -88,6 +100,8 @@ export class CategoryComponent implements OnInit {
 
   private onDelete(categoryUuid: string, onSuccess: () => void) {
     this.categoryRepository.delete(categoryUuid);
+    this.isRequesting = false;
+    this.router.navigate(['/category-list']);
     onSuccess();
   };
 
@@ -96,30 +110,13 @@ export class CategoryComponent implements OnInit {
     if (this.showList) {
       this.router.navigate(['/category-list']);
     } else {
-      // this.transactionVm = this.transactionApp.load(null, null, null);
+      this.isNew = true;
+      this.category = new Category(null, '', 'debit', 1);
     }
   };
 
   private onError(errors) {
     this.isRequesting = false;
     this.errors = errors;
-  }
-
-  private onDelete2() {
-    this.isRequesting = false;
-    this.router.navigate(['/category-list']);
-  };
-
-  private getTypes(): Array<Object> {
-    return [
-      { uuid: 'credit', name: 'Crédito' },
-      { uuid: 'debit', name: 'Débito' },
-      { uuid: 'creditTransfer', name: 'Tranferência de crédito' },
-      { uuid: 'debitTransfer', name: 'Transferência de débito' }];
-  }
-
-  private getTypeIndex(key: string): number {
-    const types = this.getTypes();
-    return MyArray.findIndex(key, types);
   }
 }
