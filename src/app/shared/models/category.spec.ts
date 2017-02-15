@@ -12,4 +12,11 @@ describe('Category', () => {
     expect(category.categoryType).toEqual(c.categoryType);
     expect(category.priority).toEqual(c.priority);
   });
+
+  it('should fill error if fieds are not filled', () => {
+    const category = new Category(null, null, null, null);
+
+    expect(category.isValid()).toEqual(false);
+    expect(category.errors.length).toEqual(3);
+  });
 });

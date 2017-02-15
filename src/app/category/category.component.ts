@@ -48,13 +48,17 @@ export class CategoryComponent implements OnInit {
     } else {
       this.isNew = true;
       this.category = new Category(null, '', 'debit', 1);
+      this.typeIndex = 1;
     }
   }
 
   save(showList: boolean) {
     const user = this.userRepository.getUser();
     this.isRequesting = true;
-    this.category.categoryType = this.types[(this.typeIndex)].uuid;
+    if (this.typeIndex) {
+      this.category.categoryType = this.types[(this.typeIndex)].uuid;
+    }
+
     this.category.propertyUuid = user.property;
 
     if (!this.category.isValid()) {
@@ -119,4 +123,8 @@ export class CategoryComponent implements OnInit {
     this.isRequesting = false;
     this.errors = errors;
   }
+}
+
+class CategoryApp {
+
 }
