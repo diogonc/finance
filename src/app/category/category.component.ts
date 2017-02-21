@@ -59,22 +59,24 @@ export class CategoryComponent implements OnInit {
       this.category.categoryType = this.types[(this.typeIndex)].uuid;
     }
 
-    this.category.propertyUuid = user.property;
+    const category = new Category(this.category.uuid, this.category.name,
+                                this.category.categoryType, this.category.priority);
+    category.propertyUuid = user.property;
 
-    if (!this.category.isValid()) {
-      this.onError(this.category.errors);
+    if (!category.isValid()) {
+      this.onError(category.errors);
       return;
     }
 
-    if (this.category.uuid === null) {
-      this.api.saveCategory(this.category, user,
+    if (category.uuid === null) {
+      this.api.saveCategory(category, user,
         (response) => {
           this.category.uuid = response._body;
           this.onSave(this.category, this.onSuccess.bind(this))
         },
         this.onError.bind(this));
     } else {
-      this.api.updateCategory(this.category, user,
+      this.api.updateCategory(category, user,
         () => this.onSave(this.category, this.onSuccess.bind(this)),
         this.onError.bind(this));
     }
