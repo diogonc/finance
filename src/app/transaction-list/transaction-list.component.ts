@@ -96,7 +96,7 @@ export class TransactionListComponent implements OnInit {
     return options;
   }
 
-   private formatAccountsFilter(accounts: Array<Account>) {
+  private formatAccountsFilter(accounts: Array<Account>) {
     let options = [];
     let length = accounts.length;
     for (let i = 0; i < length; i++) {

@@ -20,7 +20,6 @@ import { CategoryRepository } from './shared/services/repository/category-reposi
 import { TransactionRepository } from './shared/services/repository/transaction-repository';
 import { UserRepository } from './shared/services/repository/user-repository';
 
-import { SelectModule } from 'angular2-select';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { CategoryComponent } from './category/category.component';
 @NgModule({

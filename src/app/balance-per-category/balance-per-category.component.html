@@ -7,12 +7,9 @@
     </p>
     <label class="label" for="accounts">Conta</label>
     <p class="control select-dnc">
-        <!-- <ng-select  
-            [(ngModel)]="accounts" 
-            name="accounts"
-            multiple="true" 
-            [options]="allAccounts" >
-        </ng-select> -->
+        <select multiple [(ngModel)]="accounts" name="accounts">
+            <option *ngFor="let acc of allAccounts" value="{{acc.value}}">{{acc.label}}</option>
+        </select>
     </p>
     <label class="label" for="show">Exibir</label>
     <p class="control">

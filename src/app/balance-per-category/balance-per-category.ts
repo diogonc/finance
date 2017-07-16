@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {TransactionRepository} from '../shared/services/repository/transaction-repository';
-import {BalancePerCategoryReport} from './balance-per-category-report';
+import { Injectable } from '@angular/core';
+import { TransactionRepository } from '../shared/services/repository/transaction-repository';
+import { BalancePerCategoryReport } from './balance-per-category-report';
 
 @Injectable()
 export class BalancePerCategory {
