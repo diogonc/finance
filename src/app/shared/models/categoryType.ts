@@ -1,8 +1,5 @@
-import { Injectable } from '@angular/core';
-
 import { MyArray } from '../util/my-array';
 
-@Injectable()
 export class CategoryType {
     uuid: string;
     name: string;

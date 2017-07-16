@@ -1,7 +1,5 @@
 import {MyDate} from '../util/my-date';
-import {Injectable} from '@angular/core';
 
-@Injectable()
 export class Transaction {
   uuid: string;
   value: number;

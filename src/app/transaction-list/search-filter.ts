@@ -1,6 +1,3 @@
-import {Injectable} from '@angular/core';
-
-@Injectable()
 export class SearchFilter {
     public uuid: string;
     public accounts: Array<any>;

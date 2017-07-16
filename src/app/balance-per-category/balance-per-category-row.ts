@@ -1,9 +1,7 @@
-import {Injectable} from '@angular/core';
 import {MyArray} from '../shared/util/my-array';
 import {MyDate} from '../shared/util/my-date';
 import {BalancePerCategoryCell} from './balance-per-category-cell';
 
-@Injectable()
 export class BalancePerCategoryRow {
     public uuid: string;
     public category: string;

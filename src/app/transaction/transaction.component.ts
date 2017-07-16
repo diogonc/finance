@@ -1,22 +1,22 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {AccountRepository} from '../shared/services/repository/account-repository';
-import {CategoryRepository} from '../shared/services/repository/category-repository';
-import {TransactionRepository} from '../shared/services/repository/transaction-repository';
-import {UserRepository} from '../shared/services/repository/user-repository';
-import {FinanceApi} from '../shared/services/api/finance-api';
-import {Account} from '../shared/models/account';
-import {Category} from '../shared/models/category';
-import {Transaction} from '../shared/models/transaction';
-import {TransactionVm} from './app/transaction-vm';
-import {TransactionApp} from './app/transaction';
-import {SpinnerComponent} from '../spinner/spinner.component';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AccountRepository } from '../shared/services/repository/account-repository';
+import { CategoryRepository } from '../shared/services/repository/category-repository';
+import { TransactionRepository } from '../shared/services/repository/transaction-repository';
+import { UserRepository } from '../shared/services/repository/user-repository';
+import { FinanceApi } from '../shared/services/api/finance-api';
+import { Account } from '../shared/models/account';
+import { Category } from '../shared/models/category';
+import { Transaction } from '../shared/models/transaction';
+import { TransactionVm } from './app/transaction-vm';
+import { TransactionApp } from './app/transaction';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-transaction',
   templateUrl: 'transaction.component.html',
   styleUrls: ['transaction.component.css'],
-  providers: [FinanceApi, TransactionApp, TransactionVm],
+  providers: [FinanceApi,  TransactionApp],
   entryComponents: [SpinnerComponent]
 })
 export class TransactionComponent implements OnInit {
@@ -63,7 +63,7 @@ export class TransactionComponent implements OnInit {
 
     this.isRequesting = true;
     this.transactionApp.save(this.transactionVm, account, category,
-                             this.onSuccess.bind(this), this.onError.bind(this));
+      this.onSuccess.bind(this), this.onError.bind(this));
   };
 
   delete() {

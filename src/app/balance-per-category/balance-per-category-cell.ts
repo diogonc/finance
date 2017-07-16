@@ -1,7 +1,5 @@
-import {Injectable} from '@angular/core';
 import {MyDate} from '../shared/util/my-date';
 
-@Injectable()
 export class BalancePerCategoryCell {
     public balance: number;
     public date: Date;

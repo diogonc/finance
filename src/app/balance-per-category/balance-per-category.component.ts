@@ -10,7 +10,7 @@ import { Account } from '../shared/models/account';
   selector: 'app-balance-per-category',
   templateUrl: 'balance-per-category.component.html',
   styleUrls: ['balance-per-category.component.css'],
-  providers: [BalancePerCategory, BalancePerCategoryReport, BalancePerCategoryRow]
+  providers: [BalancePerCategory, BalancePerCategoryReport ]
 })
 export class BalancePerCategoryComponent implements OnInit {
   public showSearch: Boolean;
