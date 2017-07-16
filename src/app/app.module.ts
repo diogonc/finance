@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FinanceRoutingModule} from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -13,17 +13,16 @@ import { TransactionListComponent } from './transaction-list/transaction-list.co
 import { TransferComponent } from './transfer/transfer.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 
-import {LoginEvent} from './events/login-event';
+import { LoginEvent } from './events/login-event';
 
-import {AccountRepository} from './shared/services/repository/account-repository';
-import {CategoryRepository} from './shared/services/repository/category-repository';
-import {TransactionRepository} from './shared/services/repository/transaction-repository';
-import {UserRepository} from './shared/services/repository/user-repository';
+import { AccountRepository } from './shared/services/repository/account-repository';
+import { CategoryRepository } from './shared/services/repository/category-repository';
+import { TransactionRepository } from './shared/services/repository/transaction-repository';
+import { UserRepository } from './shared/services/repository/user-repository';
 
-import {SelectModule} from 'angular2-select';
+import { SelectModule } from 'angular2-select';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { CategoryComponent } from './category/category.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,12 +40,22 @@ import { CategoryComponent } from './category/category.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    FinanceRoutingModule,
-    SelectModule
+    RouterModule.forRoot([
+      { path: '', component: LoginComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'transaction-list', component: TransactionListComponent },
+      { path: 'category-list', component: CategoryListComponent },
+      { path: 'transaction-new', component: TransactionComponent },
+      { path: 'transaction-edit/:id', component: TransactionComponent },
+      { path: 'category-new', component: CategoryComponent },
+      { path: 'category-edit/:id', component: CategoryComponent },
+      { path: 'transfer', component: TransferComponent },
+      { path: 'balance', component: BalanceComponent },
+      { path: 'balance-per-category', component: BalancePerCategoryComponent }
+    ])
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [LoginEvent, AccountRepository, CategoryRepository,
-     TransactionRepository, UserRepository],
+    TransactionRepository, UserRepository],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
