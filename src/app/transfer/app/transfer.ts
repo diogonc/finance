@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {TransactionRepository} from '../../shared/services/repository/transaction-repository';
-import {UserRepository} from '../../shared/services/repository/user-repository';
-import {FinanceApi} from '../../shared/services/api/finance-api';
-import {Account} from '../../shared/models/account';
-import {Category} from '../../shared/models/category';
-import {Transaction} from '../../shared/models/transaction';
-import {TransferVm} from './transfer-vm';
+import { Injectable } from '@angular/core';
+import { TransactionRepository } from '../../shared/services/repository/transaction-repository';
+import { UserRepository } from '../../shared/services/repository/user-repository';
+import { FinanceApi } from '../../shared/services/api/finance-api';
+import { Account } from '../../shared/models/account';
+import { Category } from '../../shared/models/category';
+import { Transaction } from '../../shared/models/transaction';
+import { TransferVm } from './transfer-vm';
 
 @Injectable()
 export class TransferApp {
@@ -30,13 +30,9 @@ export class TransferApp {
 
     let user = this.userRepository.getUser();
 
-    let fromTransaction = new Transaction(null, user.property, transferVm.value, transferVm.description,
-      transferVm.date, fromAccount.uuid, fromAccount.name,
-      debitCategory.uuid, debitCategory.name, debitCategory.categoryType);
+    let fromTransaction = new Transaction(null, user.property, transferVm.value, transferVm.description, transferVm.date, fromAccount, debitCategory);
 
-    let toTransaction = new Transaction(null, user.property, transferVm.value, transferVm.description,
-      transferVm.date, toAccount.uuid, toAccount.name,
-      creditCategory.uuid, creditCategory.name, creditCategory.categoryType);
+    let toTransaction = new Transaction(null, user.property, transferVm.value, transferVm.description, transferVm.date, toAccount, creditCategory);
 
     if (!fromTransaction.isValid() || !toTransaction.isValid()) {
       let errors = fromTransaction.errors;

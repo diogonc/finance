@@ -1,8 +1,9 @@
-import {Account} from '../shared/models/account';
-import {Transaction} from '../shared/models/transaction';
-import {BalancePerAccount} from './balance-per-account';
-import {TransactionRepository} from '../shared/services/repository/transaction-repository';
-import {AccountRepository} from '../shared/services/repository/account-repository';
+import { Account } from '../shared/models/account';
+import { Category } from '../shared/models/category';
+import { Transaction } from '../shared/models/transaction';
+import { BalancePerAccount } from './balance-per-account';
+import { TransactionRepository } from '../shared/services/repository/transaction-repository';
+import { AccountRepository } from '../shared/services/repository/account-repository';
 
 describe('BalancePerAccount', () => {
     let balancePerAccount;
@@ -63,5 +64,6 @@ describe('BalancePerAccount', () => {
 });
 
 function createTransaction(value: number, type: string, accountUUid: string): Object {
-    return new Transaction('1', '1', value, 'test', '2010-01-01', accountUUid, accountUUid, '3', 'category', type);
+    return new Transaction('1', '1', value, 'test', '2010-01-01', new Account(accountUUid, 'account', 1),
+     new Category( accountUUid, 'category', type, 3));
 }

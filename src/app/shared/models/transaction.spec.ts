@@ -1,5 +1,7 @@
 /* tslint:disable:no-unused-variable */
-import {Transaction} from './transaction';
+import { Transaction } from './transaction';
+import { Account } from './account';
+import { Category } from './category';
 
 describe('Transaction', () => {
   let t;
@@ -20,21 +22,20 @@ describe('Transaction', () => {
 
   it('should create with constructor parameters', () => {
     let transaction = new Transaction(null, t.propertyUuid, t.value, t.description, t.date,
-      t.accountUuid, t.accountName,
-      t.categoryUuid, t.categoryName, t.categoryType);
+      new Account(t.accountUuid, t.accountName, 1), new Category(t.categoryUuid, t.categoryName, t.categoryType, 1));
 
     expect(transaction.value).toEqual(t.value);
     expect(transaction.description).toEqual(t.description);
     expect(transaction.date).toEqual(new Date(2010, 2, 1));
     expect(transaction.propertyUuid).toEqual(t.propertyUuid);
-    expect(transaction.accountName).toEqual(t.accountName);
-    expect(transaction.categoryName).toEqual(t.categoryName);
+    expect(transaction.account.name).toEqual(t.accountName);
+    expect(transaction.category.name).toEqual(t.categoryName);
   });
 
   it('should fill error if fieds are not filled', () => {
-    let transaction = new Transaction(null, null, 0, '', null, null, null, null, null, null);
+    let transaction = new Transaction(null, null, 0, '', null, null, null);
 
     expect(transaction.isValid()).toEqual(false);
-    expect(transaction.errors.length).toEqual(9);
+    expect(transaction.errors.length).toEqual(6);
   });
 });

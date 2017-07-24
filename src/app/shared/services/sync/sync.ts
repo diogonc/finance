@@ -1,10 +1,10 @@
-import {AccountRepository} from '../repository/account-repository';
-import {CategoryRepository} from '../repository/category-repository';
-import {TransactionRepository} from '../repository/transaction-repository';
-import {User} from '../../models/user';
-import {FinanceApi} from '../api/finance-api';
-import {MyDate} from '../../util/my-date';
-import {Injectable} from '@angular/core';
+import { AccountRepository } from '../repository/account-repository';
+import { CategoryRepository } from '../repository/category-repository';
+import { TransactionRepository } from '../repository/transaction-repository';
+import { User } from '../../models/user';
+import { FinanceApi } from '../api/finance-api';
+import { MyDate } from '../../util/my-date';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Sync {
@@ -14,8 +14,8 @@ export class Sync {
   private api: FinanceApi;
 
   constructor(
-      financeApi: FinanceApi, accountRepository: AccountRepository,
-      categoryRepository: CategoryRepository, transactionRepository: TransactionRepository) {
+    financeApi: FinanceApi, accountRepository: AccountRepository,
+    categoryRepository: CategoryRepository, transactionRepository: TransactionRepository) {
     this.api = financeApi;
     this.accountRepository = accountRepository;
     this.categoryRepository = categoryRepository;
@@ -24,14 +24,14 @@ export class Sync {
 
   getAllDataFromServer(user: User, callback: () => any, error: () => any): void {
     this.api.getTransactions(
-        user, (transactions) =>
-                  this.convertTransactionFromServer(transactions._body, (transactionsConverted) => {
-                    this.transactionRepository.saveAll(transactionsConverted);
-                    callback();
-                  }), error);
+      user, (transactions) =>
+        this.convertTransactionFromServer(transactions._body, (transactionsConverted) => {
+          this.transactionRepository.saveAll(transactionsConverted);
+          callback();
+        }), error);
     this.api.getAccounts(user, (accounts) => this.accountRepository.saveAll(accounts._body));
     this.api.getCategories(
-        user, (categories) => this.categoryRepository.saveAll(categories._body));
+      user, (categories) => this.categoryRepository.saveAll(categories._body));
   }
 
   deleteAllLocalData(): void {
@@ -39,7 +39,7 @@ export class Sync {
   }
 
   private convertTransactionFromServer(
-      transactionsFromServer: string, callback: (transactionsConverted: any) => any): void {
+    transactionsFromServer: string, callback: (transactionsConverted: any) => any): void {
     let transactionsFromServerAsObject = JSON.parse(transactionsFromServer);
     let lenght = transactionsFromServerAsObject.length;
     let transactions = [];

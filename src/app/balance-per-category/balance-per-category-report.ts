@@ -24,14 +24,14 @@ export class BalancePerCategoryReport {
         let categoryRow: BalancePerCategoryRow;
         let date = MyDate.firstDayOfMonth(transaction.date);
         let value = transaction.value;
-        if (transaction.categoryType === 'credit') {
-            categoryRow = this.getCreditCategoriesRows(transaction.categoryUuid, transaction.categoryName);
+        if (transaction.category.categoryType === 'credit') {
+            categoryRow = this.getCreditCategoriesRows(transaction.category.uuid, transaction.category.name);
 
             categoryRow.add(value, date);
             this.totalCredits.add(value, date);
             this.totalBalance.add(value, date);
-        } else if (transaction.categoryType === 'debit') {
-            categoryRow = this.getDebitCategoriesRows(transaction.categoryUuid, transaction.categoryName);
+        } else if (transaction.category.categoryType === 'debit') {
+            categoryRow = this.getDebitCategoriesRows(transaction.category.uuid, transaction.category.name);
 
             categoryRow.add(value, date);
             this.totalDebits.add(value, date);

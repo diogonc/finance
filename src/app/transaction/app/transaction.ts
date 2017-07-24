@@ -41,8 +41,8 @@ export class TransactionApp {
     const user = this.userRepository.getUser();
     const transaction = new Transaction(transactionVm.uuid, user.property, transactionVm.value,
       transactionVm.description,
-      transactionVm.date, account.uuid, account.name,
-      category.uuid, category.name, category.categoryType);
+      transactionVm.date, account,
+      category);
 
     if (!transaction.isValid()) {
       onError(transaction.errors);
@@ -78,12 +78,12 @@ export class TransactionApp {
     let accountIndex = 0;
     let categoryIndex = 0;
 
-    if (transaction.accountUuid !== null) {
-      accountIndex = MyArray.findIndex(transaction.accountUuid, accounts);
+    if (transaction.account.uuid !== null) {
+      accountIndex = MyArray.findIndex(transaction.account.uuid, accounts);
     }
 
-    if (transaction.categoryUuid !== null) {
-      categoryIndex = MyArray.findIndex(transaction.categoryUuid, categories);
+    if (transaction.category.uuid !== null) {
+      categoryIndex = MyArray.findIndex(transaction.category.uuid, categories);
     }
     return new TransactionVm(transaction.uuid, transaction.value, transaction.description,
       MyDate.convertToUsString(transaction.date), transaction.propertyUuid,

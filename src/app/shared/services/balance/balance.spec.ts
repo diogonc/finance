@@ -1,6 +1,8 @@
 /* tslint:disable:no-unused-variable */
-import {Transaction} from '../../models/transaction';
-import {Balance} from './balance';
+import { Account } from '../../models/account';
+import { Category } from '../../models/category';
+import { Transaction } from '../../models/transaction';
+import { Balance } from './balance';
 
 describe('Balance', () => {
     let transactions;
@@ -31,5 +33,5 @@ describe('Balance', () => {
 
 
 function createTransaction(value: number, type: string): Object {
-    return new Transaction('1', '1', value, 'test', '2010-01-01', '2', 'account', '3', 'category', type);
+    return new Transaction('1', '1', value, 'test', '2010-01-01', new Account('2', 'account', 1), new Category('3', 'category', type, 1));
 };

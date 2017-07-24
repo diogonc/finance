@@ -13,20 +13,19 @@ describe('Repository', () => {
       createTransaction(15, '1004', '14', new Date(2010, 0, 2)),
       createTransaction(11, '1005', '13', new Date(2010, 0, 3))
     ];
-
     repository.saveAll(transactions);
   });
 
   it('should filter by category', () => {
     let result = repository.getFiltered(['1004'], [], null, null, null);
 
-    expect(result[0].categoryUuid).toEqual('1004');
+    expect(result[0].category.uuid).toEqual('1004');
   });
 
   it('should filter by account', () => {
     let result = repository.getFiltered([], ['15'], null, null, null);
 
-    expect(result[0].accountUuid).toEqual('15');
+    expect(result[0].account.uuid).toEqual('15');
   });
 
   it('should return empty if thereis no account', () => {
@@ -65,11 +64,8 @@ function createTransaction(
     date: date,
     description: 'Cafe',
     value: value,
-    categoryUuid: categoryUuid,
-    categoryName: 'Extra',
-    categoryType: 'debit',
-    accountUuid: accountUuid,
-    accountName: 'NuBank',
+    category: { uuid: categoryUuid, name: 'Extra', categoryType: 'debit'},
+    account: { uuid: accountUuid, name: 'Nubank'},
     createdAt: '2016-01-18 17:59:50',
     updatedAt: '2016-01-18 17:59:50',
     id: '56a4ce2616f4263493d8a6d1'

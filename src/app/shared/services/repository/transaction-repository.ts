@@ -1,7 +1,9 @@
-import {Repository} from './repository';
-import {Injectable} from '@angular/core';
-import {Transaction} from '../../models/transaction';
-import {MyArray} from '../../util/my-array';
+import { Repository } from './repository';
+import { Injectable } from '@angular/core';
+import { Account } from '../../models/account';
+import { Category } from '../../models/category';
+import { Transaction } from '../../models/transaction';
+import { MyArray } from '../../util/my-array';
 
 @Injectable()
 export class TransactionRepository extends Repository {
@@ -14,8 +16,7 @@ export class TransactionRepository extends Repository {
     let t = super.get(key);
 
     if (t !== null) {
-      return new Transaction(t.uuid, t.propertyUuid, t.value, t.description, t.date,
-        t.accountUuid, t.accountName, t.categoryUuid, t.categoryName, t.categoryType);
+      return new Transaction(t.uuid, t.propertyUuid, t.value, t.description, t.date, t.account, t.category);
     }
     return null;
   }
@@ -29,12 +30,12 @@ export class TransactionRepository extends Repository {
     for (let i = 0; i < lenght; i++) {
       let t = transactions[i];
       let transaction = new Transaction(t.uuid, t.propertyUuid, t.value, t.description, t.date,
-        t.accountUuid, t.accountName, t.categoryUuid, t.categoryName, t.categoryType);
+        t.account, t.category);
 
-      if ((categoryUuids.length === 0 || MyArray.any(transaction.categoryUuid, categoryUuids)) &&
-        ( accountUuids.length === 0 || MyArray.any(transaction.accountUuid, accountUuids)) &&
-        ( initialDate === null || initialDate <= transaction.date) &&
-        ( finalDate === null || transaction.date <= finalDate)) {
+      if ((categoryUuids.length === 0 || MyArray.any(transaction.category.uuid, categoryUuids)) &&
+        (accountUuids.length === 0 || MyArray.any(transaction.account.uuid, accountUuids)) &&
+        (initialDate === null || initialDate <= transaction.date) &&
+        (finalDate === null || transaction.date <= finalDate)) {
         filtered.push(transaction);
       }
     }
