@@ -1,12 +1,12 @@
 export class Category {
   uuid: string;
   name: string;
-  categoryType: string;
+  categoryType: number;
   priority: number;
   propertyUuid: string;
   errors: Array<string>;
 
-  constructor(uuid: string, name: string, type: string, priority: number) {
+  constructor(uuid: string, name: string, type: number, priority: number) {
     this.uuid = uuid;
     this.name = name;
     this.categoryType = type;
@@ -20,7 +20,7 @@ export class Category {
     return this.errors.length === 0;
   }
 
-  private validate(name: string, type: string, priority: number): void {
+  private validate(name: string, type: number, priority: number): void {
 
     this.verifyField(name, 'Nome é obrigatório');
     this.verifyField(type, 'Tipo é obrigatório');
@@ -33,3 +33,4 @@ export class Category {
     }
   }
 }
+

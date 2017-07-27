@@ -1,5 +1,6 @@
 import { Transaction } from '../../models/transaction';
 import { Injectable } from '@angular/core';
+import { Type } from '../../models/type'
 
 @Injectable()
 export class Balance {
@@ -10,10 +11,10 @@ export class Balance {
         for (let i = 0; i < numberOfItens; i++) {
             let transaction = transactions[i];
             let type = transaction.category.categoryType;
-            if (type === 'credit' || type === 'creditTransfer') {
+            if (type === Type.Credit || type === Type.CreditTransfer) {
                 balance += transaction.value;
             }
-            if (type === 'debit' || type === 'debitTransfer') {
+            if (type === Type.Debit || type === Type.DebitTransfer) {
                 balance -= transaction.value;
             }
         }

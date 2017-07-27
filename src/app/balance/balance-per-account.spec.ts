@@ -1,6 +1,7 @@
 import { Account } from '../shared/models/account';
 import { Category } from '../shared/models/category';
 import { Transaction } from '../shared/models/transaction';
+import { Type } from '../shared/models/type';
 import { BalancePerAccount } from './balance-per-account';
 import { TransactionRepository } from '../shared/services/repository/transaction-repository';
 import { AccountRepository } from '../shared/services/repository/account-repository';
@@ -22,8 +23,8 @@ describe('BalancePerAccount', () => {
 
     it('should sum two credits', () => {
 
-        transactions.push(createTransaction(12, 'credit', '1'));
-        transactions.push(createTransaction(11, 'creditTransfer', '1'));
+        transactions.push(createTransaction(12, Type.Credit, '1'));
+        transactions.push(createTransaction(11, Type.CreditTransfer, '1'));
         transactionRepository.saveAll(transactions);
 
         let result = balancePerAccount.get(new Date());
@@ -34,9 +35,9 @@ describe('BalancePerAccount', () => {
     });
 
     it('should subtract debit', () => {
-        transactions.push(createTransaction(12, 'credit', '1'));
-        transactions.push(createTransaction(2, 'debit', '1'));
-        transactions.push(createTransaction(1, 'debitTransfer', '1'));
+        transactions.push(createTransaction(12, Type.Credit, '1'));
+        transactions.push(createTransaction(2, Type.Debit, '1'));
+        transactions.push(createTransaction(1, Type.DebitTransfer, '1'));
         transactionRepository.saveAll(transactions);
 
         let result = balancePerAccount.get(new Date());
@@ -47,9 +48,9 @@ describe('BalancePerAccount', () => {
     });
 
     it('should consider two accounts', () => {
-        transactions.push(createTransaction(12, 'credit', '1'));
-        transactions.push(createTransaction(1, 'debitTransfer', '1'));
-        transactions.push(createTransaction(2, 'credit', '2'));
+        transactions.push(createTransaction(12, Type.Credit, '1'));
+        transactions.push(createTransaction(1, Type.DebitTransfer, '1'));
+        transactions.push(createTransaction(2, Type.Credit, '2'));
         transactionRepository.saveAll(transactions);
 
         let result = balancePerAccount.get(new Date());
@@ -63,7 +64,7 @@ describe('BalancePerAccount', () => {
 
 });
 
-function createTransaction(value: number, type: string, accountUUid: string): Object {
+function createTransaction(value: number, type: number, accountUUid: string): Object {
     return new Transaction('1', '1', value, 'test', '2010-01-01', new Account(accountUUid, 'account', 1),
-     new Category( accountUUid, 'category', type, 3));
+        new Category(accountUUid, 'category', type, 3));
 }

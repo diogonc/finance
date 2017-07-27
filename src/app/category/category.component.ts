@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Category } from '../shared/models/category';
 import { CategoryType } from '../shared/models/categoryType';
+import { Type } from '../shared/models/type';
 import { CategoryRepository } from '../shared/services/repository/category-repository';
 import { UserRepository } from '../shared/services/repository/user-repository';
 import { FinanceApi } from '../shared/services/api/finance-api';
@@ -43,11 +44,11 @@ export class CategoryComponent implements OnInit {
     if (typeof (uuid) !== 'undefined' && uuid !== null) {
       const category = this.categoryRepository.get(uuid);
       this.category = new Category(category.uuid, category.name, category.categoryType, category.priority);
-      this.typeIndex = CategoryType.getTypeIndex(this.category.categoryType);
+      this.typeIndex = this.category.categoryType;
       this.isNew = false;
     } else {
       this.isNew = true;
-      this.category = new Category(null, '', 'debit', 1);
+      this.category = new Category(null, '', Type.Debit, 1);
       this.typeIndex = 1;
     }
   }
@@ -60,7 +61,7 @@ export class CategoryComponent implements OnInit {
     }
 
     const category = new Category(this.category.uuid, this.category.name,
-                                this.category.categoryType, this.category.priority);
+      this.category.categoryType, this.category.priority);
     category.propertyUuid = user.property;
 
     if (!category.isValid()) {
@@ -117,7 +118,7 @@ export class CategoryComponent implements OnInit {
       this.router.navigate(['/category-list']);
     } else {
       this.isNew = true;
-      this.category = new Category(null, '', 'debit', 1);
+      this.category = new Category(null, '', Type.Debit, 1);
     }
   };
 

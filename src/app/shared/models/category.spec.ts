@@ -1,9 +1,10 @@
 /* tslint:disable:no-unused-variable */
-import {Category} from './category';
+import { Category } from './category';
+import { Type } from './type';
 
 describe('Category', () => {
   it('should create with constructor parameters', () => {
-    const c = {uuid: '324', name: 'name', categoryType: 'debit', priority: 3};
+    const c = { uuid: '324', name: 'name', categoryType: Type.Debit, priority: 3 };
 
     const category = new Category(c.uuid, c.name, c.categoryType, c.priority);
 

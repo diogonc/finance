@@ -1,5 +1,6 @@
 import { Repository } from './repository';
 import { Category } from '../../models/category';
+import { Type } from '../../models/type';
 
 export class CategoryRepository extends Repository {
   constructor() { super('category'); }
@@ -17,11 +18,11 @@ export class CategoryRepository extends Repository {
   }
 
   getCreditTransfer(): Category {
-    return this.getFiltered('creditTransfer');
+    return this.getFiltered(Type.CreditTransfer);
   }
 
   getDebitTransfer(): Category {
-    return this.getFiltered('debitTransfer');
+    return this.getFiltered(Type.DebitTransfer);
   }
 
   private orderByPriority(data: Array<Category>): Array<Category> {
@@ -48,7 +49,7 @@ export class CategoryRepository extends Repository {
     });
   }
 
-  private getFiltered(categoryType: string): Category {
+  private getFiltered(categoryType: number): Category {
     let categories = this.getAll();
     let lenght = categories.length;
 
