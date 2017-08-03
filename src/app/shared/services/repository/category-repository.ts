@@ -1,28 +1,28 @@
 import { Repository } from './repository';
 import { Category } from '../../models/category';
-import { Type } from '../../models/type';
+import { CategoryType } from '../../models/categoryType';
 
 export class CategoryRepository extends Repository {
   constructor() { super('category'); }
 
   getAll(): Array<Category> {
     let data = this.makeACopy(this.getData());
-    let accounts = [];
+    let itens = [];
 
     for (let i = 0; i < data.length; i++) {
       let item = data[i];
-      accounts.push(new Category(item.uuid, item.name, item.categoryType, item.priority));
+      itens.push(new Category(item.uuid, item.name, item.categoryType, item.priority));
     }
 
-    return this.orderByPriorityAndName(accounts);
+    return this.orderByPriorityAndName(itens);
   }
 
   getCreditTransfer(): Category {
-    return this.getFiltered(Type.CreditTransfer);
+    return this.getFiltered(CategoryType.CreditTransfer);
   }
 
   getDebitTransfer(): Category {
-    return this.getFiltered(Type.DebitTransfer);
+    return this.getFiltered(CategoryType.DebitTransfer);
   }
 
   private orderByPriority(data: Array<Category>): Array<Category> {

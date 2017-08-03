@@ -1,12 +1,14 @@
+import { CategoryType } from './categoryType'
+
 export class Category {
   uuid: string;
   name: string;
-  categoryType: number;
+  categoryType: CategoryType;
   priority: number;
   propertyUuid: string;
   errors: Array<string>;
 
-  constructor(uuid: string, name: string, type: number, priority: number) {
+  constructor(uuid: string, name: string, type: CategoryType, priority: number) {
     this.uuid = uuid;
     this.name = name;
     this.categoryType = type;

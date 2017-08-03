@@ -16,7 +16,7 @@
         <p class="control">
             <span class="select">
         <select [(ngModel)]="typeIndex" name="typeIndex">
-        <option *ngFor="let t of types; let i = index" [value]="i">{{t.name}}</option>
+        <option *ngFor="let t of types; let i = index" [value]="i">{{types[i]}}</option>
         </select>
         </span>
         </p>

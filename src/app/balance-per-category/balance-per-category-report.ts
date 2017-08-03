@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Transaction } from '../shared/models/transaction';
-import { Type } from '../shared/models/type';
+import { CategoryType } from '../shared/models/categoryType';
 import { MyArray } from '../shared/util/my-array';
 import { MyDate } from '../shared/util/my-date';
 import { BalancePerCategoryRow } from './balance-per-category-row';
@@ -25,13 +25,13 @@ export class BalancePerCategoryReport {
         let categoryRow: BalancePerCategoryRow;
         let date = MyDate.firstDayOfMonth(transaction.date);
         let value = transaction.value;
-        if (transaction.category.categoryType === Type.Credit) {
+        if (transaction.category.categoryType === CategoryType.Credit) {
             categoryRow = this.getCreditCategoriesRows(transaction.category.uuid, transaction.category.name);
 
             categoryRow.add(value, date);
             this.totalCredits.add(value, date);
             this.totalBalance.add(value, date);
-        } else if (transaction.category.categoryType === Type.Debit) {
+        } else if (transaction.category.categoryType === CategoryType.Debit) {
             categoryRow = this.getDebitCategoriesRows(transaction.category.uuid, transaction.category.name);
 
             categoryRow.add(value, date);

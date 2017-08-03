@@ -6,8 +6,8 @@ import { Http, Headers } from '@angular/http';
 
 @Injectable()
 export class FinanceApi {
-    private DEFAULT_URL: string = 'http://localhost:5000/api/';
-    // private DEFAULT_URL: string = 'http://corefinance.azurewebsites.net/api/';
+    //private DEFAULT_URL: string = 'http://localhost:5000/api/';
+    private DEFAULT_URL: string = 'http://corefinance.azurewebsites.net/api/';
     private http: Http;
 
     constructor(http: Http) {

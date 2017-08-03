@@ -2,7 +2,7 @@
 import { Account } from '../../models/account';
 import { Category } from '../../models/category';
 import { Transaction } from '../../models/transaction';
-import { Type } from '../../models/type';
+import { CategoryType } from '../../models/categoryType';
 import { Balance } from './balance';
 
 
@@ -14,8 +14,8 @@ describe('Balance', () => {
     });
 
     it('should sum two credits', () => {
-        transactions.push(createTransaction(12, Type.Credit));
-        transactions.push(createTransaction(11, Type.CreditTransfer));
+        transactions.push(createTransaction(12, CategoryType.Credit));
+        transactions.push(createTransaction(11, CategoryType.CreditTransfer));
 
         let result = Balance.get(transactions);
 
@@ -23,9 +23,9 @@ describe('Balance', () => {
     });
 
     it('should subtract debit', () => {
-        transactions.push(createTransaction(12, Type.Credit));
-        transactions.push(createTransaction(2, Type.Debit));
-        transactions.push(createTransaction(1, Type.DebitTransfer));
+        transactions.push(createTransaction(12, CategoryType.Credit));
+        transactions.push(createTransaction(2, CategoryType.Debit));
+        transactions.push(createTransaction(1, CategoryType.DebitTransfer));
 
         let result = Balance.get(transactions);
 

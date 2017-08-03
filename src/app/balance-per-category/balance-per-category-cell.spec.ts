@@ -1,4 +1,3 @@
-/* tslint:disable:no-unused-variable */
 import {BalancePerCategoryCell} from './balance-per-category-cell';
 
 describe('BalancePerCategoryCell', () => {

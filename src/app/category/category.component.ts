@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Category } from '../shared/models/category';
 import { CategoryType } from '../shared/models/categoryType';
-import { Type } from '../shared/models/type';
 import { CategoryRepository } from '../shared/services/repository/category-repository';
 import { UserRepository } from '../shared/services/repository/user-repository';
 import { FinanceApi } from '../shared/services/api/finance-api';
@@ -15,7 +14,7 @@ import { FinanceApi } from '../shared/services/api/finance-api';
 })
 export class CategoryComponent implements OnInit {
   public category: Category;
-  public types: Array<CategoryType>;
+  public types: Array<string>;
   public typeIndex: number;
   public isRequesting: boolean;
   public isNew: boolean;
@@ -38,7 +37,7 @@ export class CategoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.types = CategoryType.getTypes();
+    this.types = ['', 'Crédito', 'Débito', 'Tranferência de crédito', 'Tranferência de débito'];
 
     const uuid = this.route.snapshot.params['id'];
     if (typeof (uuid) !== 'undefined' && uuid !== null) {
@@ -48,7 +47,7 @@ export class CategoryComponent implements OnInit {
       this.isNew = false;
     } else {
       this.isNew = true;
-      this.category = new Category(null, '', Type.Debit, 1);
+      this.category = new Category(null, '', CategoryType.Debit, 1);
       this.typeIndex = 1;
     }
   }
@@ -57,7 +56,7 @@ export class CategoryComponent implements OnInit {
     const user = this.userRepository.getUser();
     this.isRequesting = true;
     if (this.typeIndex) {
-      this.category.categoryType = this.types[(this.typeIndex)].uuid;
+      this.category.categoryType = this.typeIndex;
     }
 
     const category = new Category(this.category.uuid, this.category.name,
@@ -118,7 +117,7 @@ export class CategoryComponent implements OnInit {
       this.router.navigate(['/category-list']);
     } else {
       this.isNew = true;
-      this.category = new Category(null, '', Type.Debit, 1);
+      this.category = new Category(null, '', CategoryType.Debit, 1);
     }
   };
 
