@@ -43,14 +43,15 @@ export class TransferApp {
 
     this.finished = false;
     this.api.saveTransaction(fromTransaction, user,
-      () => this.onSave(fromTransaction, onSuccess),
+      (response) => this.onSave(fromTransaction, onSuccess, response._body),
       onError);
     this.api.saveTransaction(toTransaction, user,
-      () => this.onSave(toTransaction, onSuccess),
+      (response) => this.onSave(toTransaction, onSuccess, response._body),
       onError);
   };
 
-  private onSave(transaction: Transaction, onSuccess: () => void) {
+  private onSave(transaction: Transaction, onSuccess: () => void, uuid: string) {
+    transaction.uuid = uuid;
     this.transactionRepository.save(transaction);
 
     if (this.finished) {

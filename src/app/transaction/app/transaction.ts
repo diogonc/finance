@@ -90,7 +90,8 @@ export class TransactionApp {
       accountIndex, categoryIndex);
   };
 
-  private onSave(transaction: Transaction, onSuccess: () => void) {
+  private onSave(transaction: Transaction, onSuccess: () => void) 
+  {
     this.transactionRepository.save(transaction);
     onSuccess();
   };
