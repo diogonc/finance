@@ -22,6 +22,7 @@ import { UserRepository } from './shared/services/repository/user-repository';
 
 import { CategoryListComponent } from './category-list/category-list.component';
 import { CategoryComponent } from './category/category.component';
+
 @NgModule({
   declarations: [
     AppComponent,

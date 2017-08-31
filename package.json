@@ -8,7 +8,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "compilar": "ng build --prod --base-href \"http://diogonc.github.io/finance/\"",
+    "publicar": "ngh"
   },
   "private": true,
   "dependencies": {

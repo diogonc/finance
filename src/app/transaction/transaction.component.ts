@@ -16,7 +16,7 @@ import { SpinnerComponent } from '../spinner/spinner.component';
   selector: 'app-transaction',
   templateUrl: 'transaction.component.html',
   styleUrls: ['transaction.component.css'],
-  providers: [FinanceApi,  TransactionApp],
+  providers: [FinanceApi, TransactionApp],
   entryComponents: [SpinnerComponent]
 })
 export class TransactionComponent implements OnInit {

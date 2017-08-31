@@ -21,6 +21,7 @@ export class BalancePerCategory {
         }
         balancePerCategory.fillEmptyCells();
         balancePerCategory.sortCells();
+        balancePerCategory.sortRows();
         return balancePerCategory;
     }
 }

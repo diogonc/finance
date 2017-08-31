@@ -58,6 +58,15 @@ export class BalancePerCategoryReport {
         });
     }
 
+    public sortRows() {
+        this.debits = this.debits.sort(this.sortRow);
+        this.credits = this.credits.sort(this.sortRow);
+    }
+
+    private sortRow (row, anotherRow) {
+        return  anotherRow.total - row.total;
+    }
+
     private fillEmptyCellsFromRows(list: Array<BalancePerCategoryRow>) {
         let length = list.length;
         for (let i = 0; i < length; i++) {
