@@ -69,14 +69,14 @@ export class CategoryComponent implements OnInit {
     }
 
     if (category.uuid === null) {
-      this.api.saveCategory(category, user,
+      this.api.saveCategory(category, 
         (response) => {
           this.category.uuid = response._body;
           this.onSave(this.category, this.onSuccess.bind(this))
         },
         this.onError.bind(this));
     } else {
-      this.api.updateCategory(category, user,
+      this.api.updateCategory(category, 
         () => this.onSave(this.category, this.onSuccess.bind(this)),
         this.onError.bind(this));
     }
@@ -89,8 +89,7 @@ export class CategoryComponent implements OnInit {
     if (uuid === null) {
       return;
     }
-    const user = this.userRepository.getUser();
-    this.api.deleteCategory(uuid, user,
+    this.api.deleteCategory(uuid, 
       () => this.onDelete(uuid, this.onSuccess.bind(this)),
       this.onError.bind(this));
   };

@@ -6552,6 +6552,10 @@ input, select, .select-dnc{
     width: 303px !important;
 }
 
+.select[multiple]{
+  height: 180px !important;
+}
+
 .date {
     width: 150px !important;
 }

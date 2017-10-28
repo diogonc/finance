@@ -42,10 +42,10 @@ export class TransferApp {
     }
 
     this.finished = false;
-    this.api.saveTransaction(fromTransaction, user,
+    this.api.saveTransaction(fromTransaction, 
       (response) => this.onSave(fromTransaction, onSuccess, response._body),
       onError);
-    this.api.saveTransaction(toTransaction, user,
+    this.api.saveTransaction(toTransaction, 
       (response) => this.onSave(toTransaction, onSuccess, response._body),
       onError);
   };

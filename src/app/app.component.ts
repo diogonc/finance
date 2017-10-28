@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
   download() {
     this.isRequesting = true;
     let user = this.userRepository.getUser();
-    this.sync.getAllDataFromServer(user,
+    this.sync.getAllDataFromServer(
       () => { this.isRequesting = false; },
       () => { this.isRequesting = false; });
   }

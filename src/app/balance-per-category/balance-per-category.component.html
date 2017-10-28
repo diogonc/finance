@@ -7,7 +7,7 @@
     </p>
     <label class="label" for="accounts">Conta</label>
     <p class="control select-dnc">
-        <select multiple [(ngModel)]="accounts" name="accounts">
+        <select size="7" multiple [(ngModel)]="accounts" name="accounts">
             <option *ngFor="let acc of allAccounts" value="{{acc.value}}">{{acc.label}}</option>
         </select>
     </p>

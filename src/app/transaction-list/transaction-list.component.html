@@ -7,13 +7,13 @@
     </p>
     <label class="label" for="searchFilter.categorys">Categoria</label>
     <p class="control select-dnc">
-       <select multiple [(ngModel)]="searchFilter.categorys" name="searchFilter.categorys">
+       <select size="7" multiple [(ngModel)]="searchFilter.categorys" name="searchFilter.categorys">
             <option *ngFor="let cat of categories" value="{{cat.value}}">{{cat.label}}</option>
         </select>
     </p>
     <label class="label" for="searchFilter.accounts">Conta</label>
     <p class="control select-dnc">
-         <select multiple [(ngModel)]="searchFilter.accounts" name="searchFilter.accounts">
+         <select size="7" multiple [(ngModel)]="searchFilter.accounts" name="searchFilter.accounts">
             <option *ngFor="let acc of accounts" value="{{acc.value}}">{{acc.label}}</option>
         </select>
     </p>

@@ -33,13 +33,13 @@ export class LoginApp {
         void {
     let hashedPassword = this.sha1.hash(password);
     let user = new User(username, hashedPassword);
-    this.sync.getAllDataFromServer(user,
+    this.userRepository.saveUser(user);
+    this.sync.getAllDataFromServer(
        () => this.afterLogin(user, onSuccess),
        () => this.afterErrorOnLogin(onError));
   }
 
   afterLogin(user: User, onSucces: (user: User) => void): void {
-    this.userRepository.saveUser(user);
     this.loginEvent.announceLogin(user.login);
     onSucces(user);
   }

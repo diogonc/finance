@@ -50,14 +50,14 @@ export class TransactionApp {
     }
 
     if (transactionVm.uuid === null) {
-      this.api.saveTransaction(transaction, user,
+      this.api.saveTransaction(transaction,
         (response) => {
           transaction.uuid = response._body;
           this.onSave(transaction, onSuccess);
         },
         onError);
     } else {
-      this.api.updateTransaction(transaction, user,
+      this.api.updateTransaction(transaction,
         () => this.onSave(transaction, onSuccess),
         onError);
     }
@@ -67,8 +67,7 @@ export class TransactionApp {
     if (uuid === null) {
       return;
     }
-    const user = this.userRepository.getUser();
-    this.api.deleteTransaction(uuid, user,
+    this.api.deleteTransaction(uuid,
       () => this.onDelete(uuid, onSuccess),
       onError);
   };
@@ -90,8 +89,7 @@ export class TransactionApp {
       accountIndex, categoryIndex);
   };
 
-  private onSave(transaction: Transaction, onSuccess: () => void) 
-  {
+  private onSave(transaction: Transaction, onSuccess: () => void) {
     this.transactionRepository.save(transaction);
     onSuccess();
   };

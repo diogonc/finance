@@ -22,16 +22,15 @@ export class Sync {
     this.transactionRepository = transactionRepository;
   }
 
-  getAllDataFromServer(user: User, callback: () => any, error: () => any): void {
+  getAllDataFromServer(callback: () => any, error: () => any): void {
     this.api.getTransactions(
-      user, (transactions) =>
+        (transactions) =>
         this.convertTransactionFromServer(transactions._body, (transactionsConverted) => {
           this.transactionRepository.saveAll(transactionsConverted);
           callback();
         }), error);
-    this.api.getAccounts(user, (accounts) => this.accountRepository.saveAll(accounts._body));
-    this.api.getCategories(
-      user, (categories) => this.categoryRepository.saveAll(categories._body));
+    this.api.getAccounts((accounts) => this.accountRepository.saveAll(accounts._body));
+    this.api.getCategories((categories) => this.categoryRepository.saveAll(categories._body));
   }
 
   deleteAllLocalData(): void {
