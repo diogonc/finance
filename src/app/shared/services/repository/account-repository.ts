@@ -1,6 +1,6 @@
-import {Repository} from './repository';
-import {Account} from '../../models/account';
-import {Injectable} from '@angular/core';
+import { Repository } from './repository';
+import { Account } from '../../models/account';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AccountRepository extends Repository {
@@ -8,12 +8,12 @@ export class AccountRepository extends Repository {
   constructor() { super('account'); }
 
   getAll(): Array<Account> {
-    let data = this.makeACopy(this.getData());
+    let list = this.getListOfObjects();
+
     let accounts = [];
 
-    for (let i = 0; i < data.length; i++) {
-      let item = data[i];
-      accounts.push(new Account(item.uuid, item.name, item.priority));
+    for (let i = 0; i < list.length; i++) {
+      accounts.push(list[i] as Account);
     }
 
     return this.order(accounts);

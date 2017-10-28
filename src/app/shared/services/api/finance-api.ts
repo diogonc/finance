@@ -78,20 +78,18 @@ export class FinanceApi {
 
     private post(action: string, data: any, user: User, success: (response: any) => any,
         error: (data: any) => any): void {
-        this.startRequest();
         this.http
             .post(
             this.DEFAULT_URL + action, JSON.stringify(data),
             { headers: this.createHeader(user) })
             .subscribe(
             response => this.onSuccess(response, success),
-            err => this.onError(err, error),
-            this.endRequest);
+            err => this.onError(err, error));
     }
 
     private put(action: string, data: any, user: User, success: (response: any) => any,
         error: (data: any) => any): void {
-        this.startRequest();
+            success(1);
         this.http
             .put(
             this.DEFAULT_URL + action + '/' + data.uuid,
@@ -99,21 +97,19 @@ export class FinanceApi {
             { headers: this.createHeader(user) })
             .subscribe(
             response => this.onSuccess(response, success),
-            err => this.onError(err, error),
-            this.endRequest);
+            err => this.onError(err, error));
     }
 
     delete(action: string, uuid: string, user: User, success: (response: any) => any,
         error: (data: any) => any): void {
-        this.startRequest();
+            success(1);
         this.http
             .delete(
             this.DEFAULT_URL + action + '/' + uuid,
             { headers: this.createHeader(user) })
             .subscribe(
             response => this.onSuccess(response, success),
-            err => this.onError(err, error),
-            this.endRequest);
+            err => this.onError(err, error));
     }
 
     private onSuccess(response: any, success: (data: any) => any): void { success(response); }
@@ -124,8 +120,4 @@ export class FinanceApi {
         }
         console.log('erro ao enviar a requisição: ' + JSON.stringify(err));
     }
-
-    private startRequest(): void { }
-
-    private endRequest(): void { }
 }

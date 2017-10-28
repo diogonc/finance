@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import {Repository} from './repository';
+import { Repository } from './repository';
 
 describe('Repository', () => {
   let repository;

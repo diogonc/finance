@@ -6,50 +6,34 @@ export class CategoryRepository extends Repository {
   constructor() { super('category'); }
 
   getAll(): Array<Category> {
-    let data = this.makeACopy(this.getData());
+    let list = this.getListOfObjects();
     let itens = [];
 
-    for (let i = 0; i < data.length; i++) {
-      let item = data[i];
-      itens.push(new Category(item.uuid, item.name, item.categoryType, item.priority));
+    for (let i = 0; i < list.length; i++) {
+      itens.push(list[i] as Category);
     }
 
-    return this.orderByPriorityAndName(itens);
+    return this.sortByPriorityAndName(itens);
   }
 
   getCreditTransfer(): Category {
-    return this.getFiltered(CategoryType.CreditTransfer);
+    return this.getByCategoryType(CategoryType.CreditTransfer);
   }
 
   getDebitTransfer(): Category {
-    return this.getFiltered(CategoryType.DebitTransfer);
+    return this.getByCategoryType(CategoryType.DebitTransfer);
   }
 
-  private orderByPriority(data: Array<Category>): Array<Category> {
-    return data.sort(function (item, anotherItem) {
-      return anotherItem.priority - item.priority;
-    });
-  }
-
-  private orderByPriorityAndName(data: Array<Category>): Array<Category> {
+  private sortByPriorityAndName(data: Array<Category>): Array<Category> {
     return data.sort(function (item, anotherItem) {
       if (anotherItem.priority - item.priority !== 0) {
         return anotherItem.priority - item.priority;
       }
-
-      if (item.name > anotherItem.name) {
-        return 1;
-      }
-
-      if (item.name < anotherItem.name) {
-        return -1;
-      }
-
-      return 0;
+      return anotherItem.name.localeCompare(item.name);
     });
   }
 
-  private getFiltered(categoryType: number): Category {
+  private getByCategoryType(categoryType: CategoryType): Category {
     let categories = this.getAll();
     let lenght = categories.length;
 
