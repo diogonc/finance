@@ -1,10 +1,10 @@
-import { FinancePage } from './app.po';
+import { AppPage } from './app.po';
 
 describe('finance App', () => {
-  let page: FinancePage;
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new FinancePage();
+    page = new AppPage();
   });
 
   it('should display welcome message', () => {

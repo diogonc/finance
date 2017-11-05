@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LoginEvent } from './events/login-event';
-import { LoginApp } from './login/app/login';
-import { Sha1 } from './login/sha1/sha1';
+import { LoginEvent } from './modules/events/login-event';
+import { LoginApp } from './modules/login/app/login';
+import { Sha1 } from './modules/login/sha1/sha1';
 import { Sync } from './shared/services/sync/sync';
 import { FinanceApi } from './shared/services/api/finance-api';
 import { UserRepository } from './shared/services/repository/user-repository';
 import { BackupService } from './shared/services/backup/backup.service';
 import { CsvCreatorService } from './shared/services/backup/csv/csv-creator.service';
-import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerComponent } from './modules/spinner/spinner.component';
 
 @Component({
   selector: 'app-root',

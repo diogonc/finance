@@ -25,12 +25,12 @@ export class Sync {
   getAllDataFromServer(callback: () => any, error: () => any): void {
     this.api.getTransactions(
         (transactions) =>
-        this.convertTransactionFromServer(transactions._body, (transactionsConverted) => {
+        this.convertTransactionFromServer(transactions, (transactionsConverted) => {
           this.transactionRepository.saveAll(transactionsConverted);
           callback();
         }), error);
-    this.api.getAccounts((accounts) => this.accountRepository.saveAll(accounts._body));
-    this.api.getCategories((categories) => this.categoryRepository.saveAll(categories._body));
+    this.api.getAccounts((accounts) => this.accountRepository.saveAll(accounts));
+    this.api.getCategories((categories) => this.categoryRepository.saveAll(categories));
   }
 
   deleteAllLocalData(): void {
@@ -38,13 +38,12 @@ export class Sync {
   }
 
   private convertTransactionFromServer(
-    transactionsFromServer: string, callback: (transactionsConverted: any) => any): void {
-    let transactionsFromServerAsObject = JSON.parse(transactionsFromServer);
-    let lenght = transactionsFromServerAsObject.length;
+    transactionsFromServer: [any], callback: (transactionsConverted: any) => any): void {
+    let lenght = transactionsFromServer.length;
     let transactions = [];
 
     for (let i = 0; i < lenght; i++) {
-      let transaction = transactionsFromServerAsObject[i];
+      let transaction = transactionsFromServer[i];
       transaction.date = MyDate.convertToDateFromString(transaction.date);
 
       transactions.push(transaction);

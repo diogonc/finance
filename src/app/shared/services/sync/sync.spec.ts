@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import {Sync} from './sync';
-import {User} from '../../models/user';
+import { Sync } from './sync';
+import { User } from '../../models/user';
 
 describe('Sync', () => {
   let accountRepository;
@@ -58,32 +58,32 @@ class FinanceApi {
 
   getAccounts(user: any, success: (data: any) => any): void {
     this.accountsCalled = true;
-    success({_body: []});
+    success([]);
   }
 
   getCategories(user: any, success: (data: any) => any): void {
     this.categoriesCalled = true;
-    success({_body: []});
+    success([]);
   }
 
   getTransactions(user: any, success: (data: any) => any): void {
     this.transactionsCalled = true;
     let transactionFromServer = '[{' +
-        '\"accountName\": \"NuBank\",' +
-        '\"accountUuid\": \"13\",' +
-        '\"categoryName\": \"Extra\",' +
-        '\"categoryType\": \"debit\",' +
-        '\"categoryUuid\": \"1004\",' +
-        '\"createdAt\": \"2016-01-18 17:59:50\",' +
-        '\"date\": \"2016-01-17\",' +
-        '\"description\": \"Cafe\",' +
-        '\"id\": \"56a4ce2616f4263493d8a6d1\",' +
-        '\"payed\": \"1\",' +
-        '\"propertyUuid\": \"1\",' +
-        '\"updatedAt\": \"2016-01-18 17:59:50\",' +
-        '\"uuid\": \"00ff14a5-2ab9-4e71-8b82-5be7a206f73d\",' +
-        '\"value\": 12.9' +
-        '}]';
-    success({_body: transactionFromServer});
+      '\"accountName\": \"NuBank\",' +
+      '\"accountUuid\": \"13\",' +
+      '\"categoryName\": \"Extra\",' +
+      '\"categoryType\": \"debit\",' +
+      '\"categoryUuid\": \"1004\",' +
+      '\"createdAt\": \"2016-01-18 17:59:50\",' +
+      '\"date\": \"2016-01-17\",' +
+      '\"description\": \"Cafe\",' +
+      '\"id\": \"56a4ce2616f4263493d8a6d1\",' +
+      '\"payed\": \"1\",' +
+      '\"propertyUuid\": \"1\",' +
+      '\"updatedAt\": \"2016-01-18 17:59:50\",' +
+      '\"uuid\": \"00ff14a5-2ab9-4e71-8b82-5be7a206f73d\",' +
+      '\"value\": 12.9' +
+      '}]';
+    success(transactionFromServer);
   }
 }

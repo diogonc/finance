@@ -1,2 +1,0 @@
-ng build --prod --base-href "http://diogonc.github.io/finance/"
-ngh
