@@ -1,0 +1,3 @@
+https://github.com/angular-buch/angular-cli-ghpages
+ng build --prod --base-href "http://diogonc.github.io/finance/"
+ngh
