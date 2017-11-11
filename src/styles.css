@@ -6562,3 +6562,7 @@
    table{
      margin-top: 15px;
    }
+
+   .horizontal-field {
+    display: inline-grid;
+}

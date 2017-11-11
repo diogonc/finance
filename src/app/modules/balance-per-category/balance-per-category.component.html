@@ -1,29 +1,33 @@
 <h1 class="title is-5">Histórico</h1>
-<form (ngSubmit)="search()" *ngIf="showSearch">
-    <label class="label" for="initialDate">Data</label>
-    <p class="control">
-        <input class="input date" [(ngModel)]="initialDate" type="date" name="initialDate">
-        <input class="input date" [(ngModel)]="finalDate" type="date" name="finalDate">
-    </p>
-    <label class="label" for="accounts">Conta</label>
-    <p class="control select-dnc">
-        <select size="7" multiple [(ngModel)]="accounts" name="accounts">
-            <option *ngFor="let acc of allAccounts" value="{{acc.value}}">{{acc.label}}</option>
-        </select>
-    </p>
-    <label class="label" for="show">Exibir</label>
-    <p class="control">
-        <span class="select">
-            <select [(ngModel)]="show" name="show">
-                <option value="last">Último</option>
-                <option value="all">Todos</option>
+<form (ngSubmit)="search()">
+    <div class="horizontal-field two-lines">
+        <label class="label" for="initialDate">Data</label>
+        <p class="control">
+            <input class="input date" [(ngModel)]="initialDate" type="date" name="initialDate">
+            <input class="input date" [(ngModel)]="finalDate" type="date" name="finalDate">
+        </p>
+        <label class="label" for="show">Exibir</label>
+        <p class="control">
+            <span class="select">
+                <select [(ngModel)]="show" name="show">
+                    <option value="last">Último</option>
+                    <option value="all">Todos</option>
+                </select>
+            </span>
+        </p>
+    </div>
+    <div class="horizontal-field">
+        <label class="label" for="accounts">Conta</label>
+        <p class="control select-dnc">
+            <select size="7" multiple [(ngModel)]="accounts" name="accounts">
+                <option *ngFor="let acc of allAccounts" value="{{acc.value}}">{{acc.label}}</option>
             </select>
-        </span>
-    </p>
-    <button class="button is-primary" type="submit">Procurar</button>
-    <a class="button" (click)="toogle()">Esconder filtros</a>
+        </p>
+    </div>
+    <div class="horizontal-field buttons-space">
+        <button class="button is-primary" type="submit">Procurar</button>
+    </div>
 </form>
-<a class="button is-primary" type="submit" *ngIf="!showSearch" (click)="toogle()">Exibir filtros</a>
 <table class="table grid">
     <tr>
         <th>Categoria</th>

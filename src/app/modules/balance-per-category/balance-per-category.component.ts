@@ -16,7 +16,6 @@ import { SearchRepository } from '../transaction-list/search-repository';
   providers: [BalancePerCategory, BalancePerCategoryReport, SearchRepository]
 })
 export class BalancePerCategoryComponent implements OnInit {
-  public showSearch: Boolean;
   public initialDate: string;
   public finalDate: string;
   public accounts: Array<any>;
@@ -30,7 +29,6 @@ export class BalancePerCategoryComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.showSearch = false;
     const today = new Date();
     const firstDayOfMonth = new Date(today.getFullYear(), 0, 1);
     const lastDayOfMonth = MyDate.getLastDayOfMonth();
@@ -65,10 +63,6 @@ export class BalancePerCategoryComponent implements OnInit {
   public setDebitClass(value: number, average: number) {
     const isGreater = value >= average;
     return { green: !isGreater, red: isGreater };
-  }
-
-  public toogle() {
-    this.showSearch = !this.showSearch;
   }
 
   public showTransactions(categoryUuid: string, date: string): void {
