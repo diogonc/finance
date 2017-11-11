@@ -39,11 +39,11 @@ export class Sync {
 
   private convertTransactionFromServer(
     transactionsFromServer: [any], callback: (transactionsConverted: any) => any): void {
-    let lenght = transactionsFromServer.length;
-    let transactions = [];
+    const lenght = transactionsFromServer.length;
+    const transactions = [];
 
     for (let i = 0; i < lenght; i++) {
-      let transaction = transactionsFromServer[i];
+      const transaction = transactionsFromServer[i];
       transaction.date = MyDate.convertToDateFromString(transaction.date);
 
       transactions.push(transaction);

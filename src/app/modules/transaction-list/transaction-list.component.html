@@ -1,35 +1,42 @@
 <h1 class="title is-5">Lista de transações</h1>
-<form (ngSubmit)="search()" *ngIf="showSearch">
-    <label class="label" for="searchFilter.initialDate">Data</label>
-    <p class="control">
-        <input class="input date" [(ngModel)]="searchFilter.initialDate" type="date" name="searchFilter.initialDate">
-        <input class="input date" [(ngModel)]="searchFilter.finalDate" type="date" name="searchFilter.finalDate">
-    </p>
-    <label class="label" for="searchFilter.categorys">Categoria</label>
-    <p class="control select-dnc">
-       <select size="7" multiple [(ngModel)]="searchFilter.categorys" name="searchFilter.categorys">
-            <option *ngFor="let cat of categories" value="{{cat.value}}">{{cat.label}}</option>
-        </select>
-    </p>
-    <label class="label" for="searchFilter.accounts">Conta</label>
-    <p class="control select-dnc">
-         <select size="7" multiple [(ngModel)]="searchFilter.accounts" name="searchFilter.accounts">
-            <option *ngFor="let acc of accounts" value="{{acc.value}}">{{acc.label}}</option>
-        </select>
-    </p>
-    <label class="label" for="searchFilter.order">Ordem</label>
-    <p class="control ">
-        <span class="select">
-            <select class="select-dnc" [(ngModel)]="searchFilter.order" name="searchFilter.order">
-            <option value="date">Data</option>
-            <option value="value">Valor</option>
+<form (ngSubmit)="search()">
+    <div class="horizontal-field two-lines">
+        <label class="label" for="searchFilter.initialDate">Data</label>
+        <p class="control">
+            <input class="input date" [(ngModel)]="searchFilter.initialDate" type="date" name="searchFilter.initialDate">
+            <input class="input date" [(ngModel)]="searchFilter.finalDate" type="date" name="searchFilter.finalDate">
+        </p>
+        <label class="label" for="searchFilter.order">Ordem</label>
+        <p class="control ">
+            <span class="select">
+                <select class="select-dnc" [(ngModel)]="searchFilter.order" name="searchFilter.order">
+                    <option value="date">Data</option>
+                    <option value="value">Valor</option>
+                </select>
+            </span>
+        </p>
+    </div>
+    <div class="horizontal-field">
+        <label class="label" for="searchFilter.categorys">Categoria</label>
+        <p class="control select-dnc">
+            <select size="7" multiple [(ngModel)]="searchFilter.categorys" name="searchFilter.categorys">
+                <option *ngFor="let cat of categories" value="{{cat.value}}">{{cat.label}}</option>
             </select>
-        </span>
-    </p>
-    <button class="button is-primary" type="submit">Procurar</button>
-    <a class="button" (click)="toogle()">Esconder filtros</a>
+        </p>
+    </div>
+    <div class="horizontal-field">
+        <label class="label" for="searchFilter.accounts">Conta</label>
+        <p class="control select-dnc">
+            <select size="7" multiple [(ngModel)]="searchFilter.accounts" name="searchFilter.accounts">
+                <option *ngFor="let acc of accounts" value="{{acc.value}}">{{acc.label}}</option>
+            </select>
+        </p>
+    </div>
+    <div class="horizontal-field buttons-space">
+        <button class="button is-primary" type="submit">Procurar</button>
+        <button class="button is-info" (click)="cleanFilter()">Limpar filtros</button>
+    </div>
 </form>
-<a class="button is-primary" type="submit" *ngIf="!showSearch" (click)="toogle()">Exibir filtros</a>
 <table class="table">
     <thead>
         <tr>

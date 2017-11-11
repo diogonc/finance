@@ -14,10 +14,10 @@
     <label class="label" for="show">Exibir</label>
     <p class="control">
         <span class="select">
-        <select [(ngModel)]="show" name="show">
-        <option value="last">Último</option>
-        <option value="all">Todos</option>
-        </select>
+            <select [(ngModel)]="show" name="show">
+                <option value="last">Último</option>
+                <option value="all">Todos</option>
+            </select>
         </span>
     </p>
     <button class="button is-primary" type="submit">Procurar</button>
@@ -44,7 +44,8 @@
     </tr>
     <tr *ngFor="let row of balancePerCategoryReport.credits">
         <td>{{row.category}}</td>
-        <td *ngFor="let cell of row.balances;let i = index" class="money" [ngClass]="setCreditClass(cell.balance, row.average)" [hidden]="hide(i, row.balances.length)">
+        <td *ngFor="let cell of row.balances;let i = index" class="money" [ngClass]="setCreditClass(cell.balance, row.average)" [hidden]="hide(i, row.balances.length)"
+            (click)="showTransactions(row.uuid, cell.uuid)">
             {{cell.balance | number:'1.2-2'}}
         </td>
         <td class="money">{{row.average | number:'1.2-2'}}</td>
@@ -61,7 +62,8 @@
     </tr>
     <tr *ngFor="let row of balancePerCategoryReport.debits">
         <td>{{row.category}}</td>
-        <td *ngFor="let cell of row.balances;let i = index" class="money" [ngClass]="setDebitClass(cell.balance, row.average)" [hidden]="hide(i, row.balances.length)">
+        <td *ngFor="let cell of row.balances;let i = index" class="money" [ngClass]="setDebitClass(cell.balance, row.average)" [hidden]="hide(i, row.balances.length)"
+            (click)="showTransactions(row.uuid, cell.uuid)">
             {{cell.balance | number:'1.2-2'}}
         </td>
         <td class="money">{{row.average | number:'1.2-2'}}</td>

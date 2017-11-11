@@ -17,3 +17,7 @@
 .grid{
     margin-top: 20px;
 }
+
+table td{
+    cursor: pointer;
+}

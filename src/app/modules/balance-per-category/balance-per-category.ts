@@ -4,19 +4,16 @@ import { BalancePerCategoryReport } from './balance-per-category-report';
 
 @Injectable()
 export class BalancePerCategory {
-    private transactionRepository;
 
-    constructor(transactionRepository: TransactionRepository) {
-        this.transactionRepository = transactionRepository;
-    }
+    constructor(private transactionRepository: TransactionRepository) { }
 
     get(accounts: Array<string>, initialDate: Date, finalDate: Date): BalancePerCategoryReport {
-        let transactions = this.transactionRepository.getFiltered([], accounts, initialDate, finalDate, 'date asc');
-        let totalTransactions = transactions.length;
-        let balancePerCategory = new BalancePerCategoryReport();
+        const transactions = this.transactionRepository.getFiltered([], accounts, initialDate, finalDate, 'date asc');
+        const totalTransactions = transactions.length;
+        const balancePerCategory = new BalancePerCategoryReport();
 
         for (let index = 0; index < totalTransactions; index++) {
-            let transaction = transactions[index];
+            const transaction = transactions[index];
             balancePerCategory.addTransaction(transaction);
         }
         balancePerCategory.fillEmptyCells();

@@ -5,3 +5,22 @@ tr{
 .grid{
     margin-top: 20px;
 }
+
+.horizontal-field {
+    display: inline-grid;
+}
+
+.two-lines {
+    height: 146px;
+}
+
+.buttons-space{
+    width: 40px;
+    height: 150px;
+}
+
+.buttons-space button{
+    position:relative;
+    top:23%; 
+    left:50%;
+}

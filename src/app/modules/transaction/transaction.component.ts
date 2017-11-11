@@ -29,22 +29,13 @@ export class TransactionComponent implements OnInit {
   public showList: boolean;
   public isRequesting: boolean;
 
-  private accountRepository: AccountRepository;
-  private categoryRepository: CategoryRepository;
-  private route: ActivatedRoute;
-  private router: Router;
-  private transactionApp: TransactionApp;
-
   constructor(
-    accountRepository: AccountRepository, categoryRepository: CategoryRepository,
-    transactionRepository: TransactionRepository, userRepository: UserRepository,
-    api: FinanceApi, route: ActivatedRoute, router: Router,
-    transactionApp: TransactionApp) {
-    this.accountRepository = accountRepository;
-    this.categoryRepository = categoryRepository;
-    this.route = route;
-    this.router = router;
-    this.transactionApp = transactionApp;
+    private accountRepository: AccountRepository,
+    private categoryRepository: CategoryRepository,
+    private userRepository: UserRepository,
+    private route: ActivatedRoute,
+    private router: Router,
+    private transactionApp: TransactionApp) {
     this.isRequesting = false;
   }
 
@@ -64,14 +55,14 @@ export class TransactionComponent implements OnInit {
     this.isRequesting = true;
     this.transactionApp.save(this.transactionVm, account, category,
       this.onSuccess.bind(this), this.onError.bind(this));
-  };
+  }
 
   delete() {
     this.isRequesting = true;
     this.transactionApp.delete(this.transactionVm.uuid,
       this.onDelete.bind(this),
       this.onError.bind(this));
-  };
+  }
 
   back() {
     this.router.navigate(['/transaction-list']);
@@ -84,7 +75,7 @@ export class TransactionComponent implements OnInit {
     } else {
       this.transactionVm = this.transactionApp.load(null, null, null);
     }
-  };
+  }
 
   private onError(errors) {
     this.isRequesting = false;
@@ -94,5 +85,5 @@ export class TransactionComponent implements OnInit {
   private onDelete() {
     this.isRequesting = false;
     this.router.navigate(['/transaction-list']);
-  };
+  }
 }

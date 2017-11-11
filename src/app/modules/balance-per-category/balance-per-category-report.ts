@@ -23,8 +23,8 @@ export class BalancePerCategoryReport {
 
     public addTransaction(transaction: Transaction): void {
         let categoryRow: BalancePerCategoryRow;
-        let date = MyDate.firstDayOfMonth(transaction.date);
-        let value = transaction.value;
+        const date = MyDate.firstDayOfMonth(transaction.date);
+        const value = transaction.value;
         if (transaction.category.categoryType === CategoryType.Credit) {
             categoryRow = this.getCreditCategoriesRows(transaction.category.uuid, transaction.category.name);
 
@@ -63,22 +63,22 @@ export class BalancePerCategoryReport {
         this.credits = this.credits.sort(this.sortRow);
     }
 
-    private sortRow (row, anotherRow) {
-        return  anotherRow.total - row.total;
+    private sortRow(row, anotherRow) {
+        return anotherRow.total - row.total;
     }
 
     private fillEmptyCellsFromRows(list: Array<BalancePerCategoryRow>) {
-        let length = list.length;
+        const length = list.length;
         for (let i = 0; i < length; i++) {
-            let row = list[i];
+            const row = list[i];
             this.fillEmptyCellsInARow(row);
         }
     }
 
     private fillEmptyCellsInARow(row: BalancePerCategoryRow) {
-        let totalMonths = this.totalBalance.balances.length;
+        const totalMonths = this.totalBalance.balances.length;
         for (let i = 0; i < totalMonths; i++) {
-            let month = this.totalBalance.balances[i].date;
+            const month = this.totalBalance.balances[i].date;
             row.add(0, month);
         }
     }
@@ -91,11 +91,10 @@ export class BalancePerCategoryReport {
         return this.getCategoryRow(uuid, categoryName, this.debits);
     }
 
-    private getCategoryRow(uuid: string, categoryName: string, array: Array<BalancePerCategoryRow>):
-        BalancePerCategoryRow {
-        let categoryIndex = MyArray.findIndex(uuid, array);
+    private getCategoryRow(uuid: string, categoryName: string, array: Array<BalancePerCategoryRow>): BalancePerCategoryRow {
+        const categoryIndex = MyArray.findIndex(uuid, array);
         if (categoryIndex === -1) {
-            let row = new BalancePerCategoryRow(uuid, categoryName);
+            const row = new BalancePerCategoryRow(uuid, categoryName);
             array.push(row);
             return row;
         }

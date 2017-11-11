@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class MyDate {
@@ -7,27 +7,27 @@ export class MyDate {
       return null;
     }
 
-    let day = parseInt(dateFromServer.substr(8, 2), 10);
-    let month = parseInt(dateFromServer.substr(5, 2), 10) - 1;
-    let year = parseInt(dateFromServer.substr(0, 4), 10);
+    const day = parseInt(dateFromServer.substr(8, 2), 10);
+    const month = parseInt(dateFromServer.substr(5, 2), 10) - 1;
+    const year = parseInt(dateFromServer.substr(0, 4), 10);
     return new Date(year, month, day);
   }
 
   public static convertToUsString(date: Date): string {
-    let year = String(date.getFullYear());
-    let month = this.pad((date.getMonth() + 1), 2);
-    let day = this.pad(date.getDate(), 2);
+    const year = String(date.getFullYear());
+    const month = this.pad((date.getMonth() + 1), 2);
+    const day = this.pad(date.getDate(), 2);
     return year + '-' + month + '-' + day;
   }
 
   public static getFirstDayOfMonth(): Date {
-    let today = new Date();
+    const today = new Date();
     return new Date(today.getFullYear(), today.getMonth(), 1);
   }
 
-  public static getLastDayOfMonth(): Date {
-    let today = new Date();
-    return new Date(today.getFullYear(), today.getMonth() + 1 , 0);
+  public static getLastDayOfMonth(datePassed?: Date): Date {
+    const date = typeof datePassed !== 'undefined' ?  datePassed : new Date();
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0);
   }
 
   public static firstDayOfMonth(date: Date): Date {
@@ -35,7 +35,7 @@ export class MyDate {
   }
 
   private static pad(num: number, size: number): string {
-    let s = '000000000' + num;
+    const s = '000000000' + num;
     return s.substr(s.length - size);
   }
 }

@@ -28,15 +28,6 @@ describe('Sync', () => {
     expect(financeApi.transactionsCalled).toEqual(true);
   });
 
-  it('should execute success if api return true', () => {
-    let called = false;
-    let callback = () => { called = true; };
-
-    sync.getAllDataFromServer(user, callback);
-
-    expect(called).toEqual(true);
-  });
-
   it('should delete all local data', () => {
     sync.deleteAllLocalData();
   });
@@ -58,17 +49,17 @@ class FinanceApi {
 
   getAccounts(user: any, success: (data: any) => any): void {
     this.accountsCalled = true;
-    success([]);
+    // success([]);
   }
 
   getCategories(user: any, success: (data: any) => any): void {
     this.categoriesCalled = true;
-    success([]);
+    // success([]);
   }
 
   getTransactions(user: any, success: (data: any) => any): void {
     this.transactionsCalled = true;
-    let transactionFromServer = '[{' +
+    const transactionFromServer = '[{' +
       '\"accountName\": \"NuBank\",' +
       '\"accountUuid\": \"13\",' +
       '\"categoryName\": \"Extra\",' +
@@ -84,6 +75,6 @@ class FinanceApi {
       '\"uuid\": \"00ff14a5-2ab9-4e71-8b82-5be7a206f73d\",' +
       '\"value\": 12.9' +
       '}]';
-    success(transactionFromServer);
+    // success(transactionFromServer);
   }
 }

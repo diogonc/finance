@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AccountRepository } from '../../shared/services/repository/account-repository';
 import { CategoryRepository } from '../../shared/services/repository/category-repository';
@@ -19,32 +19,22 @@ import { Transaction } from '../../shared/models/transaction';
   providers: [Balance, MyDate, SearchRepository]
 })
 export class TransactionListComponent implements OnInit {
-  public showSearch: Boolean;
   public searchFilter: SearchFilter;
   public balance: number;
   public accounts: Array<Account>;
   public categories: Array<any>;
   public transactions: Array<Transaction>;
-  private accountRepository: AccountRepository;
-  private categoryRepository: CategoryRepository;
-  private searchRepository: SearchRepository;
-  private transactionRepository: TransactionRepository;
-  private router: Router;
 
   constructor(
-    transactionRepository: TransactionRepository, dateService: MyDate,
-    accountRepository: AccountRepository, categoryRepository: CategoryRepository,
-    searchRepository: SearchRepository, router: Router) {
-    this.accountRepository = accountRepository;
-    this.categoryRepository = categoryRepository;
-    this.transactionRepository = transactionRepository;
-    this.searchRepository = searchRepository;
-    this.router = router;
-  }
+    private transactionRepository: TransactionRepository,
+    private accountRepository: AccountRepository,
+    private categoryRepository: CategoryRepository,
+    private searchRepository: SearchRepository,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
-    this.showSearch = false;
-    let savedFilter = this.searchRepository.getAll()[0];
+    const savedFilter = this.searchRepository.getAll()[0];
     if (savedFilter) {
       this.searchFilter = savedFilter;
     } else {
@@ -72,13 +62,14 @@ export class TransactionListComponent implements OnInit {
     this.router.navigate(['/transaction-edit', uuid]);
   }
 
-  toogle() {
-    this.showSearch = !this.showSearch;
+  cleanFilter() {
+    this.fillDefaultSearch();
+    this.search();
   }
 
   private fillDefaultSearch() {
-    let firstDayOfMonth = MyDate.getFirstDayOfMonth();
-    let lastDayOfMonth = MyDate.getLastDayOfMonth();
+    const firstDayOfMonth = MyDate.getFirstDayOfMonth();
+    const lastDayOfMonth = MyDate.getLastDayOfMonth();
     this.searchFilter = new SearchFilter(MyDate.convertToUsString(firstDayOfMonth),
       MyDate.convertToUsString(lastDayOfMonth),
       [],
@@ -87,20 +78,20 @@ export class TransactionListComponent implements OnInit {
   }
 
   private formatCategoryFilter(categories: Array<Category>) {
-    let options = [];
-    let length = categories.length;
+    const options = [];
+    const length = categories.length;
     for (let i = 0; i < length; i++) {
-      let category = categories[i];
+      const category = categories[i];
       options.push({ value: category.uuid, label: category.name });
     }
     return options;
   }
 
   private formatAccountsFilter(accounts: Array<Account>) {
-    let options = [];
-    let length = accounts.length;
+    const options = [];
+    const length = accounts.length;
     for (let i = 0; i < length; i++) {
-      let account = accounts[i];
+      const account = accounts[i];
       options.push({ value: account.uuid, label: account.name });
     }
     return options;
