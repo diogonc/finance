@@ -13,7 +13,7 @@ export class TransactionRepository extends Repository {
   }
 
   get(key: string): Transaction {
-    let t = super.get(key);
+    const t = super.get(key);
 
     if (t !== null) {
       return new Transaction(t.uuid, t.propertyUuid, t.value, t.description, t.date, t.account, t.category);
@@ -21,21 +21,22 @@ export class TransactionRepository extends Repository {
     return null;
   }
 
-  getFiltered(categoryUuids: Array<string>, accountUuids: Array<string>, initialDate: Date, finalDate: Date, order):
+  getFiltered(categoryUuids: Array<string>, accountUuids: Array<string>, initialDate: Date, finalDate: Date, description: string,  order):
     Array<Transaction> {
-    let filtered = [];
-    let transactions = this.getAll();
-    let lenght = transactions.length;
+    const filtered = [];
+    const transactions = this.getAll();
+    const lenght = transactions.length;
 
     for (let i = 0; i < lenght; i++) {
-      let t = transactions[i];
-      let transaction = new Transaction(t.uuid, t.propertyUuid, t.value, t.description, t.date,
+      const t = transactions[i];
+      const transaction = new Transaction(t.uuid, t.propertyUuid, t.value, t.description, t.date,
         t.account, t.category);
 
       if ((categoryUuids.length === 0 || MyArray.any(transaction.category.uuid, categoryUuids)) &&
         (accountUuids.length === 0 || MyArray.any(transaction.account.uuid, accountUuids)) &&
         (initialDate === null || initialDate <= transaction.date) &&
-        (finalDate === null || transaction.date <= finalDate)) {
+        (finalDate === null || transaction.date <= finalDate) &&
+        (description === '' || transaction.description.indexOf(description) !== -1)) {
         filtered.push(transaction);
       }
     }

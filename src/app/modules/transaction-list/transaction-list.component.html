@@ -15,11 +15,15 @@
                 </select>
             </span>
         </p>
+        <label class="label" for="searchFilter.description">Descrição</label>
+        <p class="control">
+            <input class="input" [(ngModel)]="searchFilter.description" type="text" name="description">
+        </p>
     </div>
     <div class="horizontal-field">
         <label class="label" for="searchFilter.categorys">Categoria</label>
         <p class="control select-dnc">
-            <select size="7" multiple [(ngModel)]="searchFilter.categorys" name="searchFilter.categorys">
+            <select size="10" multiple [(ngModel)]="searchFilter.categorys" name="searchFilter.categorys">
                 <option *ngFor="let cat of categories" value="{{cat.value}}">{{cat.label}}</option>
             </select>
         </p>
@@ -27,14 +31,15 @@
     <div class="horizontal-field">
         <label class="label" for="searchFilter.accounts">Conta</label>
         <p class="control select-dnc">
-            <select size="7" multiple [(ngModel)]="searchFilter.accounts" name="searchFilter.accounts">
+            <select size="10" multiple [(ngModel)]="searchFilter.accounts" name="searchFilter.accounts">
                 <option *ngFor="let acc of accounts" value="{{acc.value}}">{{acc.label}}</option>
             </select>
         </p>
     </div>
     <div class="horizontal-field buttons-space">
         <button class="button is-primary" type="submit">Procurar</button>
-        <button class="button is-info" (click)="cleanFilter()">Limpar filtros</button>
+        <button class="button" (click)="cleanFilter()">Limpar filtros</button>
+        <button class="button is-info" (click)="createNew()">Nova transação</button>
     </div>
 </form>
 <table class="table">

@@ -8,7 +8,7 @@ export class BalancePerCategory {
     constructor(private transactionRepository: TransactionRepository) { }
 
     get(accounts: Array<string>, initialDate: Date, finalDate: Date): BalancePerCategoryReport {
-        const transactions = this.transactionRepository.getFiltered([], accounts, initialDate, finalDate, 'date asc');
+        const transactions = this.transactionRepository.getFiltered([], accounts, initialDate, finalDate, '', 'date asc');
         const totalTransactions = transactions.length;
         const balancePerCategory = new BalancePerCategoryReport();
 

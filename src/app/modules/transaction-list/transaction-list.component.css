@@ -8,12 +8,12 @@ tr{
 
 .buttons-space{
     width: 40px;
-    height: 150px;
+    height: 210px;
 }
 
 .buttons-space button{
     position:relative;
-    top:23%; 
+    top:9%; 
     left:50%;
 }
 

@@ -54,12 +54,17 @@ export class TransactionListComponent implements OnInit {
       this.searchFilter.accounts,
       MyDate.convertToDateFromString(this.searchFilter.initialDate),
       MyDate.convertToDateFromString(this.searchFilter.finalDate),
+      this.searchFilter.description,
       this.searchFilter.order);
     this.balance = Balance.get(this.transactions);
   }
 
   edit(uuid: string) {
     this.router.navigate(['/transaction-edit', uuid]);
+  }
+
+  createNew() {
+    this.router.navigate(['/transaction-new']);
   }
 
   cleanFilter() {
@@ -74,7 +79,8 @@ export class TransactionListComponent implements OnInit {
       MyDate.convertToUsString(lastDayOfMonth),
       [],
       [],
-      'date');
+      'date',
+      '');
   }
 
   private formatCategoryFilter(categories: Array<Category>) {

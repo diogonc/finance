@@ -69,7 +69,7 @@ export class BalancePerCategoryComponent implements OnInit {
     console.log('categoria ', categoryUuid, 'date ', date);
     const lastDayOfMonth = MyDate.convertToUsString(MyDate.getLastDayOfMonth(MyDate.convertToDateFromString(date)));
     const transactionsListFilter = new SearchFilter(date,
-      lastDayOfMonth, [], [categoryUuid], 'date');
+      lastDayOfMonth, [], [categoryUuid], '', 'date');
     this.searchRepository.save(transactionsListFilter);
     this.router.navigate(['/transaction-list']);
   }
