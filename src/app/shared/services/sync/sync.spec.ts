@@ -5,6 +5,7 @@ import { User } from '../../models/user';
 describe('Sync', () => {
   let accountRepository;
   let categoryRepository;
+  let groupRepository;
   let transactionRepository;
   let financeApi;
   let sync;
@@ -13,11 +14,12 @@ describe('Sync', () => {
   beforeEach(() => {
     accountRepository = new GenericRepository();
     categoryRepository = new GenericRepository();
+    groupRepository = new GenericRepository();
     transactionRepository = new GenericRepository();
     financeApi = new FinanceApi();
 
     user = new User('login', 'pass');
-    sync = new Sync(financeApi, accountRepository, categoryRepository, transactionRepository);
+    sync = new Sync(financeApi, accountRepository, categoryRepository, groupRepository, transactionRepository);
   });
 
   it('should call apis on sync', () => {
@@ -25,6 +27,7 @@ describe('Sync', () => {
 
     expect(financeApi.accountsCalled).toEqual(true);
     expect(financeApi.categoriesCalled).toEqual(true);
+    expect(financeApi.groupsCalled).toEqual(true);
     expect(financeApi.transactionsCalled).toEqual(true);
   });
 
@@ -34,8 +37,8 @@ describe('Sync', () => {
 });
 
 class GenericRepository {
-  public called: boolean = false;
-  public deletedCalled: boolean = false;
+  public called = false;
+  public deletedCalled = false;
 
   saveAll(user: any): void { this.called = true; }
 
@@ -43,9 +46,10 @@ class GenericRepository {
 }
 
 class FinanceApi {
-  public accountsCalled: boolean = false;
-  public categoriesCalled: boolean = false;
-  public transactionsCalled: boolean = false;
+  public accountsCalled = false;
+  public categoriesCalled = false;
+  public groupsCalled = false;
+  public transactionsCalled = false;
 
   getAccounts(user: any, success: (data: any) => any): void {
     this.accountsCalled = true;
@@ -54,6 +58,11 @@ class FinanceApi {
 
   getCategories(user: any, success: (data: any) => any): void {
     this.categoriesCalled = true;
+    // success([]);
+  }
+
+  getGroups(user: any, success: (data: any) => any): void {
+    this.groupsCalled = true;
     // success([]);
   }
 

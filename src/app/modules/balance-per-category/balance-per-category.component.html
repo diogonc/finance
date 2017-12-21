@@ -31,7 +31,8 @@
 <table class="table grid">
     <tr>
         <th>Categoria</th>
-        <th *ngFor="let cell of balancePerCategoryReport.totalBalance.balances;let i = index" class="money" [hidden]="hide(i, balancePerCategoryReport.totalBalance.balances.length)">
+        <th *ngFor="let cell of balancePerCategoryReport.totalBalance.balances;let i = index" class="money" 
+            [hidden]="hide(i, balancePerCategoryReport.totalBalance.balances.length)">
             {{cell.date | date:'MM'}}/{{cell.date | date:'y'}}
         </th>
         <th class="money">Média</th>
@@ -39,7 +40,8 @@
     </tr>
     <tr class="bold">
         <td>Créditos</td>
-        <td *ngFor="let cell of balancePerCategoryReport.totalCredits.balances;let i = index" class="money" [ngClass]="setCreditClass(cell.balance, balancePerCategoryReport.totalCredits.average)"
+        <td *ngFor="let cell of balancePerCategoryReport.totalCredits.balances;let i = index" class="money" 
+            [ngClass]="setCreditClass(cell.balance, balancePerCategoryReport.totalCredits.average)"
             [hidden]="hide(i, balancePerCategoryReport.totalCredits.balances.length)">
             {{cell.balance | number:'1.2-2'}}
         </td>
@@ -48,7 +50,9 @@
     </tr>
     <tr *ngFor="let row of balancePerCategoryReport.credits">
         <td>{{row.category}}</td>
-        <td *ngFor="let cell of row.balances;let i = index" class="money" [ngClass]="setCreditClass(cell.balance, row.average)" [hidden]="hide(i, row.balances.length)"
+        <td *ngFor="let cell of row.balances;let i = index" class="money" 
+            [ngClass]="setCreditClass(cell.balance, row.average)" 
+            [hidden]="hide(i, row.balances.length)"
             (click)="showTransactions(row.uuid, cell.uuid)">
             {{cell.balance | number:'1.2-2'}}
         </td>
@@ -57,7 +61,8 @@
     </tr>
     <tr class="bold">
         <td>Débitos</td>
-        <td *ngFor="let cell of balancePerCategoryReport.totalDebits.balances;let i = index" class="money" [ngClass]="setDebitClass(cell.balance, balancePerCategoryReport.totalDebits.average)"
+        <td *ngFor="let cell of balancePerCategoryReport.totalDebits.balances;let i = index" class="money" 
+            [ngClass]="setDebitClass(cell.balance, balancePerCategoryReport.totalDebits.average)"
             [hidden]="hide(i, balancePerCategoryReport.totalBalance.balances.length)">
             {{cell.balance | number:'1.2-2'}}
         </td>
@@ -66,7 +71,9 @@
     </tr>
     <tr *ngFor="let row of balancePerCategoryReport.debits">
         <td>{{row.category}}</td>
-        <td *ngFor="let cell of row.balances;let i = index" class="money" [ngClass]="setDebitClass(cell.balance, row.average)" [hidden]="hide(i, row.balances.length)"
+        <td *ngFor="let cell of row.balances;let i = index" class="money" 
+            [ngClass]="setDebitClass(cell.balance, row.average)" 
+            [hidden]="hide(i, row.balances.length)"
             (click)="showTransactions(row.uuid, cell.uuid)">
             {{cell.balance | number:'1.2-2'}}
         </td>
@@ -75,7 +82,8 @@
     </tr>
     <tr class="bold">
         <td>Saldo</td>
-        <td *ngFor="let cell of balancePerCategoryReport.totalBalance.balances;let i = index" class="money" [ngClass]="setCreditClass(cell.balance, balancePerCategoryReport.totalBalance.average)"
+        <td *ngFor="let cell of balancePerCategoryReport.totalBalance.balances;let i = index" class="money" 
+            [ngClass]="setBalanceClass(cell.balance)"
             [hidden]="hide(i, balancePerCategoryReport.totalBalance.balances.length)">
             {{cell.balance | number:'1.2-2'}}
         </td>

@@ -1,5 +1,6 @@
 import { AccountRepository } from '../repository/account-repository';
 import { CategoryRepository } from '../repository/category-repository';
+import { GroupRepository } from '../repository/group-repository';
 import { TransactionRepository } from '../repository/transaction-repository';
 import { User } from '../../models/user';
 import { FinanceApi } from '../api/finance-api';
@@ -8,19 +9,13 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Sync {
-  private accountRepository: AccountRepository;
-  private categoryRepository: CategoryRepository;
-  private transactionRepository: TransactionRepository;
-  private api: FinanceApi;
 
   constructor(
-    financeApi: FinanceApi, accountRepository: AccountRepository,
-    categoryRepository: CategoryRepository, transactionRepository: TransactionRepository) {
-    this.api = financeApi;
-    this.accountRepository = accountRepository;
-    this.categoryRepository = categoryRepository;
-    this.transactionRepository = transactionRepository;
-  }
+    private api: FinanceApi,
+    private accountRepository: AccountRepository,
+    private categoryRepository: CategoryRepository,
+    private groupRepository: GroupRepository,
+    private transactionRepository: TransactionRepository) { }
 
   getAllDataFromServer(callback: () => any, error: () => any): void {
     this.api.getTransactions(
@@ -31,6 +26,7 @@ export class Sync {
         }), error);
     this.api.getAccounts((accounts) => this.accountRepository.saveAll(accounts));
     this.api.getCategories((categories) => this.categoryRepository.saveAll(categories));
+    this.api.getGroups((groups) => this.groupRepository.saveAll(groups));
   }
 
   deleteAllLocalData(): void {

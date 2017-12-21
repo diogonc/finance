@@ -65,6 +65,11 @@ export class BalancePerCategoryComponent implements OnInit {
     return { green: !isGreater, red: isGreater };
   }
 
+  public setBalanceClass(value: number) {
+    const isGreater = value >= 0;
+    return { green: isGreater, red: !isGreater };
+  }
+
   public showTransactions(categoryUuid: string, date: string): void {
     console.log('categoria ', categoryUuid, 'date ', date);
     const lastDayOfMonth = MyDate.convertToUsString(MyDate.getLastDayOfMonth(MyDate.convertToDateFromString(date)));

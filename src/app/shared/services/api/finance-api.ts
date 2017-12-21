@@ -2,6 +2,7 @@ import { User } from '../../models/user';
 import { UserRepository } from '../../services/repository/user-repository';
 import { Transaction } from '../../models/transaction';
 import { Category } from '../../models/category';
+import { Group } from '../../models/group';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -23,6 +24,10 @@ export class FinanceApi {
 
     getCategories(success: (data: any) => any): void {
         this.get('category', success, null);
+    }
+
+    getGroups(success: (data: any) => any): void {
+        this.get('group', success, null);
     }
 
     getTransactions(success: (data: any) => any, error: (data: any) => any): void {
@@ -57,6 +62,21 @@ export class FinanceApi {
     deleteCategory(categoryUuid: string, success: (data: any) => any,
         error: (data: any) => any): void {
         this.delete('category', categoryUuid, success, error);
+    }
+
+    saveGroup(group: Group, success: (data: any) => any,
+        error: (data: any) => any): void {
+        this.post('group', group, success, error);
+    }
+
+    updateGroup(group: Group, success: (data: any) => any,
+        error: (data: any) => any): void {
+        this.put('group', group, success, error);
+    }
+
+    deleteGroup(groupUuid: string, success: (data: any) => any,
+        error: (data: any) => any): void {
+        this.delete('group', groupUuid, success, error);
     }
 
     private createHeader(): HttpHeaders {

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule }from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -18,6 +18,7 @@ import { SpinnerComponent } from './modules//spinner/spinner.component';
 import { LoginEvent } from './modules//events/login-event';
 import { AccountRepository } from './shared/services/repository/account-repository';
 import { CategoryRepository } from './shared/services/repository/category-repository';
+import { GroupRepository } from './shared/services/repository/group-repository';
 import { TransactionRepository } from './shared/services/repository/transaction-repository';
 import { UserRepository } from './shared/services/repository/user-repository';
 
@@ -53,8 +54,7 @@ import { UserRepository } from './shared/services/repository/user-repository';
       { path: 'balance-per-category', component: BalancePerCategoryComponent }
     ])
   ],
-  providers: [LoginEvent, AccountRepository, CategoryRepository,
-    TransactionRepository, UserRepository],
+  providers: [LoginEvent, AccountRepository, CategoryRepository, GroupRepository, TransactionRepository, UserRepository],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

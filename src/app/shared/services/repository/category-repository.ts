@@ -6,8 +6,8 @@ export class CategoryRepository extends Repository {
   constructor() { super('category'); }
 
   getAll(): Array<Category> {
-    let list = this.getListOfObjects();
-    let itens = [];
+    const list = this.getListOfObjects();
+    const itens = [];
 
     for (let i = 0; i < list.length; i++) {
       itens.push(list[i] as Category);
@@ -34,11 +34,11 @@ export class CategoryRepository extends Repository {
   }
 
   private getByCategoryType(categoryType: CategoryType): Category {
-    let categories = this.getAll();
-    let lenght = categories.length;
+    const categories = this.getAll();
+    const lenght = categories.length;
 
     for (let i = 0; i < lenght; i++) {
-      let c = categories[i];
+      const c = categories[i];
 
       if (c.categoryType === categoryType) {
         return c;

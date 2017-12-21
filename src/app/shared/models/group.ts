@@ -1,31 +1,26 @@
-import { CategoryType } from './categoryType';
-
-export class Category {
+export class Group {
   uuid: string;
   name: string;
-  categoryType: CategoryType;
   priority: number;
   propertyUuid: string;
   errors: Array<string>;
 
-  constructor(uuid: string, name: string, type: CategoryType, priority: number) {
+  constructor(uuid: string, name: string, priority: number) {
     this.uuid = uuid;
     this.name = name;
-    this.categoryType = type;
     this.priority = priority;
 
     this.errors = [];
-    this.validate(name, type, priority);
+    this.validate(name, priority);
   }
 
   isValid(): boolean {
     return this.errors.length === 0;
   }
 
-  private validate(name: string, type: number, priority: number): void {
+  private validate(name: string, priority: number): void {
 
     this.verifyField(name, 'Nome é obrigatório');
-    this.verifyField(type, 'Tipo é obrigatório');
     this.verifyField(priority, 'Prioridade é obrigatória');
   }
 
