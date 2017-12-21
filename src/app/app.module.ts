@@ -11,6 +11,8 @@ import { BalanceComponent } from './modules//balance/balance.component';
 import { BalancePerCategoryComponent } from './modules//balance-per-category/balance-per-category.component';
 import { CategoryListComponent } from './modules//category-list/category-list.component';
 import { CategoryComponent } from './modules//category/category.component';
+import { GroupListComponent } from './modules//group-list/group-list.component';
+import { GroupComponent } from './modules//group/group.component';
 import { TransactionComponent } from './modules//transaction/transaction.component';
 import { TransactionListComponent } from './modules//transaction-list/transaction-list.component';
 import { TransferComponent } from './modules//transfer/transfer.component';
@@ -33,7 +35,9 @@ import { UserRepository } from './shared/services/repository/user-repository';
     TransferComponent,
     SpinnerComponent,
     CategoryListComponent,
-    CategoryComponent
+    CategoryComponent,
+    GroupListComponent,
+    GroupComponent
   ],
   imports: [
     BrowserModule,
@@ -45,10 +49,13 @@ import { UserRepository } from './shared/services/repository/user-repository';
       { path: 'login', component: LoginComponent },
       { path: 'transaction-list', component: TransactionListComponent },
       { path: 'category-list', component: CategoryListComponent },
+      { path: 'group-list', component: GroupListComponent },
       { path: 'transaction-new', component: TransactionComponent },
       { path: 'transaction-edit/:id', component: TransactionComponent },
       { path: 'category-new', component: CategoryComponent },
       { path: 'category-edit/:id', component: CategoryComponent },
+      { path: 'group-new', component: GroupComponent },
+      { path: 'group-edit/:id', component: GroupComponent },
       { path: 'transfer', component: TransferComponent },
       { path: 'balance', component: BalanceComponent },
       { path: 'balance-per-category', component: BalancePerCategoryComponent }

@@ -1,4 +1,4 @@
-<h1 class="title is-5">Categoria</h1>
+<h1 class="title is-5">Agrupamento de categoria</h1>
 <div class="formulario">
     <form (ngSubmit)="save(true)">
         <div class="notification is-danger" *ngFor="let error of errors">
@@ -6,19 +6,19 @@
         </div>
         <label class="label" for="name">Nome</label>
         <p class="control">
-            <input class="input" id="name" [(ngModel)]="category.name" type="text" name="name">
+            <input class="input" id="name" [(ngModel)]="group.name" type="text" name="name">
         </p>
         <label class="label" for="priority">Prioridade</label>
         <p class="control">
-            <input class="input" [(ngModel)]="category.priority" type="number" step="1" name="priority">
+            <input class="input" [(ngModel)]="group.priority" type="number" step="1" name="priority">
         </p>
-        <label class="label" for="category">Tipo</label>
+        <label class="label" for="typeIndex">Tipo</label>
         <p class="control">
             <span class="select">
-        <select [(ngModel)]="typeIndex" name="typeIndex">
-        <option *ngFor="let t of types; let i = index" [value]="i">{{types[i]}}</option>
-        </select>
-        </span>
+                <select [(ngModel)]="typeIndex" name="typeIndex">
+                    <option *ngFor="let t of types; let i = index" [value]="i">{{types[i]}}</option>
+                </select>
+            </span>
         </p>
         <p class="control">
             <button class="button is-primary" type="submit">Salvar</button>
