@@ -39,16 +39,14 @@ export class GroupComponent implements OnInit {
     } else {
       this.isNew = true;
       this.group = new Group(null, '', CategoryType.Debit, 1);
-      this.typeIndex = 1;
+      this.typeIndex = 2;
     }
   }
 
   save(showList: boolean) {
     const user = this.userRepository.getUser();
     this.isRequesting = true;
-    if (this.typeIndex) {
-      this.group.categoryType = this.typeIndex;
-    }
+    this.group.categoryType = this.typeIndex !== 0 ? this.typeIndex : CategoryType.Debit;
 
     const group = new Group(this.group.uuid, this.group.name, this.group.categoryType, this.group.priority);
     group.propertyUuid = user.property;
@@ -57,17 +55,16 @@ export class GroupComponent implements OnInit {
       this.onError(group.errors);
       return;
     }
-
     if (group.uuid === null) {
       this.api.saveGroup(group,
         (response) => {
           this.group.uuid = response.uuid;
-          this.onSave(this.group, this.onSuccess.bind(this));
+          this.onSave(group, this.onSuccess.bind(this));
         },
         this.onError.bind(this));
     } else {
       this.api.updateGroup(group,
-        () => this.onSave(this.group, this.onSuccess.bind(this)),
+        () => this.onSave(group, this.onSuccess.bind(this)),
         this.onError.bind(this));
     }
     this.showList = showList;

@@ -15,18 +15,18 @@
         <label class="label" for="category">Categoria</label>
         <p class="control">
             <span class="select">
-        <select [(ngModel)]="transactionVm.categoryIndex" name="categoryIndex">
-        <option *ngFor="let c of categories; let i = index" [value]="i">{{c.name}}</option>
-        </select>
-        </span>
+                <select [(ngModel)]="transactionVm.categoryIndex" name="categoryIndex">
+                    <option *ngFor="let c of categories; let i = index" [value]="i">{{c.name}}</option>
+                </select>
+            </span>
         </p>
         <label class="label" for="account">Conta</label>
         <p class="control">
             <span class="select">
-        <select [(ngModel)]="transactionVm.accountIndex" name="accountIndex">
-            <option *ngFor="let a of accounts; let i = index" [value]="i">{{a.name}}</option>
-        </select>
-        </span>
+                <select [(ngModel)]="transactionVm.accountIndex" name="accountIndex">
+                    <option *ngFor="let a of accounts; let i = index" [value]="i">{{a.name}}</option>
+                </select>
+            </span>
         </p>
         <label class="label" for="date">Data</label>
         <p class="control">

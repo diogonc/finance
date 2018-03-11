@@ -1,4 +1,5 @@
 import { CategoryType } from './categoryType';
+import { Group } from './group';
 
 export class Category {
   uuid: string;
@@ -6,12 +7,14 @@ export class Category {
   categoryType: CategoryType;
   priority: number;
   propertyUuid: string;
+  group: Group;
   errors: Array<string>;
 
-  constructor(uuid: string, name: string, type: CategoryType, priority: number) {
+  constructor(uuid: string, name: string, type: CategoryType, group: Group, priority: number) {
     this.uuid = uuid;
     this.name = name;
     this.categoryType = type;
+    this.group = group;
     this.priority = priority;
 
     this.errors = [];

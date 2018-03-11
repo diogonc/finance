@@ -12,9 +12,7 @@ export class Transaction {
   category: Category;
   errors: Array<string>;
 
-  constructor(
-    uuid: string, propertyUuid: string, value: number, description: string, date: string, account: Account, category: Category
-  ) {
+  constructor(uuid: string, propertyUuid: string, value: number, description: string, date: string, account: Account, category: Category) {
     this.errors = [];
     this.validate(propertyUuid, value, description, date, account, category);
 
@@ -40,7 +38,7 @@ export class Transaction {
     this.verifyField(date, 'Data é obrigatória');
     this.verifyField(account, 'Conta é obrigatória');
     this.verifyField(category, 'Categoria é obrigatória');
-  };
+  }
 
   private verifyField(field: any, message: string) {
     if (field === null || field === '' || field <= 0) {
