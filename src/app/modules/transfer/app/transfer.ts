@@ -28,30 +28,32 @@ export class TransferApp {
     onError: (error) => void):
     void {
 
-    let user = this.userRepository.getUser();
+    const user = this.userRepository.getUser();
 
-    let fromTransaction = new Transaction(null, user.property, transferVm.value, transferVm.description, transferVm.date, fromAccount, debitCategory);
+    const fromTransaction = new Transaction(null, user.property, transferVm.value, transferVm.description
+                                            , transferVm.date, fromAccount, debitCategory);
 
-    let toTransaction = new Transaction(null, user.property, transferVm.value, transferVm.description, transferVm.date, toAccount, creditCategory);
+    const toTransaction = new Transaction(null, user.property, transferVm.value, transferVm.description
+                                          , transferVm.date, toAccount, creditCategory);
 
     if (!fromTransaction.isValid() || !toTransaction.isValid()) {
-      let errors = fromTransaction.errors;
+      const errors = fromTransaction.errors;
       toTransaction.errors.map(error => errors.push(error));
       onError(errors);
       return;
     }
 
     this.finished = false;
-    this.api.saveTransaction(fromTransaction, 
+    this.api.saveTransaction(fromTransaction,
       (response) => this.onSave(fromTransaction, onSuccess, response),
       onError);
-    this.api.saveTransaction(toTransaction, 
+    this.api.saveTransaction(toTransaction,
       (response) => this.onSave(toTransaction, onSuccess, response),
       onError);
-  };
+  }
 
-  private onSave(transaction: Transaction, onSuccess: () => void, uuid: string) {
-    transaction.uuid = uuid;
+  private onSave(transaction: Transaction, onSuccess: () => void, response: any) {
+    transaction.uuid = response.uuid;
     this.transactionRepository.save(transaction);
 
     if (this.finished) {
@@ -59,5 +61,5 @@ export class TransferApp {
     } else {
       this.finished = true;
     }
-  };
+  }
 }

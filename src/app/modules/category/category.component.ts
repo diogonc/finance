@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { MyArray } from '../../shared/util/my-array';
 import { Category } from '../../shared/models/category';
 import { Group } from '../../shared/models/group';
 import { CategoryType } from '../../shared/models/categoryType';
@@ -44,6 +45,9 @@ export class CategoryComponent implements OnInit {
       const category = this.categoryRepository.get(uuid);
       this.category = new Category(category.uuid, category.name, category.categoryType, category.group, category.priority);
       this.typeIndex = this.category.categoryType;
+      if (category.group !== null) {
+        this.groupIndex = MyArray.findIndex(category.group.uuid, this.groups);
+      }
       this.isNew = false;
     } else {
       this.isNew = true;
@@ -73,12 +77,12 @@ export class CategoryComponent implements OnInit {
       this.api.saveCategory(category,
         (response) => {
           this.category.uuid = response.uuid;
-          this.onSave(this.category, this.onSuccess.bind(this));
+          this.onSave(category, this.onSuccess.bind(this));
         },
         this.onError.bind(this));
     } else {
       this.api.updateCategory(category,
-        () => this.onSave(this.category, this.onSuccess.bind(this)),
+        () => this.onSave(category, this.onSuccess.bind(this)),
         this.onError.bind(this));
     }
     this.showList = showList;
