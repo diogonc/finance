@@ -2,6 +2,9 @@
 import { Transaction } from './transaction';
 import { Account } from './account';
 import { Category } from './category';
+import { Group } from './group';
+import { CategoryType } from './categoryType';
+import { Owner } from './owner';
 
 describe('Transaction', () => {
   let t;
@@ -21,8 +24,10 @@ describe('Transaction', () => {
   });
 
   it('should create with constructor parameters', () => {
-    let transaction = new Transaction(null, t.propertyUuid, t.value, t.description, t.date,
-      new Account(t.accountUuid, t.accountName, 1), new Category(t.categoryUuid, t.categoryName, t.categoryType, 1));
+    const group = new Group('33', 'name', CategoryType.Debit, 1);
+    const owner = new Owner('34', 'name', 1);
+    const transaction = new Transaction(null, t.propertyUuid, t.value, t.description, t.date,
+      new Account(t.accountUuid, t.accountName, owner, 1), new Category(t.categoryUuid, t.categoryName, t.categoryType, group, 1));
 
     expect(transaction.value).toEqual(t.value);
     expect(transaction.description).toEqual(t.description);
@@ -33,7 +38,7 @@ describe('Transaction', () => {
   });
 
   it('should fill error if fieds are not filled', () => {
-    let transaction = new Transaction(null, null, 0, '', null, null, null);
+    const transaction = new Transaction(null, null, 0, '', null, null, null);
 
     expect(transaction.isValid()).toEqual(false);
     expect(transaction.errors.length).toEqual(6);

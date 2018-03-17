@@ -1,4 +1,5 @@
 import { AccountRepository } from '../repository/account-repository';
+import { OwnerRepository } from '../repository/owner-repository';
 import { CategoryRepository } from '../repository/category-repository';
 import { GroupRepository } from '../repository/group-repository';
 import { TransactionRepository } from '../repository/transaction-repository';
@@ -13,6 +14,7 @@ export class Sync {
   constructor(
     private api: FinanceApi,
     private accountRepository: AccountRepository,
+    private ownerRepository: OwnerRepository,
     private categoryRepository: CategoryRepository,
     private groupRepository: GroupRepository,
     private transactionRepository: TransactionRepository) { }
@@ -24,6 +26,7 @@ export class Sync {
           this.transactionRepository.saveAll(transactionsConverted);
           callback();
         }), error);
+    this.api.getOwners((owners) => this.ownerRepository.saveAll(owners));
     this.api.getAccounts((accounts) => this.accountRepository.saveAll(accounts));
     this.api.getCategories((categories) => this.categoryRepository.saveAll(categories));
     this.api.getGroups((groups) => this.groupRepository.saveAll(groups));

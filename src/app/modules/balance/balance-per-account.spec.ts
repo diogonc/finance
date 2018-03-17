@@ -5,6 +5,8 @@ import { CategoryType } from '../../shared/models/categoryType';
 import { BalancePerAccount } from './balance-per-account';
 import { TransactionRepository } from '../../shared/services/repository/transaction-repository';
 import { AccountRepository } from '../../shared/services/repository/account-repository';
+import { Group } from '../../shared/models/group';
+import { Owner } from '../../shared/models/owner';
 
 describe('BalancePerAccount', () => {
     let balancePerAccount;
@@ -17,8 +19,8 @@ describe('BalancePerAccount', () => {
         transactionRepository = new TransactionRepository();
         accountRepository = new AccountRepository();
         balancePerAccount = new BalancePerAccount(transactionRepository, accountRepository);
-
-        accountRepository.saveAll([new Account('1', 'account 1', 2), new Account('2', 'account 2', 1)]);
+        const owner = new Owner('34', 'name', 1);
+        accountRepository.saveAll([new Account('1', 'account 1', owner, 2), new Account('2', 'account 2', owner, 1)]);
     });
 
     it('should sum two credits', () => {
@@ -27,7 +29,7 @@ describe('BalancePerAccount', () => {
         transactions.push(createTransaction(11, CategoryType.CreditTransfer, '1'));
         transactionRepository.saveAll(transactions);
 
-        let result = balancePerAccount.get(new Date());
+        const result = balancePerAccount.get(new Date());
 
         expect(result.balances.length).toEqual(1);
         expect(result.balances[0].account).toEqual('account 1');
@@ -40,7 +42,7 @@ describe('BalancePerAccount', () => {
         transactions.push(createTransaction(1, CategoryType.DebitTransfer, '1'));
         transactionRepository.saveAll(transactions);
 
-        let result = balancePerAccount.get(new Date());
+        const result = balancePerAccount.get(new Date());
 
         expect(result.balances.length).toEqual(1);
         expect(result.balances[0].account).toEqual('account 1');
@@ -53,7 +55,7 @@ describe('BalancePerAccount', () => {
         transactions.push(createTransaction(2, CategoryType.Credit, '2'));
         transactionRepository.saveAll(transactions);
 
-        let result = balancePerAccount.get(new Date());
+        const result = balancePerAccount.get(new Date());
 
         expect(result.balances.length).toEqual(2);
         expect(result.balances[0].account).toEqual('account 1');
@@ -65,6 +67,8 @@ describe('BalancePerAccount', () => {
 });
 
 function createTransaction(value: number, type: number, accountUUid: string): Object {
-    return new Transaction('1', '1', value, 'test', '2010-01-01', new Account(accountUUid, 'account', 1),
-        new Category(accountUUid, 'category', type, 3));
+    const group = new Group('33', 'name', type, 1);
+    const owner = new Owner('34', 'name', 1);
+    return new Transaction('1', '1', value, 'test', '2010-01-01', new Account(accountUUid, 'account', owner, 1),
+        new Category(accountUUid, 'category', type, group, 3));
 }

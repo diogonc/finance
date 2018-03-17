@@ -1,0 +1,16 @@
+<h1 class="title is-5">Lista de contas</h1>
+<a class="button is-primary" type="submit" (click)="new()">Adicionar</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Prioridade</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let account of accounts" (click)="edit(account.uuid)">
+            <td>{{account.name}}</td>
+            <td>{{account.priority}}</td>
+        </tr>
+    </tbody>
+</table>

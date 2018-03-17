@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
     this.isLogged = this.userRepository.isLogged();
 
     if (this.isLogged) {
-      let user = this.userRepository.getUser();
+      const user = this.userRepository.getUser();
       this.user = user.login;
     }
   }
@@ -62,16 +62,16 @@ export class AppComponent implements OnInit {
 
   download() {
     this.isRequesting = true;
-    let user = this.userRepository.getUser();
+    const user = this.userRepository.getUser();
     this.sync.getAllDataFromServer(
       () => { this.isRequesting = false; },
       () => { this.isRequesting = false; });
   }
 
   export() {
-    let csvData = this.backupService.generate();
-    let blob = new Blob([csvData], { type: 'text/csv' });
-    let url = window.URL.createObjectURL(blob);
+    const csvData = this.backupService.generate();
+    const blob = new Blob([csvData], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
     window.open(url);
   }
 }

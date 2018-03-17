@@ -18,16 +18,27 @@ export class FinanceApi {
         this.userRepository = userRepository;
     }
 
+    getOwners(success: (data: any) => any): void {
+        this.get('owner', success, null);
+    }
+
     getAccounts(success: (data: any) => any): void {
         this.get('account', success, null);
     }
 
-    getCategories(success: (data: any) => any): void {
-        this.get('category', success, null);
+    saveAccount(account: Account, success: (data: any) => any,
+        error: (data: any) => any): void {
+        this.post('account', account, success, error);
     }
 
-    getGroups(success: (data: any) => any): void {
-        this.get('group', success, null);
+    updateAccount(account: Account, success: (data: any) => any,
+        error: (data: any) => any): void {
+        this.put('account', account, success, error);
+    }
+
+    deleteAccount(accountUuid: string, success: (data: any) => any,
+        error: (data: any) => any): void {
+        this.delete('account', accountUuid, success, error);
     }
 
     getTransactions(success: (data: any) => any, error: (data: any) => any): void {
@@ -49,6 +60,10 @@ export class FinanceApi {
         this.delete('transaction', transactionUuid, success, error);
     }
 
+    getCategories(success: (data: any) => any): void {
+        this.get('category', success, null);
+    }
+
     saveCategory(category: Category, success: (data: any) => any,
         error: (data: any) => any): void {
         this.post('category', category, success, error);
@@ -62,6 +77,10 @@ export class FinanceApi {
     deleteCategory(categoryUuid: string, success: (data: any) => any,
         error: (data: any) => any): void {
         this.delete('category', categoryUuid, success, error);
+    }
+
+    getGroups(success: (data: any) => any): void {
+        this.get('group', success, null);
     }
 
     saveGroup(group: Group, success: (data: any) => any,

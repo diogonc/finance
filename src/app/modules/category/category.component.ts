@@ -131,6 +131,3 @@ export class CategoryComponent implements OnInit {
   }
 }
 
-class CategoryApp {
-
-}

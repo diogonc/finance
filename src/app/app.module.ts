@@ -19,10 +19,13 @@ import { TransferComponent } from './modules//transfer/transfer.component';
 import { SpinnerComponent } from './modules//spinner/spinner.component';
 import { LoginEvent } from './modules//events/login-event';
 import { AccountRepository } from './shared/services/repository/account-repository';
+import { OwnerRepository } from './shared/services/repository/owner-repository';
 import { CategoryRepository } from './shared/services/repository/category-repository';
 import { GroupRepository } from './shared/services/repository/group-repository';
 import { TransactionRepository } from './shared/services/repository/transaction-repository';
 import { UserRepository } from './shared/services/repository/user-repository';
+import { AccountComponent } from './modules/account/account.component';
+import { AccountListComponent } from './modules/account-list/account-list.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,9 @@ import { UserRepository } from './shared/services/repository/user-repository';
     CategoryListComponent,
     CategoryComponent,
     GroupListComponent,
-    GroupComponent
+    GroupComponent,
+    AccountComponent,
+    AccountListComponent
   ],
   imports: [
     BrowserModule,
@@ -48,12 +53,15 @@ import { UserRepository } from './shared/services/repository/user-repository';
       { path: '', component: LoginComponent },
       { path: 'login', component: LoginComponent },
       { path: 'transaction-list', component: TransactionListComponent },
+      { path: 'account-list', component: AccountListComponent },
       { path: 'category-list', component: CategoryListComponent },
       { path: 'group-list', component: GroupListComponent },
       { path: 'transaction-new', component: TransactionComponent },
       { path: 'transaction-edit/:id', component: TransactionComponent },
       { path: 'category-new', component: CategoryComponent },
       { path: 'category-edit/:id', component: CategoryComponent },
+      { path: 'account-new', component: AccountComponent },
+      { path: 'account-edit/:id', component: AccountComponent },
       { path: 'group-new', component: GroupComponent },
       { path: 'group-edit/:id', component: GroupComponent },
       { path: 'transfer', component: TransferComponent },
@@ -61,7 +69,13 @@ import { UserRepository } from './shared/services/repository/user-repository';
       { path: 'balance-per-category', component: BalancePerCategoryComponent }
     ])
   ],
-  providers: [LoginEvent, AccountRepository, CategoryRepository, GroupRepository, TransactionRepository, UserRepository],
+  providers: [LoginEvent,
+    AccountRepository,
+    OwnerRepository,
+    CategoryRepository,
+    GroupRepository,
+    TransactionRepository,
+    UserRepository],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,9 +8,9 @@ export class AccountRepository extends Repository {
   constructor() { super('account'); }
 
   getAll(): Array<Account> {
-    let list = this.getListOfObjects();
+    const list = this.getListOfObjects();
 
-    let accounts = [];
+    const accounts = [];
 
     for (let i = 0; i < list.length; i++) {
       accounts.push(list[i] as Account);

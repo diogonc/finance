@@ -14,7 +14,7 @@ export class UserRepository {
   getUser(): User { return JSON.parse(localStorage.getItem(this.key)); }
 
   isLogged(): boolean {
-    let user = this.getUser();
+    const user = this.getUser();
     return (user !== undefined && user !== null);
   }
 }
