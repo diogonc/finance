@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class MyArray {
@@ -11,7 +11,7 @@ export class MyArray {
       }
     }
     return -1;
-  };
+  }
 
   static any(key: any, data: any): boolean {
     return this.findIndex(key, data) >= 0;

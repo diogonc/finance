@@ -19,6 +19,24 @@ export class AccountRepository extends Repository {
     return this.order(accounts);
   }
 
+  getFiltered(userLogin: string):
+    Array<Account> {
+    const filtered = [];
+    const accounts = this.getAll();
+    const lenght = accounts.length;
+
+    for (let i = 0; i < lenght; i++) {
+      const a = accounts[i];
+      const account = new Account(a.uuid, a.name, a.owner, a.priority);
+
+      if ((userLogin === null || account.owner === null || account.owner.userLogin === userLogin)) {
+        filtered.push(account);
+      }
+    }
+
+    return this.order(filtered);
+  }
+
   private order(data: Array<Account>): Array<Account> {
     return data.sort(function (item, anotherItem) {
       return anotherItem.priority - item.priority;

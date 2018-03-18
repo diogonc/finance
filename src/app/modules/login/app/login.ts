@@ -31,8 +31,8 @@ export class LoginApp {
         onSuccess: (user: User) => void,
         onError: (error) => void):
         void {
-    let hashedPassword = this.sha1.hash(password);
-    let user = new User(username, hashedPassword);
+    const hashedPassword = this.sha1.hash(password);
+    const user = new User(username, hashedPassword);
     this.userRepository.saveUser(user);
     this.sync.getAllDataFromServer(
        () => this.afterLogin(user, onSuccess),

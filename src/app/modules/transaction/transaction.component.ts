@@ -41,7 +41,8 @@ export class TransactionComponent implements OnInit {
 
   ngOnInit() {
     this.errors = [];
-    this.accounts = this.accountRepository.getAll();
+    const user = this.userRepository.getUser();
+    this.accounts = this.accountRepository.getFiltered(user.login);
     this.categories = this.categoryRepository.getAll();
     const uuid = this.route.snapshot.params['id'];
     this.transactionVm = this.transactionApp.load(uuid, this.accounts, this.categories);
