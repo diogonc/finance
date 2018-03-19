@@ -1,45 +1,59 @@
 <h1 class="title is-5">Lista de transações</h1>
 <form (ngSubmit)="search()">
     <div class="horizontal-field two-lines">
-        <label class="label" for="searchFilter.initialDate">Data</label>
-        <p class="control">
-            <input class="input date" [(ngModel)]="searchFilter.initialDate" type="date" name="searchFilter.initialDate">
-            <input class="input date" [(ngModel)]="searchFilter.finalDate" type="date" name="searchFilter.finalDate">
-        </p>
-        <label class="label" for="searchFilter.order">Ordem</label>
-        <p class="control ">
-            <span class="select">
-                <select class="select-dnc" [(ngModel)]="searchFilter.order" name="searchFilter.order">
-                    <option value="date">Data</option>
-                    <option value="value">Valor</option>
+        <div class="field">
+            <div class="control">
+                <label class="label" for="searchFilter.initialDate">Data</label>
+
+                <input class="input date" [(ngModel)]="searchFilter.initialDate" type="date" name="searchFilter.initialDate">
+                <input class="input date" [(ngModel)]="searchFilter.finalDate" type="date" name="searchFilter.finalDate">
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="label" for="searchFilter.order">Ordem</label>
+
+                <span class="select">
+                    <select class="select-dnc" [(ngModel)]="searchFilter.order" name="searchFilter.order">
+                        <option value="date">Data</option>
+                        <option value="value">Valor</option>
+                    </select>
+                </span>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label class="label" for="searchFilter.description">Descrição</label>
+                <input class="input" [(ngModel)]="searchFilter.description" type="text" name="description">
+            </div>
+        </div>
+    </div>
+    <div class="horizontal-field">
+        <div class="field">
+            <div class="control">
+                <label class="label" for="searchFilter.categorys">Categoria</label>
+                <select size="13" multiple [(ngModel)]="searchFilter.categorys" name="searchFilter.categorys">
+                    <option *ngFor="let cat of categories" value="{{cat.value}}">{{cat.label}}</option>
                 </select>
-            </span>
-        </p>
-        <label class="label" for="searchFilter.description">Descrição</label>
-        <p class="control">
-            <input class="input" [(ngModel)]="searchFilter.description" type="text" name="description">
-        </p>
+            </div>
+        </div>
     </div>
     <div class="horizontal-field">
-        <label class="label" for="searchFilter.categorys">Categoria</label>
-        <p class="control select-dnc">
-            <select size="10" multiple [(ngModel)]="searchFilter.categorys" name="searchFilter.categorys">
-                <option *ngFor="let cat of categories" value="{{cat.value}}">{{cat.label}}</option>
-            </select>
-        </p>
+        <div class="field">
+            <div class="control">
+                <label class="label" for="searchFilter.accounts">Conta</label>
+                <select size="13" multiple [(ngModel)]="searchFilter.accounts" name="searchFilter.accounts">
+                    <option *ngFor="let acc of accounts" value="{{acc.value}}">{{acc.label}}</option>
+                </select>
+            </div>
+        </div>
     </div>
-    <div class="horizontal-field">
-        <label class="label" for="searchFilter.accounts">Conta</label>
-        <p class="control select-dnc">
-            <select size="10" multiple [(ngModel)]="searchFilter.accounts" name="searchFilter.accounts">
-                <option *ngFor="let acc of accounts" value="{{acc.value}}">{{acc.label}}</option>
-            </select>
-        </p>
-    </div>
-    <div class="horizontal-field buttons-space">
-        <button class="button is-primary" type="submit">Procurar</button>
-        <button class="button" (click)="cleanFilter()">Limpar filtros</button>
-        <button class="button is-info" (click)="createNew()">Nova transação</button>
+    <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-primary" type="submit">Procurar</button>
+            <button class="button" (click)="cleanFilter()">Limpar filtros</button>
+            <button class="button is-info" (click)="createNew()">Nova transação</button>
+        </div>
     </div>
 </form>
 <table class="table">

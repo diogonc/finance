@@ -1,22 +1,67 @@
-<nav class="nav has-shadow">
-  <div class="nav-left">
-    <span class="nav-item is-brand" href="#">
-      <h1 class="is-4" *ngIf="!isLogged">Financeiro</h1>
-      <h1 class="is-4" *ngIf="isLogged">{{user}}</h1>
-    </span>
-    <a *ngIf="isLogged" class="nav-item is-tab" [routerLink]="['/transaction-list']">Transações</a>
-    <a *ngIf="isLogged" class="nav-item is-tab" [routerLink]="['/transaction-new']">Adicionar</a>
-    <a *ngIf="isLogged" class="nav-item is-tab" [routerLink]="['/transfer']">Transferência</a>
-    <a *ngIf="isLogged" class="nav-item is-tab" [routerLink]="['/category-list']">Categorias</a>
-    <a *ngIf="isLogged" class="nav-item is-tab" [routerLink]="['/group-list']">Agrupamentos de categorias</a>
-    <a *ngIf="isLogged" class="nav-item is-tab" [routerLink]="['/account-list']">Contas</a>
-    <a *ngIf="isLogged" class="nav-item is-tab" [routerLink]="['/balance']">Saldo</a>
-    <a *ngIf="isLogged" class="nav-item is-tab" [routerLink]="['/balance-per-category']">Histórico</a>
+<nav class="navbar is-transparent barra-menu">
+  <div class="navbar-brand">
+    <a class="navbar-item" *ngIf="!isLogged">Financeiro</a>
+    <a class="navbar-item" *ngIf="isLogged">{{user}}</a>
   </div>
-  <div class="nav-right" *ngIf="isLogged">
-    <a class="nav-item is-tab" (click)="export()">Backup</a>
-    <a class="nav-item is-tab" (click)="download()">Atualizar</a>
-    <a class="nav-item is-tab" (click)="logout()">Sair</a>
+  <div id="navbarExampleTransparentExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a *ngIf="isLogged" class="navbar-item" [routerLink]="['/transaction-list']">
+        Transações
+      </a>
+      <a *ngIf="isLogged" class="navbar-item" [routerLink]="['/transaction-new']">
+        Adicionar
+      </a>
+      <a *ngIf="isLogged" class="navbar-item" [routerLink]="['/transfer']">
+        Transferência
+      </a>
+      <div *ngIf="isLogged" class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" [routerLink]="['/category-list']">
+          Configurações
+        </a>
+        <div class="navbar-dropdown is-boxed">
+          <a class="navbar-item" [routerLink]="['/category-list']">
+            Categorias
+          </a>
+          <a class="navbar-item" [routerLink]="['/group-list']">
+            Agrupamentos de categorias
+          </a>
+          <a class="navbar-item" [routerLink]="['/account-list']">
+            Contas
+          </a>
+        </div>
+      </div>
+      <div *ngIf="isLogged" class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" [routerLink]="['/balance']">
+          Relatórios
+        </a>
+        <div class="navbar-dropdown is-boxed">
+          <a class="navbar-item" [routerLink]="['/balance']">
+            Saldo
+          </a>
+          <a class="navbar-item" [routerLink]="['/balance-per-category']">
+            Histórico
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isLogged" class="navbar-end">
+      <div class="navbar-item">
+        <div class="field is-grouped">
+          <p class="control">
+            <a class="button" (click)="export()">
+              Backup
+            </a>
+          </p>
+          <p class="control">
+            <a class="button" (click)="download()">Atualizar</a>
+          </p>
+          <p class="control">
+            <a class="button" (click)="logout()">Sair</a>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>
 <div class="container is-fluid">
