@@ -19,7 +19,7 @@ describe('BalancePerAccount', () => {
         transactionRepository = new TransactionRepository();
         accountRepository = new AccountRepository();
         balancePerAccount = new BalancePerAccount(transactionRepository, accountRepository);
-        const owner = new Owner('34', 'name', 1);
+        const owner = new Owner('34', 'name', 1, 'login');
         accountRepository.saveAll([new Account('1', 'account 1', owner, 2), new Account('2', 'account 2', owner, 1)]);
     });
 
@@ -31,9 +31,10 @@ describe('BalancePerAccount', () => {
 
         const result = balancePerAccount.get(new Date());
 
-        expect(result.balances.length).toEqual(1);
-        expect(result.balances[0].account).toEqual('account 1');
-        expect(result.balances[0].balance).toEqual(23);
+        expect(result.balances[0].balancesPerAccount.length).toEqual(1);
+        expect(result.balances[0].balancesPerAccount[0].account).toEqual('account 1');
+        expect(result.balances[0].balancesPerAccount[0].balance).toEqual(23);
+        expect(result.balances[0].total).toEqual(23);
     });
 
     it('should subtract debit', () => {
@@ -44,9 +45,9 @@ describe('BalancePerAccount', () => {
 
         const result = balancePerAccount.get(new Date());
 
-        expect(result.balances.length).toEqual(1);
-        expect(result.balances[0].account).toEqual('account 1');
-        expect(result.balances[0].balance).toEqual(9);
+        expect(result.balances[0].balancesPerAccount.length).toEqual(1);
+        expect(result.balances[0].balancesPerAccount[0].account).toEqual('account 1');
+        expect(result.balances[0].balancesPerAccount[0].balance).toEqual(9);
     });
 
     it('should consider two accounts', () => {
@@ -57,18 +58,18 @@ describe('BalancePerAccount', () => {
 
         const result = balancePerAccount.get(new Date());
 
-        expect(result.balances.length).toEqual(2);
-        expect(result.balances[0].account).toEqual('account 1');
-        expect(result.balances[0].balance).toEqual(11);
-        expect(result.balances[1].account).toEqual('account 2');
-        expect(result.balances[1].balance).toEqual(2);
+        expect(result.balances[0].balancesPerAccount.length).toEqual(2);
+        expect(result.balances[0].balancesPerAccount[0].account).toEqual('account 1');
+        expect(result.balances[0].balancesPerAccount[0].balance).toEqual(11);
+        expect(result.balances[0].balancesPerAccount[1].account).toEqual('account 2');
+        expect(result.balances[0].balancesPerAccount[1].balance).toEqual(2);
     });
 
 });
 
 function createTransaction(value: number, type: number, accountUUid: string): Object {
     const group = new Group('33', 'name', type, 1);
-    const owner = new Owner('34', 'name', 1);
+    const owner = new Owner('34', 'name', 1, 'login');
     return new Transaction('1', '1', value, 'test', '2010-01-01', new Account(accountUUid, 'account', owner, 1),
         new Category(accountUUid, 'category', type, group, 3));
 }

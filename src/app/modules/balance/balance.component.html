@@ -10,10 +10,15 @@
         <button class="button is-primary" type="submit">Procurar</button>
     </div>
 </form>
-<table class="table grid">
-    <tr *ngFor="let balance of balancePerAccountReport.balances">
+<table class="table grid" *ngFor="let balancePerOwner of balancePerAccountReport.balances">
+    <tr>
         <td>
-            <b>{{balance.account}}</b>
+            <b>{{balancePerOwner.owner}}</b>
+        </td>
+    </tr>
+    <tr *ngFor="let balance of balancePerOwner.balancesPerAccount">
+        <td>
+            {{balance.account}}
         </td>
         <td class="money">{{balance.balance | number:'1.2-2'}}</td>
     </tr>
@@ -21,6 +26,14 @@
         <td>
             <b>Total</b>
         </td>
-        <td class="money"> {{balancePerAccountReport.total | number:'1.2-2'}}</td>
+        <td class="money"> {{balancePerOwner.total | number:'1.2-2'}}</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            <b>Total</b>
+        </td>
+        <td class="money"> <b>{{balancePerAccountReport.total | number:'1.2-2'}}</b></td>
     </tr>
 </table>

@@ -1,10 +1,11 @@
 /* tslint:disable:no-unused-variable */
 import { Account } from './account';
+import { Owner } from './owner';
 
 describe('Account', () => {
   it('should create with constructor parameters', () => {
-    const o = { uuid: '324', name: 'name', priority: 3 };
-    const a = { uuid: '324', name: 'name', owner: o,  priority: 3 };
+    const o = new Owner('324', 'name', 3, 'login');
+    const a = { uuid: '324', name: 'name', owner: o, priority: 3, };
 
     const account = new Account(a.uuid, a.name, a.owner, a.priority);
 

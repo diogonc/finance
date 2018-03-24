@@ -1,16 +1,16 @@
 import { Transaction } from '../../models/transaction';
 import { Injectable } from '@angular/core';
-import { CategoryType } from '../../models/categoryType'
+import { CategoryType } from '../../models/categoryType';
 
 @Injectable()
 export class Balance {
 
     static get(transactions: Array<Transaction>): number {
-        let numberOfItens = transactions.length;
+        const numberOfItens = transactions.length;
         let balance = 0;
         for (let i = 0; i < numberOfItens; i++) {
-            let transaction = transactions[i];
-            let type = transaction.category.categoryType;
+            const transaction = transactions[i];
+            const type = transaction.category.categoryType;
             if (type === CategoryType.Credit || type === CategoryType.CreditTransfer) {
                 balance += transaction.value;
             }

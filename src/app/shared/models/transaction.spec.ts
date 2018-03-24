@@ -25,7 +25,7 @@ describe('Transaction', () => {
 
   it('should create with constructor parameters', () => {
     const group = new Group('33', 'name', CategoryType.Debit, 1);
-    const owner = new Owner('34', 'name', 1);
+    const owner = new Owner('34', 'name', 1, 'login');
     const transaction = new Transaction(null, t.propertyUuid, t.value, t.description, t.date,
       new Account(t.accountUuid, t.accountName, owner, 1), new Category(t.categoryUuid, t.categoryName, t.categoryType, group, 1));
 

@@ -1,9 +1,11 @@
 /* tslint:disable:no-unused-variable */
 import { Sync } from './sync';
 import { User } from '../../models/user';
+import { OwnerRepository } from '../repository/owner-repository';
 
 describe('Sync', () => {
   let accountRepository;
+  let ownerRepository;
   let categoryRepository;
   let groupRepository;
   let transactionRepository;
@@ -13,13 +15,14 @@ describe('Sync', () => {
 
   beforeEach(() => {
     accountRepository = new GenericRepository();
+    ownerRepository = new GenericRepository();
     categoryRepository = new GenericRepository();
     groupRepository = new GenericRepository();
     transactionRepository = new GenericRepository();
     financeApi = new FinanceApi();
 
     user = new User('login', 'pass');
-    sync = new Sync(financeApi, accountRepository, categoryRepository, groupRepository, transactionRepository);
+    sync = new Sync(financeApi, accountRepository, ownerRepository, categoryRepository, groupRepository, transactionRepository);
   });
 
   it('should call apis on sync', () => {
@@ -47,12 +50,18 @@ class GenericRepository {
 
 class FinanceApi {
   public accountsCalled = false;
+  public ownersCalled = false;
   public categoriesCalled = false;
   public groupsCalled = false;
   public transactionsCalled = false;
 
   getAccounts(user: any, success: (data: any) => any): void {
     this.accountsCalled = true;
+    // success([]);
+  }
+
+  getOwners(user: any, success: (data: any) => any): void {
+    this.ownersCalled = true;
     // success([]);
   }
 

@@ -38,7 +38,7 @@ describe('Balance', () => {
 
 function createTransaction(value: number, type: number): Object {
     const group = new Group('33', 'name', type, 1);
-    const owner = new Owner('34', 'name', 1);
+    const owner = new Owner('34', 'name', 1, 'login');
     return new Transaction('1', '1', value, 'test', '2010-01-01',
         new Account('2', 'account', owner, 1),
         new Category('3', 'category', type, group, 1));
