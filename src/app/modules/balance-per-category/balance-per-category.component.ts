@@ -43,7 +43,7 @@ export class BalancePerCategoryComponent implements OnInit {
     this.show = 'last';
     this.allAccounts = this.formatToSelectMultiple(this.accountRepository.getAll());
     this.allOwners = this.formatToSelectMultiple(this.ownerRepository.getAll());
-
+console.log(this.allOwners, this.allOwners.length);
     this.balancePerCategoryReport = this.balancePerCategory.get(this.accounts, firstDayOfMonth, lastDayOfMonth);
   }
 

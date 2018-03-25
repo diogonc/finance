@@ -16,7 +16,7 @@
             </span>
         </p>
     </div>
-    <div class="horizontal-field">
+    <div class="horizontal-field" *ngIf="allOwners.length > 1">
         <label class="label" for="owners">Donos</label>
         <p class="control select-dnc">
             <select size="7" multiple [(ngModel)]="owners" name="owners" (click)="ownerSelected()">
@@ -24,7 +24,7 @@
             </select>
         </p>
     </div>
-    <div class="horizontal-field">
+    <div class="horizontal-field" *ngIf="allAccounts.length > 1">
         <label class="label" for="accounts">Conta</label>
         <p class="control select-dnc">
             <select size="7" multiple [(ngModel)]="accounts" name="accounts">
