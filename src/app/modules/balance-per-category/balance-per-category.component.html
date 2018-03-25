@@ -17,6 +17,14 @@
         </p>
     </div>
     <div class="horizontal-field">
+        <label class="label" for="owners">Donos</label>
+        <p class="control select-dnc">
+            <select size="7" multiple [(ngModel)]="owners" name="owners" (click)="ownerSelected()">
+                <option *ngFor="let owner of allOwners" value="{{owner.value}}">{{owner.label}}</option>
+            </select>
+        </p>
+    </div>
+    <div class="horizontal-field">
         <label class="label" for="accounts">Conta</label>
         <p class="control select-dnc">
             <select size="7" multiple [(ngModel)]="accounts" name="accounts">

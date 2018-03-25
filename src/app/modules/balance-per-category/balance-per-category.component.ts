@@ -8,24 +8,29 @@ import { AccountRepository } from '../../shared/services/repository/account-repo
 import { Account } from '../../shared/models/account';
 import { SearchFilter } from '../transaction-list/search-filter';
 import { SearchRepository } from '../transaction-list/search-repository';
+import { OwnerRepository } from '../../shared/services/repository/owner-repository';
+import { Owner } from '../../shared/models/owner';
 
 @Component({
   selector: 'app-balance-per-category',
   templateUrl: 'balance-per-category.component.html',
   styleUrls: ['balance-per-category.component.css'],
-  providers: [BalancePerCategory, BalancePerCategoryReport, SearchRepository]
+  providers: [BalancePerCategory, BalancePerCategoryReport, SearchRepository, OwnerRepository]
 })
 export class BalancePerCategoryComponent implements OnInit {
   public initialDate: string;
   public finalDate: string;
   public accounts: Array<any>;
+  public owners: Array<any>;
   public show: string;
   public balancePerCategoryReport: BalancePerCategoryReport;
-  public allAccounts: Array<Account>;
+  public allAccounts: Array<object>;
+  public allOwners: Array<object>;
 
   constructor(private balancePerCategory: BalancePerCategory,
     private accountRepository: AccountRepository,
     private searchRepository: SearchRepository,
+    private ownerRepository: OwnerRepository,
     private router: Router) { }
 
   ngOnInit() {
@@ -36,7 +41,8 @@ export class BalancePerCategoryComponent implements OnInit {
     this.finalDate = MyDate.convertToUsString(lastDayOfMonth);
     this.accounts = [];
     this.show = 'last';
-    this.allAccounts = this.formatAccountsFilter(this.accountRepository.getAll());
+    this.allAccounts = this.formatToSelectMultiple(this.accountRepository.getAll());
+    this.allOwners = this.formatToSelectMultiple(this.ownerRepository.getAll());
 
     this.balancePerCategoryReport = this.balancePerCategory.get(this.accounts, firstDayOfMonth, lastDayOfMonth);
   }
@@ -46,6 +52,13 @@ export class BalancePerCategoryComponent implements OnInit {
     const finalDate = MyDate.convertToDateFromString(this.finalDate);
 
     this.balancePerCategoryReport = this.balancePerCategory.get(this.accounts, initialDate, finalDate);
+  }
+
+  public ownerSelected() {
+    const accounts = this.accountRepository.getFilteredByOwner(this.owners);
+
+    this.accounts = accounts.map(function (account: Account) { return account.uuid; });
+    console.log(accounts, this.accounts);
   }
 
   public hide(index: number, length: number) {
@@ -71,7 +84,6 @@ export class BalancePerCategoryComponent implements OnInit {
   }
 
   public showTransactions(categoryUuid: string, date: string): void {
-    console.log('categoria ', categoryUuid, 'date ', date);
     const lastDayOfMonth = MyDate.convertToUsString(MyDate.getLastDayOfMonth(MyDate.convertToDateFromString(date)));
     const transactionsListFilter = new SearchFilter(date,
       lastDayOfMonth, [], [categoryUuid], 'date', '');
@@ -79,13 +91,7 @@ export class BalancePerCategoryComponent implements OnInit {
     this.router.navigate(['/transaction-list']);
   }
 
-  private formatAccountsFilter(accounts: Array<Account>) {
-    const options = [];
-    const length = accounts.length;
-    for (let i = 0; i < length; i++) {
-      const account = accounts[i];
-      options.push({ value: account.uuid, label: account.name });
-    }
-    return options;
+  private formatToSelectMultiple(itens: Array<any>) {
+    return itens.map(function (item) { return { value: item.uuid, label: item.name }; });
   }
 }
