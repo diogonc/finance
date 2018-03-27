@@ -21,7 +21,7 @@ import { Transaction } from '../../shared/models/transaction';
 export class TransactionListComponent implements OnInit {
   public searchFilter: SearchFilter;
   public balance: number;
-  public accounts: Array<Account>;
+  public accounts: Array<any>;
   public categories: Array<any>;
   public transactions: Array<Transaction>;
 
@@ -42,16 +42,17 @@ export class TransactionListComponent implements OnInit {
     }
 
     this.balance = 0;
-    this.accounts = this.formatAccountsFilter(this.accountRepository.getAll());
-    this.categories = this.formatCategoryFilter(this.categoryRepository.getAll());
+    this.accounts = this.formatToSelectMultiple(this.accountRepository.getAll());
+    this.categories = this.formatToSelectMultiple(this.categoryRepository.getAll());
     this.search();
   }
 
   search() {
+    console.log(this.searchFilter.categorys);
     this.searchRepository.save(this.searchFilter);
     this.transactions = this.transactionRepository.getFiltered(
-      this.searchFilter.categorys,
-      this.searchFilter.accounts,
+      this.formatToSearch(this.searchFilter.categorys),
+      this.formatToSearch(this.searchFilter.accounts),
       MyDate.convertToDateFromString(this.searchFilter.initialDate),
       MyDate.convertToDateFromString(this.searchFilter.finalDate),
       this.searchFilter.description,
@@ -83,23 +84,11 @@ export class TransactionListComponent implements OnInit {
       '');
   }
 
-  private formatCategoryFilter(categories: Array<Category>) {
-    const options = [];
-    const length = categories.length;
-    for (let i = 0; i < length; i++) {
-      const category = categories[i];
-      options.push({ value: category.uuid, label: category.name });
-    }
-    return options;
+  private formatToSelectMultiple(itens: Array<any>) {
+    return itens.map(function (item) { return { value: item.uuid, label: item.name }; });
   }
 
-  private formatAccountsFilter(accounts: Array<Account>) {
-    const options = [];
-    const length = accounts.length;
-    for (let i = 0; i < length; i++) {
-      const account = accounts[i];
-      options.push({ value: account.uuid, label: account.name });
-    }
-    return options;
+  private formatToSearch(itens: Array<any>) {
+    return itens.map(function (item) { return item.value; });
   }
 }

@@ -1,12 +1,12 @@
 <h1 class="title is-5">Saldo</h1>
-<form (ngSubmit)="search()">
-    <div class="horizontal-field">
-        <label class="label" for="date">Data</label>
-        <p class="control">
+<form class="formulario" (ngSubmit)="search()">
+    <div class="field">
+        <div class="control">
+            <label class="label" for="date">Data</label>
             <input class="input" [(ngModel)]="date" type="date" name="date">
-        </p>
+        </div>
     </div>
-    <div class="horizontal-field buttons-space">
+    <div class="field">
         <button class="button is-primary" type="submit">Procurar</button>
     </div>
 </form>
@@ -34,6 +34,8 @@
         <td>
             <b>Total</b>
         </td>
-        <td class="money"> <b>{{balancePerAccountReport.total | number:'1.2-2'}}</b></td>
+        <td class="money">
+            <b>{{balancePerAccountReport.total | number:'1.2-2'}}</b>
+        </td>
     </tr>
 </table>

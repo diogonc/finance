@@ -43,7 +43,6 @@ export class BalancePerCategoryComponent implements OnInit {
     this.show = 'last';
     this.allAccounts = this.formatToSelectMultiple(this.accountRepository.getAll());
     this.allOwners = this.formatToSelectMultiple(this.ownerRepository.getAll());
-console.log(this.allOwners, this.allOwners.length);
     this.balancePerCategoryReport = this.balancePerCategory.get(this.accounts, firstDayOfMonth, lastDayOfMonth);
   }
 
@@ -51,14 +50,14 @@ console.log(this.allOwners, this.allOwners.length);
     const initialDate = MyDate.convertToDateFromString(this.initialDate);
     const finalDate = MyDate.convertToDateFromString(this.finalDate);
 
-    this.balancePerCategoryReport = this.balancePerCategory.get(this.accounts, initialDate, finalDate);
+    this.balancePerCategoryReport = this.balancePerCategory.get(this.formatToSearch(this.accounts), initialDate, finalDate);
   }
 
   public ownerSelected() {
-    const accounts = this.accountRepository.getFilteredByOwner(this.owners);
+    const accounts = this.accountRepository.getFilteredByOwner(this.formatToSearch(this.owners));
 
-    this.accounts = accounts.map(function (account: Account) { return account.uuid; });
-    console.log(accounts, this.accounts);
+    this.accounts = this.formatToSelectMultiple(accounts);
+    console.log(this.accounts);
   }
 
   public hide(index: number, length: number) {
@@ -93,5 +92,9 @@ console.log(this.allOwners, this.allOwners.length);
 
   private formatToSelectMultiple(itens: Array<any>) {
     return itens.map(function (item) { return { value: item.uuid, label: item.name }; });
+  }
+
+  private formatToSearch(itens: Array<any>) {
+    return itens.map(function (item) { return item.value; });
   }
 }

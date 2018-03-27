@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 import { LoginComponent } from './modules/login/login.component';
 import { BalanceComponent } from './modules//balance/balance.component';
 import { BalancePerCategoryComponent } from './modules//balance-per-category/balance-per-category.component';
@@ -49,6 +51,7 @@ import { AccountListComponent } from './modules/account-list/account-list.compon
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    NgSelectModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: 'login', component: LoginComponent },

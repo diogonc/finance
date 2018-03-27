@@ -1,7 +1,7 @@
-<nav class="navbar is-transparent barra-menu">
+<nav class="navbar barra-menu">
   <div class="navbar-brand">
     <a class="navbar-item" *ngIf="!isLogged">Financeiro</a>
-    <a class="navbar-item" *ngIf="isLogged">{{user}}</a>
+    <a class="navbar-item" [routerLink]="['/transaction-new']" *ngIf="isLogged">{{user}}</a>
   </div>
   <div id="navbarExampleTransparentExample" class="navbar-menu">
     <div class="navbar-start">

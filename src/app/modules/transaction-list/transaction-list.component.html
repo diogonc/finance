@@ -1,51 +1,46 @@
 <h1 class="title is-5">Lista de transações</h1>
-<form (ngSubmit)="search()">
-    <div class="horizontal-field two-lines">
-        <div class="field">
-            <div class="control">
-                <label class="label" for="searchFilter.initialDate">Data</label>
-
-                <input class="input date" [(ngModel)]="searchFilter.initialDate" type="date" name="searchFilter.initialDate">
-                <input class="input date" [(ngModel)]="searchFilter.finalDate" type="date" name="searchFilter.finalDate">
-            </div>
+<form class="formulario" (ngSubmit)="search()">
+    <div class="field">
+        <div class="control">
+            <label class="label" for="searchFilter.initialDate">Data</label>
+            <input class="input date" [(ngModel)]="searchFilter.initialDate" type="date" name="searchFilter.initialDate">
         </div>
-        <div class="field">
-            <div class="control">
-                <label class="label" for="searchFilter.order">Ordem</label>
-
-                <span class="select">
-                    <select class="select-dnc" [(ngModel)]="searchFilter.order" name="searchFilter.order">
-                        <option value="date">Data</option>
-                        <option value="value">Valor</option>
-                    </select>
-                </span>
-            </div>
-        </div>
-        <div class="field">
-            <div class="control">
-                <label class="label" for="searchFilter.description">Descrição</label>
-                <input class="input" [(ngModel)]="searchFilter.description" type="text" name="description">
-            </div>
+        <div class="control">
+            <input class="input date" [(ngModel)]="searchFilter.finalDate" type="date" name="searchFilter.finalDate">
         </div>
     </div>
-    <div class="horizontal-field">
-        <div class="field">
-            <div class="control">
-                <label class="label" for="searchFilter.categorys">Categoria</label>
-                <select size="13" multiple [(ngModel)]="searchFilter.categorys" name="searchFilter.categorys">
-                    <option *ngFor="let cat of categories" value="{{cat.value}}">{{cat.label}}</option>
-                </select>
-            </div>
+    <div class="field">
+        <div class="control">
+            <label class="label" for="searchFilter.description">Descrição</label>
+            <input class="input" [(ngModel)]="searchFilter.description" type="text" name="description">
         </div>
     </div>
-    <div class="horizontal-field">
-        <div class="field">
-            <div class="control">
-                <label class="label" for="searchFilter.accounts">Conta</label>
-                <select size="13" multiple [(ngModel)]="searchFilter.accounts" name="searchFilter.accounts">
-                    <option *ngFor="let acc of accounts" value="{{acc.value}}">{{acc.label}}</option>
+    <div class="field">
+        <div class="control">
+            <label class="label" for="searchFilter.categorys">Categoria</label>
+            <ng-select name="searchFilter.categorys" [items]="categories" [multiple]="true" [closeOnSelect]="true" [hideSelected]="true"
+                placeholder="Selecione a categoria" [(ngModel)]="searchFilter.categorys">
+            </ng-select>
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <label class="label" for="searchFilter.accounts">Conta</label>
+            <ng-select name="searchFilter.accounts" [items]="accounts" [multiple]="true" [closeOnSelect]="true" [hideSelected]="true"
+                placeholder="Selecione a conta" [(ngModel)]="searchFilter.accounts">
+            </ng-select>
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <label class="label" for="searchFilter.order">Ordem</label>
+
+            <span class="select">
+                <select class="select-dnc" [(ngModel)]="searchFilter.order" name="searchFilter.order">
+                    <option value="date">Data</option>
+                    <option value="value">Valor</option>
                 </select>
-            </div>
+            </span>
         </div>
     </div>
     <div class="field is-grouped">
