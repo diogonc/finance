@@ -10,6 +10,7 @@ import { SearchFilter } from '../transaction-list/search-filter';
 import { SearchRepository } from '../transaction-list/search-repository';
 import { OwnerRepository } from '../../shared/services/repository/owner-repository';
 import { Owner } from '../../shared/models/owner';
+import { CategoryRepository } from '../../shared/services/repository/category-repository';
 
 @Component({
   selector: 'app-balance-per-category',
@@ -31,6 +32,7 @@ export class BalancePerCategoryComponent implements OnInit {
     private accountRepository: AccountRepository,
     private searchRepository: SearchRepository,
     private ownerRepository: OwnerRepository,
+    private categoryRepository: CategoryRepository,
     private router: Router) { }
 
   ngOnInit() {
@@ -83,9 +85,10 @@ export class BalancePerCategoryComponent implements OnInit {
   }
 
   public showTransactions(categoryUuid: string, date: string): void {
+    const category = this.categoryRepository.get(categoryUuid);
     const lastDayOfMonth = MyDate.convertToUsString(MyDate.getLastDayOfMonth(MyDate.convertToDateFromString(date)));
     const transactionsListFilter = new SearchFilter(date,
-      lastDayOfMonth, [], [categoryUuid], 'date', '');
+      lastDayOfMonth, [], [{ value: categoryUuid, label: category.name }], 'date', '');
     this.searchRepository.save(transactionsListFilter);
     this.router.navigate(['/transaction-list']);
   }
