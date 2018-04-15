@@ -74,7 +74,7 @@ export class TransactionListComponent implements OnInit {
 
   public setClass(transaction: Transaction) {
     const isCredit = transaction.isCredit();
-    return { green: !isCredit, red: isCredit };
+    return { green: isCredit, red: !isCredit };
   }
 
   private fillDefaultSearch() {
