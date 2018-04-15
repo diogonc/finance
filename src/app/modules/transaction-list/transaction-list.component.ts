@@ -48,7 +48,6 @@ export class TransactionListComponent implements OnInit {
   }
 
   search() {
-    console.log(this.searchFilter.categorys);
     this.searchRepository.save(this.searchFilter);
     this.transactions = this.transactionRepository.getFiltered(
       this.formatToSearch(this.searchFilter.categorys),
