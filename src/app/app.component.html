@@ -2,8 +2,13 @@
   <div class="navbar-brand">
     <a class="navbar-item" *ngIf="!isLogged">Financeiro</a>
     <a class="navbar-item" [routerLink]="['/transaction-new']" *ngIf="isLogged">{{user}}</a>
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
-  <div id="navbarExampleTransparentExample" class="navbar-menu is-active">
+  <div id="navMenu" class="navbar-menu">
     <div class="navbar-start">
       <a *ngIf="isLogged" class="navbar-item" [routerLink]="['/transaction-list']">
         Transações
