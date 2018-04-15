@@ -67,7 +67,9 @@
             <td>{{transaction.account.name}}</td>
             <td>{{transaction.description}}</td>
             <td>{{transaction.date | date:'dd'}}/{{transaction.date | date:'MM'}}/{{transaction.date | date:'y'}}</td>
-            <td class="money">{{transaction.value | number:'1.2-2'}}</td>
+            <td class="money" [ngClass]="setClass(transaction)" >
+                {{transaction.value | number:'1.2-2'}}
+            </td>
         </tr>
     </tbody>
     <tfoot>

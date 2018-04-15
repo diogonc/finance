@@ -1,6 +1,7 @@
 import { MyDate } from '../util/my-date';
 import { Account } from './account';
 import { Category } from './category';
+import { CategoryType } from './categoryType';
 
 export class Transaction {
   uuid: string;
@@ -27,6 +28,11 @@ export class Transaction {
 
   isValid(): boolean {
     return this.errors.length === 0;
+  }
+
+  isCredit(): boolean {
+    return this.category.categoryType === CategoryType.Credit
+        || this.category.categoryType === CategoryType.CreditTransfer;
   }
 
   private validate(propertyUuid: string, value: number, description: string, date: string,

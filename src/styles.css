@@ -27,3 +27,7 @@ select{
   background-color: #e5e5e5;
   margin-bottom: 5px;
 }
+
+tr:hover{
+  background-color: #dddddd;
+}

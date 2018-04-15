@@ -72,7 +72,8 @@
     </tr>
     <tr class="bold">
         <td>Débitos</td>
-        <td *ngFor="let cell of balancePerCategoryReport.totalDebits.balances;let i = index" class="money" [ngClass]="setDebitClass(cell.balance, balancePerCategoryReport.totalDebits.average)"
+        <td *ngFor="let cell of balancePerCategoryReport.totalDebits.balances;let i = index" class="money"
+         [ngClass]="setDebitClass(cell.balance, balancePerCategoryReport.totalDebits.average)"
             [hidden]="hide(i, balancePerCategoryReport.totalBalance.balances.length)">
             {{cell.balance | number:'1.2-2'}}
         </td>

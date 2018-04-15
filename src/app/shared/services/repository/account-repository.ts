@@ -59,7 +59,7 @@ export class AccountRepository extends Repository {
 
   private order(data: Array<Account>): Array<Account> {
     return data.sort(function (item, anotherItem) {
-      return anotherItem.priority - item.priority;
+      return anotherItem.owner.priority - item.owner.priority;
     });
   }
 }

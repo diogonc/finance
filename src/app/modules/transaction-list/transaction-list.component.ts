@@ -73,6 +73,11 @@ export class TransactionListComponent implements OnInit {
     this.search();
   }
 
+  public setClass(transaction: Transaction) {
+    const isCredit = transaction.isCredit();
+    return { green: !isCredit, red: isCredit };
+  }
+
   private fillDefaultSearch() {
     const firstDayOfMonth = MyDate.getFirstDayOfMonth();
     const lastDayOfMonth = MyDate.getLastDayOfMonth();
