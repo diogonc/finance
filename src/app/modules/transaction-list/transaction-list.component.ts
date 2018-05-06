@@ -11,6 +11,7 @@ import { MyDate } from '../../shared/util/my-date';
 import { Account } from '../../shared/models/account';
 import { Category } from '../../shared/models/category';
 import { Transaction } from '../../shared/models/transaction';
+import { UserRepository } from '../../shared/services/repository/user-repository';
 
 @Component({
   selector: 'app-transaction-list',
@@ -30,6 +31,7 @@ export class TransactionListComponent implements OnInit {
     private accountRepository: AccountRepository,
     private categoryRepository: CategoryRepository,
     private searchRepository: SearchRepository,
+    private userRepository: UserRepository,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -42,7 +44,8 @@ export class TransactionListComponent implements OnInit {
     }
 
     this.balance = 0;
-    this.accounts = this.formatToSelectMultiple(this.accountRepository.getAll());
+    const user = this.userRepository.getUser();
+    this.accounts = this.formatToSelectMultiple(this.accountRepository.getOrdered(user.login));
     this.categories = this.formatToSelectMultiple(this.categoryRepository.getAll());
     this.search();
   }

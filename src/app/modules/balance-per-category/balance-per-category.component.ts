@@ -11,6 +11,7 @@ import { SearchRepository } from '../transaction-list/search-repository';
 import { OwnerRepository } from '../../shared/services/repository/owner-repository';
 import { Owner } from '../../shared/models/owner';
 import { CategoryRepository } from '../../shared/services/repository/category-repository';
+import { UserRepository } from '../../shared/services/repository/user-repository';
 
 @Component({
   selector: 'app-balance-per-category',
@@ -33,17 +34,19 @@ export class BalancePerCategoryComponent implements OnInit {
     private searchRepository: SearchRepository,
     private ownerRepository: OwnerRepository,
     private categoryRepository: CategoryRepository,
+    private userRepository: UserRepository,
     private router: Router) { }
 
   ngOnInit() {
     const today = new Date();
     const firstDayOfMonth = new Date(today.getFullYear(), 0, 1);
     const lastDayOfMonth = MyDate.getLastDayOfMonth();
+    const user = this.userRepository.getUser();
     this.initialDate = MyDate.convertToUsString(firstDayOfMonth);
     this.finalDate = MyDate.convertToUsString(lastDayOfMonth);
     this.accounts = [];
     this.show = 'last';
-    this.allAccounts = this.formatToSelectMultiple(this.accountRepository.getAll());
+    this.allAccounts = this.formatToSelectMultiple(this.accountRepository.getOrdered(user.login));
     this.allOwners = this.formatToSelectMultiple(this.ownerRepository.getAll());
     this.balancePerCategoryReport = this.balancePerCategory.get(this.accounts, firstDayOfMonth, lastDayOfMonth);
   }
