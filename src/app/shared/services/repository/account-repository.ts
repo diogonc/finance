@@ -17,10 +17,10 @@ export class AccountRepository extends Repository {
       accounts.push(list[i] as Account);
     }
 
-    return this.order(accounts);
+    return this.order(accounts, "");
   }
 
-  getFiltered(userLogin: string): Array<Account> {
+  getOrdered(userLogin: string): Array<Account> {
     const filtered = [];
     const accounts = this.getAllUnordered();
     const lenght = accounts.length;
@@ -28,13 +28,10 @@ export class AccountRepository extends Repository {
     for (let i = 0; i < lenght; i++) {
       const a = accounts[i];
       const account = new Account(a.uuid, a.name, a.owner, a.priority);
-
-      if ((userLogin === null || account.owner === null || account.owner.userLogin === userLogin)) {
-        filtered.push(account);
-      }
+      filtered.push(account);
     }
 
-    return this.order(filtered);
+    return this.order(filtered, userLogin);
   }
 
   getFilteredByOwner(ownerUuids: Array<string>): Array<Account> {
@@ -52,13 +49,19 @@ export class AccountRepository extends Repository {
       }
     }
 
-    return this.order(filtered);
+    return this.order(filtered, "");
   }
 
-  private order(data: Array<Account>): Array<Account> {
+  private order(data: Array<Account>, userLogin: string): Array<Account> {
     return data.sort(function (item, anotherItem) {
-      return anotherItem.owner.priority * 100 - item.owner.priority * 100
-        + anotherItem.priority - item.priority;
+      const itemLoginScore = userLogin !== "" && item.owner.userLogin === userLogin ? 1000 : 0
+      const anotherItemLoginScore = userLogin !== "" && anotherItem.owner.userLogin === userLogin ? 1000 : 0
+      const itemScore = itemLoginScore + item.owner.priority * 100 + item.priority;
+      const anotherItemScore = anotherItemLoginScore + anotherItem.owner.priority * 100 + anotherItem.priority;
+
+      if (anotherItemScore >= itemScore)
+        return 1
+      return -1;
     });
   }
 
