@@ -2,6 +2,7 @@ import { User } from '../../models/user';
 import { UserRepository } from '../../services/repository/user-repository';
 import { Transaction } from '../../models/transaction';
 import { Category } from '../../models/category';
+import { Account } from '../../models/account';
 import { Group } from '../../models/group';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
