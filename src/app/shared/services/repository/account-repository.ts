@@ -20,10 +20,9 @@ export class AccountRepository extends Repository {
     return this.order(accounts);
   }
 
-  getFiltered(userLogin: string):
-    Array<Account> {
+  getFiltered(userLogin: string): Array<Account> {
     const filtered = [];
-    const accounts = this.getAll();
+    const accounts = this.getAllUnordered();
     const lenght = accounts.length;
 
     for (let i = 0; i < lenght; i++) {
@@ -38,10 +37,9 @@ export class AccountRepository extends Repository {
     return this.order(filtered);
   }
 
-  getFilteredByOwner(ownerUuids: Array<string>):
-    Array<Account> {
+  getFilteredByOwner(ownerUuids: Array<string>): Array<Account> {
     const filtered = [];
-    const accounts = this.getAll();
+    const accounts = this.getAllUnordered();
     const lenght = accounts.length;
 
     // //TODO: em vez de usar for, fazer um map, e depois um filter
@@ -49,7 +47,7 @@ export class AccountRepository extends Repository {
       const a = accounts[i];
       const account = new Account(a.uuid, a.name, a.owner, a.priority);
 
-      if ((ownerUuids.length === 0 || account.owner === null ||  MyArray.any(account.owner.uuid, ownerUuids))) {
+      if ((ownerUuids.length === 0 || account.owner === null || MyArray.any(account.owner.uuid, ownerUuids))) {
         filtered.push(account);
       }
     }
@@ -59,7 +57,20 @@ export class AccountRepository extends Repository {
 
   private order(data: Array<Account>): Array<Account> {
     return data.sort(function (item, anotherItem) {
-      return anotherItem.owner.priority - item.owner.priority;
+      return anotherItem.owner.priority * 100 - item.owner.priority * 100
+        + anotherItem.priority - item.priority;
     });
   }
+
+  private getAllUnordered(): Array<Account> {
+    const list = this.getListOfObjects();
+
+    const accounts = [];
+
+    for (let i = 0; i < list.length; i++) {
+      accounts.push(list[i] as Account);
+    }
+    return accounts;
+  }
+
 }

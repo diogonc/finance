@@ -10,9 +10,9 @@
     </div>
     <div class="field" *ngIf="allOwners.length > 1">
         <div class="control">
-            <label class="label" for="owners">Donos</label>
+            <label class="label" for="owners">Responsável pela conta</label>
 
-            <ng-select name="owners" [items]="allOwners" [multiple]="true" [closeOnSelect]="true" [hideSelected]="true" placeholder="Selecione o dono"
+            <ng-select name="owners" [items]="allOwners" [multiple]="true" [closeOnSelect]="true" [hideSelected]="true" placeholder="Selecione o responsável"
                 (change)="ownerSelected()" [(ngModel)]="owners">
             </ng-select>
 
