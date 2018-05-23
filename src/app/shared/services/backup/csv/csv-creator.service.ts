@@ -16,7 +16,13 @@ export class CsvCreatorService {
 
   private getHeader(firstLineData: Object) {
     let line = '';
-    Object.keys(firstLineData).forEach((key) => {
+
+    if (firstLineData === undefined || Object.keys(firstLineData) === undefined || Object.keys(firstLineData).length === 0) {
+      return '  \n';
+    }
+    const keys = Object.keys(firstLineData);
+
+    keys.forEach((key) => {
       line += key + ', ';
     });
     return line.substring(0, line.length - 2) + '\n';
@@ -25,6 +31,10 @@ export class CsvCreatorService {
   private getBody(jsonData: Array<Object>): string {
     let result = '';
     const numberOfLines = jsonData.length;
+
+    if (jsonData[0] === undefined || Object.keys(jsonData[0]) === undefined || Object.keys(jsonData[0]).length === 0) {
+      return '  \n';
+    }
     const keys = Object.keys(jsonData[0]);
 
     for (let i = 0; i < numberOfLines; i++) {
