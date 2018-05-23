@@ -5,7 +5,7 @@ export class CsvCreatorService {
 
   constructor() { }
 
-  convert(jsonData: Array<Object>): string  {
+  convert(jsonData: Array<Object>): string {
 
     let result = this.getHeader(jsonData[0]);
 
@@ -15,27 +15,31 @@ export class CsvCreatorService {
   }
 
   private getHeader(firstLineData: Object) {
-        let line = '';
-        Object.keys(firstLineData).forEach((key) => {
-            line += key + ', ';
-        });
-        return line.substring(0, line.length - 2) + '\n';
+    let line = '';
+    Object.keys(firstLineData).forEach((key) => {
+      line += key + ', ';
+    });
+    return line.substring(0, line.length - 2) + '\n';
   }
 
   private getBody(jsonData: Array<Object>): string {
     let result = '';
-    let numberOfLines = jsonData.length;
-    let keys = Object.keys(jsonData[0]);
+    const numberOfLines = jsonData.length;
+    const keys = Object.keys(jsonData[0]);
 
     for (let i = 0; i < numberOfLines; i++) {
-        let line = '';
-        let jsonLine = jsonData[i];
+      let line = '';
+      const jsonLine = jsonData[i];
 
-        keys.forEach((key) => {
-          line += jsonLine[key] + ', ';
-        });
+      keys.forEach((key) => {
+        let data = jsonLine[key];
+        if (data && data.uuid !== undefined) {
+          data = data.uuid;
+        }
+        line += data + ', ';
+      });
 
-        result += line.substring(0, line.length - 2)  + '\n';
+      result += line.substring(0, line.length - 2) + '\n';
     }
     return result;
   }
